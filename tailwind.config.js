@@ -15,20 +15,11 @@ module.exports = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
       colors: {
-        // Dark Mode Colors
-        background: {
-          primary: "#121212",
-          secondary: "#1E1E1E",
-        },
-        text: {
-          primary: "#E0E0E0",
-          secondary: "#B0B0B0",
-        },
-        accent: "#BB86FC",
-        cta: "#03DAC6",
-        error: "#CF6679",
-        border: "#333333",
-        success: "#03DAC6",
+        text: "#E0E6ED", // Primary text color, soft and readable
+        background: "#121212", // Main background color, deep dark
+        primary: "#A3BE8C", // Primary brand color, muted green for accents
+        secondary: "#4C566A", // Secondary elements, cool gray
+        accent: "#81A1C1", // Accent color, a calm blue for highlights
       },
     },
   },
