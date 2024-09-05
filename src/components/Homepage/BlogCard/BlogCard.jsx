@@ -88,8 +88,12 @@ export default function BlogCard({ blog }) {
           </div>
         </section>
 
-        {/* bookmark section */}
-        <section>
+        {/* bookmark and minute read section */}
+        <section className="flex items-center gap-2">
+          <div>
+            <p className="text-sm">{reading_time} min read</p>
+          </div>
+          
           <Tooltip content="bookmark blog">
             <Button isIconOnly variant="light" className="cursor-pointer">
               <BiBookmark className="text-2xl" />

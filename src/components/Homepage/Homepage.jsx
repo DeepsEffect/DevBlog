@@ -12,11 +12,11 @@ import BlogCard from "./BlogCard/BlogCard";
 
 export const Homepage = () => {
   return (
-    <div className="container mx-auto grid grid-cols-1 md:grid-cols-4 lg:grid-cols-12 gap-4 px-4 py-6 ">
+    <div className="container mx-auto grid grid-cols-1 md:grid-cols-4 lg:grid-cols-12 gap-4 md:px-4 py-6 ">
       {/* TODO: toggle button for right sidebar for mobile view */}
 
       {/* left sidebar */}
-      <aside className="hidden md:block md:col-span-1 lg:col-span-3 p-4">
+      <aside className="hidden md:block md:col-span-1 lg:col-span-3 lg:p-4">
         <Card>
           <CardHeader>
             <h2 className="text-xl font-bold">Blog Categories</h2>
@@ -54,7 +54,7 @@ export const Homepage = () => {
       </aside>
 
       {/* main content */}
-      <main className="col-span-1 md:col-span-2 lg:col-span-6 p-4 text-center">
+      <main className="col-span-1 md:col-span-2 lg:col-span-6 lg:p-4 text-center">
         <ButtonGroup>
           <Button>Relevant</Button>
           <Button>Latest</Button>
@@ -62,7 +62,7 @@ export const Homepage = () => {
         </ButtonGroup>
 
         {/* show blog cards */}
-        <div className="grid gird-cols-1 gap-4 p-4">
+        <div className="grid gird-cols-1 gap-4 lg:p-4 mt-4 lg:mt-2">
           {blogs?.map((blog) => (
             <BlogCard blog={blog} key={blog.id} />
           ))}
@@ -70,7 +70,7 @@ export const Homepage = () => {
       </main>
 
       {/* right sidebar content */}
-      <aside className=" col-span-1 lg:col-span-3 p-4">
+      <aside className="col-span-1 lg:col-span-3 lg:p-4">
         <Card>
           <CardHeader>
             <h2 className="text-xl font-bold">Recent Comments</h2>
