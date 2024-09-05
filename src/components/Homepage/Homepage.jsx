@@ -1,4 +1,10 @@
-import { Card, CardHeader } from "@nextui-org/react";
+import {
+  Button,
+  Card,
+  CardBody,
+  CardFooter,
+  CardHeader,
+} from "@nextui-org/react";
 import React from "react";
 
 export const Homepage = () => {
@@ -9,7 +15,38 @@ export const Homepage = () => {
       {/* left sidebar */}
       <aside className="hidden md:block md:col-span-1 lg:col-span-3 p-4">
         <Card>
-          <CardHeader>left sidebar content</CardHeader>
+          <CardHeader>
+            <h2 className="text-xl font-bold">Blog Categories</h2>
+          </CardHeader>
+
+          <CardBody>
+            <ul className="text-lg font-semibold space-y-3">
+              <Button variant="ghost" className="w-full">
+                Most Popular
+              </Button>
+              <Button variant="ghost" className="w-full">
+                Most Recent
+              </Button>
+              <Button variant="ghost" className="w-full">
+                Javascript
+              </Button>
+              <Button variant="ghost" className="w-full">
+                React
+              </Button>
+              <Button variant="ghost" className="w-full">
+                Next.js
+              </Button>
+              <Button variant="ghost" className="w-full">
+                Tailwind CSS
+              </Button>
+              <Button variant="ghost" className="w-full">
+                Fullstack Development
+              </Button>
+              <Button variant="ghost" className="w-full">
+                Front-end Development
+              </Button>
+            </ul>
+          </CardBody>
         </Card>
       </aside>
 
@@ -21,7 +58,13 @@ export const Homepage = () => {
       {/* right sidebar content */}
       <aside className=" col-span-1 lg:col-span-3 p-4">
         <Card>
-          <CardHeader>right sidebar content</CardHeader>
+          <CardHeader>
+            <h2 className="text-xl font-bold">Recent Comments</h2>
+          </CardHeader>
+          <CardHeader>
+            <p>recent comments will be show here</p>
+          </CardHeader>
+          <CardFooter>other banners will be shown here</CardFooter>
         </Card>
       </aside>
     </div>
