@@ -2,8 +2,19 @@ import React from "react";
 
 export const Homepage = () => {
   return (
-    <div className="h-screen flex justify-center items-center font-semibold">
-      this is gonna be the Homepage
+    <div className="container mx-auto grid">
+      {/* left sidebar */}
+      <aside>
+        <div>left sidebar content</div>
+      </aside>
+      {/* main content */}
+      <main>
+        <div>main blog content</div>
+      </main>
+      {/* right sidebar content */}
+      <aside>
+        <div>right sidebar content</div>
+      </aside>
     </div>
   );
 };
