@@ -22,10 +22,10 @@ import { TfiWrite } from "react-icons/tfi";
 
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-  const user = true;
+  const user = false;
 
   return (
-    <Nav isBordered isMenuOpen={isMenuOpen} onMenuOpenChange={setIsMenuOpen}>
+    <Nav maxWidth="2xl" isBordered isMenuOpen={isMenuOpen} onMenuOpenChange={setIsMenuOpen}>
       <NavbarContent className="sm:hidden" justify="start">
         <NavbarMenuToggle
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
@@ -108,7 +108,7 @@ export const Navbar = () => {
           <NavbarContent justify="end">
             <NavbarItem className="hidden lg:flex">
               <Link className="text-text text-sm" href="#">
-                Sign In
+                Log in
               </Link>
             </NavbarItem>
             <NavbarItem>
