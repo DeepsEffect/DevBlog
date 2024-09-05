@@ -1,11 +1,14 @@
 import {
   Button,
+  ButtonGroup,
   Card,
   CardBody,
   CardFooter,
   CardHeader,
 } from "@nextui-org/react";
 import React from "react";
+import blogs from "../../data/blogs.json";
+import BlogCard from "./BlogCard/BlogCard";
 
 export const Homepage = () => {
   return (
@@ -52,7 +55,18 @@ export const Homepage = () => {
 
       {/* main content */}
       <main className="col-span-1 md:col-span-2 lg:col-span-6 p-4 text-center">
-        <div>main blog content</div>
+        <ButtonGroup>
+          <Button>Relevant</Button>
+          <Button>Latest</Button>
+          <Button>Top</Button>
+        </ButtonGroup>
+
+        {/* show blog cards */}
+        <div className="grid gird-cols-1 gap-4 p-4">
+          {blogs?.map((blog) => (
+            <BlogCard blog={blog} key={blog.id} />
+          ))}
+        </div>
       </main>
 
       {/* right sidebar content */}
