@@ -1,3 +1,4 @@
+"use client";
 import {
   Avatar,
   Button,
@@ -5,6 +6,10 @@ import {
   CardBody,
   CardFooter,
   CardHeader,
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownTrigger,
   Tooltip,
 } from "@nextui-org/react";
 import Image from "next/image";
@@ -14,6 +19,7 @@ import { BiUpvote } from "react-icons/bi";
 import { BiDownvote } from "react-icons/bi";
 import { BiComment } from "react-icons/bi";
 import { BiBookmark } from "react-icons/bi";
+import { FiMoreHorizontal } from "react-icons/fi";
 
 export default function BlogCard({ blog }) {
   const {
@@ -31,7 +37,7 @@ export default function BlogCard({ blog }) {
   } = blog;
   return (
     <Card>
-      <CardHeader>
+      <CardHeader className="flex justify-between items-center">
         <div className="flex items-center gap-2">
           <Avatar />
           <span className="flex items-start flex-col text-sm">
@@ -39,7 +45,24 @@ export default function BlogCard({ blog }) {
             <p>{posted_date}</p>
           </span>
         </div>
+
+        <div>
+          <Dropdown>
+            <DropdownTrigger>
+              <Button variant="light" isIconOnly>
+                <FiMoreHorizontal className="text-xl" />
+              </Button>
+            </DropdownTrigger>
+
+            <DropdownMenu aria-label="Dynamic Actions">
+              <DropdownItem key={"report"}>Report Blog</DropdownItem>
+              <DropdownItem key={"hide"}>Hide Blog</DropdownItem>
+              <DropdownItem key={"share"}>Share Blog</DropdownItem>
+            </DropdownMenu>
+          </Dropdown>
+        </div>
       </CardHeader>
+
       <CardBody>
         <Link
           href="#"
@@ -93,7 +116,7 @@ export default function BlogCard({ blog }) {
           <div>
             <p className="text-sm">{reading_time} min read</p>
           </div>
-          
+
           <Tooltip content="bookmark blog">
             <Button isIconOnly variant="light" className="cursor-pointer">
               <BiBookmark className="text-2xl" />
