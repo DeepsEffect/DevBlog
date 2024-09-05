@@ -1,12 +1,11 @@
 import {
   Avatar,
-  Badge,
   Button,
-  ButtonGroup,
   Card,
   CardBody,
   CardFooter,
   CardHeader,
+  Tooltip,
 } from "@nextui-org/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -14,6 +13,7 @@ import React from "react";
 import { BiUpvote } from "react-icons/bi";
 import { BiDownvote } from "react-icons/bi";
 import { BiComment } from "react-icons/bi";
+import { BiBookmark } from "react-icons/bi";
 
 export default function BlogCard({ blog }) {
   const {
@@ -62,7 +62,8 @@ export default function BlogCard({ blog }) {
           )}
         </div>
       </CardBody>
-      <CardFooter>
+
+      <CardFooter className="flex justify-between">
         {/* upvotes and downvotes and comments section */}
         <section className="flex items-center gap-2">
           <div className="flex items-center gap-1">
@@ -85,6 +86,15 @@ export default function BlogCard({ blog }) {
             </Button>
             <span className="text-sm font-semibold">{reactions.comments}</span>
           </div>
+        </section>
+
+        {/* bookmark section */}
+        <section>
+          <Tooltip content="bookmark blog">
+            <div className="cursor-pointer">
+              <BiBookmark className="text-2xl" />
+            </div>
+          </Tooltip>
         </section>
       </CardFooter>
     </Card>
