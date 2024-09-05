@@ -91,9 +91,9 @@ export default function BlogCard({ blog }) {
         {/* bookmark section */}
         <section>
           <Tooltip content="bookmark blog">
-            <div className="cursor-pointer">
+            <Button isIconOnly variant="light" className="cursor-pointer">
               <BiBookmark className="text-2xl" />
-            </div>
+            </Button>
           </Tooltip>
         </section>
       </CardFooter>
