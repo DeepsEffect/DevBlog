@@ -13,6 +13,7 @@ import Link from "next/link";
 import React from "react";
 import { BiUpvote } from "react-icons/bi";
 import { BiDownvote } from "react-icons/bi";
+import { BiComment } from "react-icons/bi";
 
 export default function BlogCard({ blog }) {
   const {
@@ -61,19 +62,30 @@ export default function BlogCard({ blog }) {
           )}
         </div>
       </CardBody>
-      <CardFooter className="flex items-center gap-2">
-        <div className="flex items-center gap-1">
-          <Button isIconOnly aria-label="upvote">
-            <BiUpvote className="text-2xl" />
-          </Button>
-          <span className="text-sm font-semibold">{reactions.upvotes}</span>
-        </div>
-        <div className="flex items-center gap-1">
-          <Button isIconOnly aria-label="upvote">
-            <BiDownvote className="text-2xl" />
-          </Button>
-          <span className="text-sm font-semibold">{reactions.downvotes}</span>
-        </div>
+      <CardFooter>
+        {/* upvotes and downvotes and comments section */}
+        <section className="flex items-center gap-2">
+          <div className="flex items-center gap-1">
+            <Button isIconOnly aria-label="upvote">
+              <BiUpvote className="text-xl" />
+            </Button>
+            <span className="text-sm font-semibold">{reactions.upvotes}</span>
+          </div>
+
+          <div className="flex items-center gap-1">
+            <Button isIconOnly aria-label="upvote">
+              <BiDownvote className="text-xl" />
+            </Button>
+            <span className="text-sm font-semibold">{reactions.downvotes}</span>
+          </div>
+
+          <div className="flex items-center gap-1">
+            <Button isIconOnly aria-level="comments">
+              <BiComment className="text-xl" />
+            </Button>
+            <span className="text-sm font-semibold">{reactions.comments}</span>
+          </div>
+        </section>
       </CardFooter>
     </Card>
   );
