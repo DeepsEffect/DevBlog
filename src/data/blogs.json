@@ -1,0 +1,117 @@
+[
+  {
+    "id": "1",
+    "title": "Introduction to JavaScript Closures",
+    "slug": "introduction-to-javascript-closures",
+    "author": {
+      "name": "John Doe",
+      "username": "johndoe"
+    },
+    "cover_photo": "https://plus.unsplash.com/premium_photo-1685086785636-2a1a0e5b591f?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "content": {
+      "header": "Closures are an important concept in JavaScript, often used in functions and callbacks.",
+      "body": "In JavaScript, a closure is a function that remembers the environment in which it was created, even after that environment has gone..."
+    },
+    "posted_date": "2024-09-05",
+    "tags": ["JavaScript", "Closures"],
+    "categories": ["JavaScript"],
+    "reading_time": 5,
+    "reactions": {
+      "upvotes": 120,
+      "downvotes": 2,
+      "comments": 10
+    }
+  },
+  {
+    "id": "2",
+    "title": "Understanding React Hooks: useState and useEffect",
+    "slug": "understanding-react-hooks-usestate-useeffect",
+    "author": {
+      "name": "Jane Smith",
+      "username": "janesmith"
+    },
+    "cover_photo": "https://images.unsplash.com/photo-1633356122102-3fe601e05bd2?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "content": {
+      "header": "React Hooks allow you to use state and other React features without writing a class...",
+      "body": "The `useState` hook lets you add state to functional components. `useEffect` lets you run side-effects in functional components..."
+    },
+    "posted_date": "2024-09-04",
+    "tags": ["React", "Hooks"],
+    "categories": ["React"],
+    "reading_time": 7,
+    "reactions": {
+      "upvotes": 200,
+      "downvotes": 5,
+      "comments": 20
+    }
+  },
+  {
+    "id": "3",
+    "title": "Building Scalable Apps with Next.js",
+    "slug": "building-scalable-apps-nextjs",
+    "author": {
+      "name": "Mike Johnson",
+      "username": "mikej"
+    },
+    "cover_photo": "https://plus.unsplash.com/premium_photo-1685086785636-2a1a0e5b591f?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "content": {
+      "header": "Next.js provides a powerful framework for building fast, scalable applications with server-side rendering...",
+      "body": "In this post, we'll explore the key features of Next.js, such as static generation, server-side rendering, and dynamic routing..."
+    },
+    "posted_date": "2024-09-02",
+    "tags": ["Next.js", "JavaScript"],
+    "categories": ["Next.js"],
+    "reading_time": 8,
+    "reactions": {
+      "upvotes": 300,
+      "downvotes": 8,
+      "comments": 25
+    }
+  },
+  {
+    "id": "4",
+    "title": "Mastering MongoDB for Backend Development",
+    "slug": "mastering-mongodb-backend-development",
+    "author": {
+      "name": "Alice Lee",
+      "username": "alicelee"
+    },
+    "cover_photo": null,
+    "content": {
+      "header": "MongoDB is a popular NoSQL database used in modern web development for handling large amounts of data...",
+      "body": "In this article, we will look into MongoDB's core concepts such as collections, documents, and querying data..."
+    },
+    "posted_date": "2024-08-30",
+    "tags": ["MongoDB", "NoSQL"],
+    "categories": ["MongoDB"],
+    "reading_time": 10,
+    "reactions": {
+      "upvotes": 180,
+      "downvotes": 3,
+      "comments": 12
+    }
+  },
+  {
+    "id": "5",
+    "title": "Tailwind CSS: A Beginner's Guide to Utility-First Styling",
+    "slug": "tailwind-css-beginners-guide",
+    "author": {
+      "name": "Tom Clark",
+      "username": "tomclark"
+    },
+    "cover_photo": "https://plus.unsplash.com/premium_photo-1685086785054-d047cdc0e525?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "content": {
+      "header": "Tailwind CSS is a utility-first CSS framework that makes building responsive designs faster and easier...",
+      "body": "In this post, we’ll cover the basics of Tailwind CSS and how to start using it in your next project..."
+    },
+    "posted_date": "2024-08-28",
+    "tags": ["Tailwind CSS", "CSS"],
+    "categories": ["Tailwind CSS"],
+    "reading_time": 6,
+    "reactions": {
+      "upvotes": 220,
+      "downvotes": 4,
+      "comments": 18
+    }
+  }
+]
