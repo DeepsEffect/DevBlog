@@ -76,7 +76,7 @@
       "name": "Alice Lee",
       "username": "alicelee"
     },
-    "cover_photo": "",
+    "cover_photo": null,
     "content": {
       "header": "MongoDB is a popular NoSQL database used in modern web development for handling large amounts of data...",
       "body": "In this article, we will look into MongoDB's core concepts such as collections, documents, and querying data..."

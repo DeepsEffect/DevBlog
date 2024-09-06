@@ -64,7 +64,7 @@ export default function BlogCard({ blog }) {
 
       <CardBody className="flex flex-row items-center gap-2 py-0">
         {/* title and description */}
-        <div className="space-y-1">
+        <div className={`space-y-1 ${cover_photo || "w-full"}`}>
           <Link
             href="#"
             className="text-xl font-semibold hover:underline cursor-pointer"
@@ -75,19 +75,20 @@ export default function BlogCard({ blog }) {
             {`${content.body.slice(0, 100)}`}...
           </p>
         </div>
-        {/* cover photo */}
-        <div className="mt-2 relative w-full lg:w-[300px] h-[100px] lg:h-[200px]">
-          {cover_photo && (
+
+        {/* Render cover photo only if it's provided */}
+        {cover_photo && (
+          <div className="mt-2 relative w-full lg:w-[300px] h-[100px] lg:h-[200px]">
             <Image
               alt={title}
-              className="object-cover rounded-xl "
+              className="object-cover rounded-xl"
               src={cover_photo}
               objectFit="cover"
               fill
               sizes="100vw"
             />
-          )}
-        </div>
+          </div>
+        )}
       </CardBody>
 
       <CardFooter className="flex justify-between">
