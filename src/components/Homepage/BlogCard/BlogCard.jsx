@@ -15,11 +15,10 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { BiUpvote } from "react-icons/bi";
-import { BiDownvote } from "react-icons/bi";
 import { BiComment } from "react-icons/bi";
 import { BiBookmark } from "react-icons/bi";
 import { FiMoreHorizontal } from "react-icons/fi";
+import { BiRocket } from "react-icons/bi";
 
 export default function BlogCard({ blog }) {
   const {
@@ -77,7 +76,7 @@ export default function BlogCard({ blog }) {
           </p>
         </div>
         {/* cover photo */}
-        <div className="mt-2 relative w-[400px] lg:w-[300px] h-[100px] lg:h-[200px]">
+        <div className="mt-2 relative w-full lg:w-[300px] h-[100px] lg:h-[200px]">
           {cover_photo && (
             <Image
               alt={title}
@@ -92,28 +91,32 @@ export default function BlogCard({ blog }) {
       </CardBody>
 
       <CardFooter className="flex justify-between">
-        {/* upvotes and downvotes and comments section */}
+        {/* pog and comments section */}
         <section className="flex items-center gap-2">
-          <div className="flex items-center gap-1">
-            <Button isIconOnly aria-label="upvote">
-              <BiUpvote className="text-xl" />
-            </Button>
-            <span className="text-sm font-semibold">{reactions.upvotes}</span>
-          </div>
+          <Tooltip content="pogs count">
+            <div className="flex items-center gap-1">
+              {/* Pog Button */}
+              <Button isIconOnly aria-label="pog">
+                <BiRocket className="text-xl" /> {/* A rocket icon for "Pog" */}
+              </Button>
+              {/* Pog Count */}
+              <span className="text-sm font-semibold">{reactions.upvotes}</span>
+            </div>
+          </Tooltip>
 
-          <div className="flex items-center gap-1">
-            <Button isIconOnly aria-label="upvote">
-              <BiDownvote className="text-xl" />
-            </Button>
-            <span className="text-sm font-semibold">{reactions.downvotes}</span>
-          </div>
-
-          <div className="flex items-center gap-1">
-            <Button isIconOnly aria-level="comments">
-              <BiComment className="text-xl" />
-            </Button>
-            <span className="text-sm font-semibold">{reactions.comments}</span>
-          </div>
+          {/* comments */}
+          <Tooltip content="comments count">
+            <div className="flex items-center gap-1">
+              {/* comment button */}
+              <Button isIconOnly aria-level="comments">
+                <BiComment className="text-xl" />
+              </Button>
+              {/* comment count */}
+              <span className="text-sm font-semibold">
+                {reactions.comments}
+              </span>
+            </div>
+          </Tooltip>
         </section>
 
         {/* bookmark and minute read section */}
