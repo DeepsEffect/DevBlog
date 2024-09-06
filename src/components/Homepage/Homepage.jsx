@@ -19,33 +19,35 @@ export const Homepage = () => {
       <aside className="hidden md:block md:col-span-1 lg:col-span-3 lg:p-4">
         <Card>
           <CardHeader>
-            <h2 className="text-xl font-bold">Blog Categories</h2>
+            <h2 className="text-xl flex justify-center w-full font-bold">
+              Blog Categories
+            </h2>
           </CardHeader>
 
           <CardBody>
             <ul className="text-lg font-semibold space-y-3">
-              <Button variant="ghost" className="w-full">
+              <Button variant="light" className="w-full">
                 Most Popular
               </Button>
-              <Button variant="ghost" className="w-full">
+              <Button variant="light" className="w-full">
                 Most Recent
               </Button>
-              <Button variant="ghost" className="w-full">
+              <Button variant="light" className="w-full">
                 Javascript
               </Button>
-              <Button variant="ghost" className="w-full">
+              <Button variant="light" className="w-full">
                 React
               </Button>
-              <Button variant="ghost" className="w-full">
+              <Button variant="light" className="w-full">
                 Next.js
               </Button>
-              <Button variant="ghost" className="w-full">
+              <Button variant="light" className="w-full">
                 Tailwind CSS
               </Button>
-              <Button variant="ghost" className="w-full">
+              <Button variant="light" className="w-full">
                 Fullstack Development
               </Button>
-              <Button variant="ghost" className="w-full">
+              <Button variant="light" className="w-full">
                 Front-end Development
               </Button>
             </ul>
@@ -73,8 +75,12 @@ export const Homepage = () => {
       <aside className="col-span-1 lg:col-span-3 lg:p-4">
         <Card>
           <CardHeader>
-            <h2 className="text-xl font-bold">Recent Comments</h2>
+            <h2 className="text-xl font-bold">Recent Activity</h2>
           </CardHeader>
+          <CardBody>
+            <p>Recommended topics will be shown here</p>
+            <p>recently saved will be shown here</p>
+          </CardBody>
           <CardHeader>
             <p>recent comments will be show here</p>
           </CardHeader>
