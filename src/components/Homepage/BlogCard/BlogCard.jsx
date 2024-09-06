@@ -63,24 +63,29 @@ export default function BlogCard({ blog }) {
         </div>
       </CardHeader>
 
-      <CardBody>
-        <Link
-          href="#"
-          className="text-xl font-semibold hover:underline cursor-pointer"
-        >
-          {title}
-        </Link>
-        <div className="mt-2">
+      <CardBody className="flex flex-row items-center gap-2 py-0">
+        {/* title and description */}
+        <div className="space-y-1">
+          <Link
+            href="#"
+            className="text-xl font-semibold hover:underline cursor-pointer"
+          >
+            {title}
+          </Link>
+          <p className="text-sm text-gray-400">
+            {`${content.body.slice(0, 100)}`}...
+          </p>
+        </div>
+        {/* cover photo */}
+        <div className="mt-2 relative w-[400px] lg:w-[300px] h-[100px] lg:h-[200px]">
           {cover_photo && (
             <Image
               alt={title}
               className="object-cover rounded-xl "
               src={cover_photo}
               objectFit="cover"
-              width={0}
-              height={0}
+              fill
               sizes="100vw"
-              style={{ width: "100%", height: "300px" }} // optional
             />
           )}
         </div>
@@ -113,7 +118,7 @@ export default function BlogCard({ blog }) {
 
         {/* bookmark and minute read section */}
         <section className="flex items-center gap-2">
-          <div>
+          <div className="hidden lg:flex">
             <p className="text-sm">{reading_time} min read</p>
           </div>
 
