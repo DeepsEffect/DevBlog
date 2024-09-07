@@ -83,9 +83,8 @@ export default function BlogCard({ blog }) {
               alt={title}
               className="object-cover rounded-xl"
               src={cover_photo}
-              objectFit="cover"
               fill
-              sizes="100vw"
+              sizes="(max-width: 1024px) 100vw, 300px"
             />
           </div>
         )}

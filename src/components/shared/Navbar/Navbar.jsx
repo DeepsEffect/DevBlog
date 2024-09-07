@@ -19,13 +19,19 @@ import {
 } from "@nextui-org/react";
 import { SearchIcon } from "./SearchIcon";
 import { TfiWrite } from "react-icons/tfi";
+import { LoginModal } from "@/components/Modals/LoginModal/LoginModal";
 
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const user = false;
 
   return (
-    <Nav maxWidth="2xl" isBordered isMenuOpen={isMenuOpen} onMenuOpenChange={setIsMenuOpen}>
+    <Nav
+      maxWidth="2xl"
+      isBordered
+      isMenuOpen={isMenuOpen}
+      onMenuOpenChange={setIsMenuOpen}
+    >
       <NavbarContent className="sm:hidden" justify="start">
         <NavbarMenuToggle
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
@@ -107,14 +113,14 @@ export const Navbar = () => {
           {/* show this if no user is not available */}
           <NavbarContent justify="end">
             <NavbarItem className="hidden lg:flex">
-              <Link className="text-text text-sm" href="#">
-                Log in
-              </Link>
+              <LoginModal btnName={"Log in"} />
             </NavbarItem>
             <NavbarItem>
-              <Button as={Link} color="primary" href="#" variant="flat">
-                Get Started
-              </Button>
+              <Link href="register">
+                <Button color="primary" href="#" variant="flat">
+                  Get Started
+                </Button>
+              </Link>
             </NavbarItem>
           </NavbarContent>
         </>
