@@ -13,6 +13,7 @@ import {
   Link,
 } from "@nextui-org/react";
 import { FcGoogle } from "react-icons/fc";
+import { FaGithub } from "react-icons/fa";
 
 export const LoginModal = ({ btnName }) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -34,9 +35,14 @@ export const LoginModal = ({ btnName }) => {
                 Please Log in
               </ModalHeader>
               <ModalBody>
-                {/* google sign in */}
+                {/* google button*/}
                 <Button className="w-full">
                   <FcGoogle className="text-xl" /> Continue with Google
+                </Button>
+
+                {/* GitHub button */}
+                <Button className="w-full">
+                  <FaGithub className="text-xl" /> Continue with GitHub
                 </Button>
 
                 {/* divider */}
