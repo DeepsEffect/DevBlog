@@ -116,9 +116,11 @@ export const Navbar = () => {
               <LoginModal btnName={"Log in"} />
             </NavbarItem>
             <NavbarItem>
-              <Button as={Link} color="primary" href="#" variant="flat">
-                Get Started
-              </Button>
+              <Link href="register">
+                <Button color="primary" href="#" variant="flat">
+                  Get Started
+                </Button>
+              </Link>
             </NavbarItem>
           </NavbarContent>
         </>

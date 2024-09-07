@@ -9,7 +9,6 @@ import {
   Button,
   useDisclosure,
   Input,
-  Divider,
   Link,
 } from "@nextui-org/react";
 import { FcGoogle } from "react-icons/fc";
@@ -27,7 +26,7 @@ export const LoginModal = ({ btnName }) => {
       >
         {btnName}
       </Button>
-      <Modal size="md" isOpen={isOpen} onOpenChange={onOpenChange}>
+      <Modal size="md" backdrop="blur" isOpen={isOpen} onOpenChange={onOpenChange}>
         <ModalContent>
           {(onClose) => (
             <>
@@ -75,7 +74,7 @@ export const LoginModal = ({ btnName }) => {
                 {/* log in and register toggle options */}
                 <span className="text-sm">
                   don't have an account?
-                  <Link href="#" underline="hover">
+                  <Link href="register" underline="hover">
                     register
                   </Link>
                 </span>
@@ -84,7 +83,7 @@ export const LoginModal = ({ btnName }) => {
                 <Button color="danger" variant="light" onPress={onClose}>
                   Close
                 </Button>
-                <Button color="primary" onPress={onClose}>
+                <Button variant="flat" color="primary" onPress={onClose}>
                   Log in
                 </Button>
               </ModalFooter>
