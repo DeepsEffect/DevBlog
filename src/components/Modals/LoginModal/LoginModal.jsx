@@ -9,7 +9,10 @@ import {
   Button,
   useDisclosure,
   Input,
+  Divider,
+  Link,
 } from "@nextui-org/react";
+import { FcGoogle } from "react-icons/fc";
 
 export const LoginModal = ({ btnName }) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -27,10 +30,24 @@ export const LoginModal = ({ btnName }) => {
         <ModalContent>
           {(onClose) => (
             <>
-              <ModalHeader className="flex flex-col gap-1">
+              <ModalHeader className="flex flex-col gap-1 items-center">
                 Please Log in
               </ModalHeader>
               <ModalBody>
+                {/* google sign in */}
+                <Button className="w-full">
+                  <FcGoogle className="text-xl" /> Continue with Google
+                </Button>
+
+                {/* divider */}
+                <div className="flex items-center">
+                  <div className="flex-grow border-t border-gray-500"></div>
+                  <span className="px-2">or</span>
+                  <div className="flex-grow border-t border-gray-500"></div>
+                </div>
+                {/* divider ends */}
+
+                {/* Log in form */}
                 <form>
                   <div className="space-y-4">
                     <Input
@@ -47,6 +64,15 @@ export const LoginModal = ({ btnName }) => {
                     />
                   </div>
                 </form>
+                {/* form ends */}
+
+                {/* log in and register toggle options */}
+                <span className="text-sm">
+                  don't have an account?
+                  <Link href="#" underline="hover">
+                    register
+                  </Link>
+                </span>
               </ModalBody>
               <ModalFooter>
                 <Button color="danger" variant="light" onPress={onClose}>
