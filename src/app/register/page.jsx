@@ -9,7 +9,7 @@ const RegisterPage = () => {
       style={{
         position: "relative",
         background: `linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)),
-                     url('https://s11.gifyu.com/images/S1ubh.png') no-repeat center center/cover`,
+                     url('https://i.ibb.co.com/LpBB6RN/techbg.jpg') no-repeat center center/cover`,
         minHeight: "100vh",
       }}
       className="flex justify-center items-center"
