@@ -1,19 +1,52 @@
 "use client";
 import { Button, Input, Link } from "@nextui-org/react";
-import React from "react";
+import React, { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
 
 const RegisterPage = () => {
-  const registerUser = (e) => {
+  const [loading, setLoading] = useState(false);
+
+  const registerUser = async (e) => {
     e.preventDefault();
+    setLoading(true);
+
     const form = e.target;
     const name = form.name.value;
     const photo = form.photo.value;
     const email = form.email.value;
     const password = form.password.value;
     const newUser = { name, photo, email, password };
-    console.log(newUser);
+    // console.log(newUser);
+
+    try {
+      // Send newUser data to DB
+      const resp = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/register/api`,
+        {
+          method: "POST",
+          body: JSON.stringify(newUser),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      const data = await resp.json(); // Parse the response
+
+      if (resp.status === 201) {
+        console.log("User created successfully");
+        form.reset(); // Reset the form on success
+      } else {
+        console.log("Error:", data.message); // Handle other status codes
+        // TODO: update UI with error message
+      }
+    } catch (error) {
+      console.error("Fetch error:", error); // Handle network errors
+      // TODO: update UI with error message
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -59,6 +92,7 @@ const RegisterPage = () => {
         <form onSubmit={registerUser}>
           <div className="space-y-4">
             <Input
+              required
               variant="underlined"
               name="name"
               type="text"
@@ -71,20 +105,40 @@ const RegisterPage = () => {
               placeholder="paste your photo url"
             />
             <Input
+              required
               variant="underlined"
               name="email"
               type="email"
               placeholder="enter your email"
             />
             <Input
+              required
               variant="underlined"
               name="password"
               type="password"
               placeholder="make a password"
             />
-            <Button fullWidth variant="flat" color="primary" type="submit">
-              create account
-            </Button>
+            {loading ? (
+              <Button
+                fullWidth
+                variant="flat"
+                color="primary"
+                type="submit"
+                isLoading={true}
+              >
+                creating account
+              </Button>
+            ) : (
+              <Button
+                fullWidth
+                variant="flat"
+                color="primary"
+                type="submit"
+                isLoading={false}
+              >
+                create account
+              </Button>
+            )}
           </div>
         </form>
         {/* toggle option */}
