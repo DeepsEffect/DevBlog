@@ -1,9 +1,21 @@
+"use client";
 import { Button, Input, Link } from "@nextui-org/react";
 import React from "react";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
 
 const RegisterPage = () => {
+  const registerUser = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const name = form.name.value;
+    const photo = form.photo.value;
+    const email = form.email.value;
+    const password = form.password.value;
+    const newUser = { name, photo, email, password };
+    console.log(newUser);
+  };
+
   return (
     <div
       style={{
@@ -44,7 +56,7 @@ const RegisterPage = () => {
         {/* divider ends */}
 
         {/* user input section */}
-        <form>
+        <form onSubmit={registerUser}>
           <div className="space-y-4">
             <Input
               variant="underlined"
@@ -77,11 +89,11 @@ const RegisterPage = () => {
         </form>
         {/* toggle option */}
         {/* <span>
-        already have an account?{" "}
-        <Link href="login" underline="hover">
-          log in
-        </Link>
-      </span> */}
+          already have an account?
+          <Link href="login" underline="hover">
+            log in
+          </Link>
+        </span> */}
       </div>
     </div>
   );
