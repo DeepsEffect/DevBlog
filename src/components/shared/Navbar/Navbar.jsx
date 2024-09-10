@@ -21,6 +21,7 @@ import { SearchIcon } from "./SearchIcon";
 import { TfiWrite } from "react-icons/tfi";
 import { LoginModal } from "@/components/Modals/LoginModal/LoginModal";
 import { useSession, signOut } from "next-auth/react";
+import { IoMdNotificationsOutline } from "react-icons/io";
 
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -85,16 +86,26 @@ export const Navbar = () => {
       {session?.data ? (
         <>
           {/* show this if user is available*/}
+          {/* write button */}
           <NavbarContent justify="end">
             <NavbarItem className="flex justify-center items-center gap-1 cursor-pointer">
               <TfiWrite />
               write
             </NavbarItem>
+
+            {/* notification icon */}
+            <NavbarItem>
+              <Button variant="light" isIconOnly>
+                <IoMdNotificationsOutline className="text-xl" />
+              </Button>
+            </NavbarItem>
+
+            {/* avatar */}
             <NavbarItem>
               <Dropdown className="bg-background" placement="bottom-start">
                 <DropdownTrigger>
                   <Avatar
-                    isBordered
+                  isBordered
                     as="button"
                     className="transition-transform"
                     color="secondary"
