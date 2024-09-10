@@ -26,7 +26,6 @@ export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const session = useSession();
   console.log(session);
-  const user = false;
 
   return (
     <Nav
@@ -75,7 +74,7 @@ export const Navbar = () => {
       </NavbarContent>
 
       {/* conditional rendering  */}
-      {user ? (
+      {session?.data ? (
         <>
           {/* show this if user is available*/}
           <NavbarContent justify="end">
@@ -91,15 +90,15 @@ export const Navbar = () => {
                     as="button"
                     className="transition-transform"
                     color="secondary"
-                    name="Jason Hughes"
+                    name={session.data?.user?.name}
                     size="sm"
-                    src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
+                    src={session.data?.user?.image}
                   />
                 </DropdownTrigger>
                 <DropdownMenu aria-label="Profile Actions" variant="flat">
                   <DropdownItem key="profile" className="h-14 gap-2">
                     <p className="font-semibold">Signed in as</p>
-                    <p className="font-semibold">zoey@example.com</p>
+                    <p className="font-semibold">{session.data?.user?.email}</p>
                   </DropdownItem>
                   <DropdownItem key="profile">My Profile</DropdownItem>
                   <DropdownItem key="blogs">My Blogs</DropdownItem>
