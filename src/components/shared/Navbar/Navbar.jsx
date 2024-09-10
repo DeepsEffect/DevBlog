@@ -105,7 +105,7 @@ export const Navbar = () => {
               <Dropdown className="bg-background" placement="bottom-start">
                 <DropdownTrigger>
                   <Avatar
-                  isBordered
+                    isBordered
                     as="button"
                     className="transition-transform"
                     color="secondary"
