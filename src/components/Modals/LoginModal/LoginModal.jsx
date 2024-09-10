@@ -13,9 +13,34 @@ import {
 } from "@nextui-org/react";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export const LoginModal = ({ btnName }) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const router = useRouter();
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const email = form.email.value;
+    const password = form.password.value;
+    // console.log(email, password);
+    const resp = await signIn("credentials", {
+      email,
+      password,
+      redirect: false,
+    });
+    // Handle response
+    console.log(resp);
+    if (resp.status === 200) {
+      // Redirect on success
+      router.push("/");
+    } else {
+      console.log("Login failed:", resp.error);
+    }
+  };
+
   return (
     <>
       <Button
@@ -26,7 +51,12 @@ export const LoginModal = ({ btnName }) => {
       >
         {btnName}
       </Button>
-      <Modal size="md" backdrop="blur" isOpen={isOpen} onOpenChange={onOpenChange}>
+      <Modal
+        size="md"
+        backdrop="blur"
+        isOpen={isOpen}
+        onOpenChange={onOpenChange}
+      >
         <ModalContent>
           {(onClose) => (
             <>
@@ -53,20 +83,31 @@ export const LoginModal = ({ btnName }) => {
                 {/* divider ends */}
 
                 {/* Log in form */}
-                <form>
+                <form onSubmit={handleLogin}>
                   <div className="space-y-4">
                     <Input
+                      required
                       variant="underlined"
                       name="email"
                       type="email"
                       placeholder="enter your email"
                     />
                     <Input
+                      required
                       variant="underlined"
                       name="password"
                       type="password"
                       placeholder="enter your password"
                     />
+                    <Button
+                      onPress={onClose}
+                      fullWidth
+                      type="submit"
+                      variant="flat"
+                      color="primary"
+                    >
+                      Log in
+                    </Button>
                   </div>
                 </form>
                 {/* form ends */}
@@ -79,14 +120,6 @@ export const LoginModal = ({ btnName }) => {
                   </Link>
                 </span>
               </ModalBody>
-              <ModalFooter>
-                <Button color="danger" variant="light" onPress={onClose}>
-                  Close
-                </Button>
-                <Button variant="flat" color="primary" onPress={onClose}>
-                  Log in
-                </Button>
-              </ModalFooter>
             </>
           )}
         </ModalContent>

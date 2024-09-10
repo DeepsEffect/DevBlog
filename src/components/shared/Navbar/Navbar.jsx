@@ -20,9 +20,12 @@ import {
 import { SearchIcon } from "./SearchIcon";
 import { TfiWrite } from "react-icons/tfi";
 import { LoginModal } from "@/components/Modals/LoginModal/LoginModal";
+import { useSession } from "next-auth/react";
 
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const session = useSession();
+  console.log(session);
   const user = false;
 
   return (
