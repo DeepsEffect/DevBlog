@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import {
   Modal,
   ModalContent,
@@ -18,10 +18,12 @@ import { useRouter } from "next/navigation";
 
 export const LoginModal = ({ btnName }) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const form = e.target;
     const email = form.email.value;
     const password = form.password.value;
@@ -35,9 +37,12 @@ export const LoginModal = ({ btnName }) => {
     console.log(resp);
     if (resp.status === 200) {
       // Redirect on success
+      setLoading(false);
+      onclose;
       router.push("/");
     } else {
       console.log("Login failed:", resp.error);
+      setLoading(false);
     }
   };
 
@@ -100,13 +105,14 @@ export const LoginModal = ({ btnName }) => {
                       placeholder="enter your password"
                     />
                     <Button
-                      onPress={onClose}
                       fullWidth
                       type="submit"
                       variant="flat"
                       color="primary"
+                      isDisabled={loading}
+                      isLoading={loading}
                     >
-                      Log in
+                      {loading ? "Login In" : "Log in"}
                     </Button>
                   </div>
                 </form>

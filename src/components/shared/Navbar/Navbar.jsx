@@ -20,12 +20,20 @@ import {
 import { SearchIcon } from "./SearchIcon";
 import { TfiWrite } from "react-icons/tfi";
 import { LoginModal } from "@/components/Modals/LoginModal/LoginModal";
-import { useSession } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const session = useSession();
   console.log(session);
+
+  // handle sign out
+  const handleSignOut = () => {
+    signOut({
+      callbackUrl: "/",
+    }).then(console.log("signed out successfully"));
+    setTimeout(() => setSignOutMessage(""), 3000);
+  };
 
   return (
     <Nav
@@ -102,7 +110,11 @@ export const Navbar = () => {
                   </DropdownItem>
                   <DropdownItem key="profile">My Profile</DropdownItem>
                   <DropdownItem key="blogs">My Blogs</DropdownItem>
-                  <DropdownItem key="logout" color="danger">
+                  <DropdownItem
+                    onClick={handleSignOut}
+                    key="logout"
+                    color="danger"
+                  >
                     Log Out
                   </DropdownItem>
                 </DropdownMenu>
