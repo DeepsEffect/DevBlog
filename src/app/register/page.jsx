@@ -1,8 +1,7 @@
 "use client";
 import { Button, Input, Link } from "@nextui-org/react";
 import React, { useState } from "react";
-import { FcGoogle } from "react-icons/fc";
-import { FaGithub } from "react-icons/fa";
+import SocialLoginButtons from "@/components/shared/SocialLoginButtons/SocialLoginButtons";
 
 const RegisterPage = () => {
   const [loading, setLoading] = useState(false);
@@ -68,16 +67,9 @@ const RegisterPage = () => {
           </p>
         </section>
 
-        {/* social sign up section */}
+        {/* google and github login buttons */}
         <section className="space-y-4">
-          {/* google button*/}
-          <Button className="w-full">
-            <FcGoogle className="text-xl" /> Continue with Google
-          </Button>
-          {/* GitHub button */}
-          <Button className="w-full">
-            <FaGithub className="text-xl" /> Continue with GitHub
-          </Button>
+          <SocialLoginButtons />
         </section>
 
         {/* divider */}

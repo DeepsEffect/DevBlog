@@ -15,6 +15,7 @@ import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import SocialLoginButtons from "@/components/shared/SocialLoginButtons/SocialLoginButtons";
 
 export const LoginModal = ({ btnName }) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -69,16 +70,8 @@ export const LoginModal = ({ btnName }) => {
                 Please Log in
               </ModalHeader>
               <ModalBody>
-                {/* google button*/}
-                <Button className="w-full">
-                  <FcGoogle className="text-xl" /> Continue with Google
-                </Button>
-
-                {/* GitHub button */}
-                <Button className="w-full">
-                  <FaGithub className="text-xl" /> Continue with GitHub
-                </Button>
-
+                {/* google and github login buttons */}
+                <SocialLoginButtons />
                 {/* divider */}
                 <div className="flex items-center">
                   <div className="flex-grow border-t border-gray-500"></div>
