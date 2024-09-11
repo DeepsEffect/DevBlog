@@ -52,26 +52,20 @@ const RegisterPage = () => {
           },
         }
       );
-      console.log(resp);
+      // console.log(resp);
 
       const data = await resp.json(); // Parse the response
-      console.log("Response Status:", resp.status); // Log the status
-      console.log("Response Data:", data); // Log the data
+      // console.log("Response Status:", resp.status);
+      // console.log("Response Data:", data);
 
       if (resp.status === 201) {
-        toast.success("Account Created Successfully! You may now Login" ,{
-          position: "top-center",
-          autoClose: 5000, 
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: false,
-          draggable: true,
-          theme: "dark"
+        toast.success("Account Created Successfully! You may now Login", {
+          autoClose: 5000,
         });
         router.replace("/login");
         form.reset(); // Reset the form on success
       } else {
-        toast.error("Error:", data.message);
+        console.error("Error:", data.message);
         toast.error(data.message); // Handle other status codes
       }
     } catch (error) {

@@ -24,7 +24,15 @@ export default function RootLayout({ children }) {
             {children}
           </NextUIProvider>
         </AuthProvider>
-        <ToastContainer />
+        <ToastContainer
+          position="top-center"
+          autoClose={3500}
+          hideProgressBar={true}
+          closeOnClick={true}
+          pauseOnHover={false}
+          draggable={true}
+          theme="dark"
+        />
       </body>
     </html>
   );

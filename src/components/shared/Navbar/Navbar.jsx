@@ -34,15 +34,7 @@ export const Navbar = () => {
   const handleSignOut = async () => {
     try {
       await signOut({ redirect: false });
-      toast.success("Logged out successfully", {
-        position: "top-center",
-        autoClose: 3000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: true,
-        theme: "dark",
-      });
+      toast.success("Logged out successfully");
 
       // Navigate to the home page
       router.push("/");

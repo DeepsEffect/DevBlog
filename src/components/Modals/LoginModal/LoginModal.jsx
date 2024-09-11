@@ -53,15 +53,7 @@ export const LoginModal = ({ btnName }) => {
     // console.log(resp);
     if (resp.status === 200) {
       setLoading(false);
-      toast.success("logged In successfully!", {
-        position: "top-center",
-        autoClose: 3000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: true,
-        theme: "dark",
-      });
+      toast.success("logged In successfully!");
       onclose;
       router.push("/");
     } else {
