@@ -5,22 +5,36 @@ import {
   ModalContent,
   ModalHeader,
   ModalBody,
-  ModalFooter,
   Button,
   useDisclosure,
   Input,
   Link,
+  Spinner,
 } from "@nextui-org/react";
-import { FcGoogle } from "react-icons/fc";
-import { FaGithub } from "react-icons/fa";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import SocialLoginButtons from "@/components/shared/SocialLoginButtons/SocialLoginButtons";
 
 export const LoginModal = ({ btnName }) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [loading, setLoading] = useState(false);
+  const { data: session, status } = useSession();
   const router = useRouter();
+
+  // show a spinner if session is loading
+  if (status === "loading") {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <Spinner />
+      </div>
+    );
+  }
+
+  // redirect if user is already logged in
+  if (session) {
+    router.replace("/");
+    return null;
+  }
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -49,14 +63,26 @@ export const LoginModal = ({ btnName }) => {
 
   return (
     <>
-      <Button
-        variant="light"
-        className="text-text text-sm"
-        href="#"
-        onPress={onOpen}
-      >
-        {btnName}
-      </Button>
+    {/* modal open button */}
+      {btnName ? (
+        <Button
+          variant="light"
+          className="text-text text-sm"
+          href="#"
+          onPress={onOpen}
+        >
+          {btnName}
+        </Button>
+      ) : (
+        <Link
+          color="primary"
+          underline="hover"
+          className="ml-1 text-medium cursor-pointer"
+          onPress={onOpen}
+        >
+          Login
+        </Link>
+      )}
       <Modal
         size="md"
         backdrop="blur"
@@ -104,6 +130,7 @@ export const LoginModal = ({ btnName }) => {
                       color="primary"
                       isDisabled={loading}
                       isLoading={loading}
+                      className="font-bold"
                     >
                       {loading ? "Login In" : "Log in"}
                     </Button>
@@ -112,12 +139,16 @@ export const LoginModal = ({ btnName }) => {
                 {/* form ends */}
 
                 {/* log in and register toggle options */}
-                <span className="text-sm">
+                <div className="text-sm ">
                   don't have an account?
-                  <Link href="register" underline="hover">
+                  <Link
+                    className="ml-1 text-medium"
+                    href="register"
+                    underline="hover"
+                  >
                     register
                   </Link>
-                </span>
+                </div>
               </ModalBody>
             </>
           )}

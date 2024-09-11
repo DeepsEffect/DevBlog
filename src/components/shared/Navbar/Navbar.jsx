@@ -4,7 +4,6 @@ import {
   Navbar as Nav,
   NavbarBrand,
   NavbarMenuToggle,
-  NavbarMenuItem,
   NavbarMenu,
   NavbarContent,
   NavbarItem,
@@ -26,7 +25,7 @@ import { IoMdNotificationsOutline } from "react-icons/io";
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const session = useSession();
-  console.log(session);
+  // console.log(session);
 
   // handle sign out
   const handleSignOut = () => {
@@ -83,11 +82,16 @@ export const Navbar = () => {
       </NavbarContent>
 
       {/* conditional rendering  */}
-      {session?.data ? (
+      {session?.status === "loading" ? (
+        // Show loading state while the session is being fetched
+        <NavbarContent justify="end">
+          <NavbarItem>Loading...</NavbarItem>
+        </NavbarContent>
+      ) : session?.data ? (
         <>
-          {/* show this if user is available*/}
-          {/* write button */}
+          {/* show this if user is available */}
           <NavbarContent justify="end">
+            {/* write button */}
             <NavbarItem className="flex justify-center items-center gap-1 cursor-pointer">
               <TfiWrite />
               write
@@ -135,11 +139,13 @@ export const Navbar = () => {
         </>
       ) : (
         <>
-          {/* show this if no user is not available */}
+          {/* show this if user is not available */}
           <NavbarContent justify="end">
+            {/* login */}
             <NavbarItem className="hidden lg:flex">
               <LoginModal btnName={"Log in"} />
             </NavbarItem>
+            {/* register */}
             <NavbarItem>
               <Link href="register">
                 <Button color="primary" href="#" variant="flat">

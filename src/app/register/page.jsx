@@ -1,10 +1,31 @@
 "use client";
-import { Button, Input, Link } from "@nextui-org/react";
+import { Button, Input, Link, Spinner } from "@nextui-org/react";
 import React, { useState } from "react";
 import SocialLoginButtons from "@/components/shared/SocialLoginButtons/SocialLoginButtons";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { LoginModal } from "@/components/Modals/LoginModal/LoginModal";
 
 const RegisterPage = () => {
   const [loading, setLoading] = useState(false);
+  const { data: session, status } = useSession(); // Destructure session and status
+  const router = useRouter();
+  console.log(session);
+
+  // show a spinner if session is loading
+  if (status === "loading") {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <Spinner />
+      </div>
+    );
+  }
+
+  // redirect if user is already logged in
+  if (session) {
+    router.replace("/");
+    return null;
+  }
 
   const registerUser = async (e) => {
     e.preventDefault();
@@ -68,7 +89,7 @@ const RegisterPage = () => {
         </section>
 
         {/* google and github login buttons */}
-        <section className="space-y-4">
+        <section>
           <SocialLoginButtons />
         </section>
 
@@ -127,19 +148,18 @@ const RegisterPage = () => {
                 color="primary"
                 type="submit"
                 isLoading={false}
+                className="font-bold"
               >
                 create account
               </Button>
             )}
           </div>
         </form>
-        {/* toggle option */}
-        {/* <span>
+        {/* toggle option to login page */}
+        <div>
           already have an account?
-          <Link href="login" underline="hover">
-            log in
-          </Link>
-        </span> */}
+          <LoginModal />
+        </div>
       </div>
     </div>
   );
