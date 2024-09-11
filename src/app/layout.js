@@ -3,6 +3,8 @@ import "./globals.css";
 import { Navbar } from "@/components/shared/Navbar/Navbar";
 import { NextUIProvider } from "@nextui-org/react";
 import AuthProvider from "@/services/AuthProvider";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,6 +24,7 @@ export default function RootLayout({ children }) {
             {children}
           </NextUIProvider>
         </AuthProvider>
+        <ToastContainer />
       </body>
     </html>
   );

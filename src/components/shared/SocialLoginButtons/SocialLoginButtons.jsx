@@ -9,10 +9,11 @@ export default function SocialLoginButtons() {
   const [loadingProvider, setLoadingProvider] = useState(null);
 
   const handleSocialSignIns = async (provider) => {
+    console.log(`Attempting to sign in with ${provider}`);
     try {
       setLoadingProvider(provider);
-      const resp = await signIn(provider, { redirect: false });
-      // console.log(resp);
+      const res = await signIn(provider, { redirect: false });
+      // console.log(res);
     } catch (error) {
       console.error(`Error during ${provider} sign-in:`, error);
     } finally {

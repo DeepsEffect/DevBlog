@@ -5,12 +5,13 @@ import SocialLoginButtons from "@/components/shared/SocialLoginButtons/SocialLog
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { LoginModal } from "@/components/Modals/LoginModal/LoginModal";
+import { toast } from "react-toastify";
 
 const RegisterPage = () => {
   const [loading, setLoading] = useState(false);
   const { data: session, status } = useSession(); // Destructure session and status
   const router = useRouter();
-  console.log(session);
+  // console.log(session);
 
   // show a spinner if session is loading
   if (status === "loading") {
@@ -51,19 +52,31 @@ const RegisterPage = () => {
           },
         }
       );
+      console.log(resp);
 
       const data = await resp.json(); // Parse the response
+      console.log("Response Status:", resp.status); // Log the status
+      console.log("Response Data:", data); // Log the data
 
       if (resp.status === 201) {
-        console.log("User created successfully");
+        toast.success("Account Created Successfully! You may now Login" ,{
+          position: "top-center",
+          autoClose: 5000, 
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          theme: "dark"
+        });
+        router.replace("/login");
         form.reset(); // Reset the form on success
       } else {
-        console.log("Error:", data.message); // Handle other status codes
-        // TODO: update UI with error message
+        toast.error("Error:", data.message);
+        toast.error(data.message); // Handle other status codes
       }
     } catch (error) {
       console.error("Fetch error:", error); // Handle network errors
-      // TODO: update UI with error message
+      toast.error(error.message);
     } finally {
       setLoading(false);
     }

@@ -14,6 +14,7 @@ import {
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import SocialLoginButtons from "@/components/shared/SocialLoginButtons/SocialLoginButtons";
+import { toast } from "react-toastify";
 
 export const LoginModal = ({ btnName }) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -49,21 +50,30 @@ export const LoginModal = ({ btnName }) => {
       redirect: false,
     });
     // Handle response
-    console.log(resp);
+    // console.log(resp);
     if (resp.status === 200) {
-      // Redirect on success
       setLoading(false);
+      toast.success("logged In successfully!", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        theme: "dark",
+      });
       onclose;
       router.push("/");
     } else {
       console.log("Login failed:", resp.error);
+      toast.error(resp.error);
       setLoading(false);
     }
   };
 
   return (
     <>
-    {/* modal open button */}
+      {/* modal open button */}
       {btnName ? (
         <Button
           variant="light"

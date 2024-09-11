@@ -21,18 +21,34 @@ import { TfiWrite } from "react-icons/tfi";
 import { LoginModal } from "@/components/Modals/LoginModal/LoginModal";
 import { useSession, signOut } from "next-auth/react";
 import { IoMdNotificationsOutline } from "react-icons/io";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const session = useSession();
+  const router = useRouter();
   // console.log(session);
 
   // handle sign out
-  const handleSignOut = () => {
-    signOut({
-      callbackUrl: "/",
-    }).then(console.log("signed out successfully"));
-    setTimeout(() => setSignOutMessage(""), 3000);
+  const handleSignOut = async () => {
+    try {
+      await signOut({ redirect: false });
+      toast.success("Logged out successfully", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        theme: "dark",
+      });
+
+      // Navigate to the home page
+      router.push("/");
+    } catch (error) {
+      console.error("Error during sign out:", error);
+    }
   };
 
   return (
