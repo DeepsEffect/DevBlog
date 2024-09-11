@@ -52,9 +52,33 @@ const handler = nextAuth({
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
     }),
   ],
-  callbacks: {},
   pages: {
     signIn: "/login",
+  },
+  callbacks: {
+    async signIn({ user, account }) {
+      if (account.provider === "google" || account.provider === "github") {
+        try {
+          const db = await connectDB();
+          const userCollection = await db.collection("users");
+          const userExits = await userCollection.findOne({ email: user.email });
+          if (!userExits) {
+            await userCollection.insertOne({
+              name: user.name,
+              email: user.email,
+              photo: user.image,
+              provider: account.provider,
+              createdAt: new Date(),
+            });
+          }
+          return true; // Proceed with login
+        } catch (error) {
+          console.error("Error during sign in:", error);
+          return false; // Deny login if there's an error
+        }
+      }
+      return true; // Allow login for other providers
+    },
   },
 });
 export { handler as GET, handler as POST };
