@@ -4,7 +4,6 @@ import {
   Navbar as Nav,
   NavbarBrand,
   NavbarMenuToggle,
-  NavbarMenuItem,
   NavbarMenu,
   NavbarContent,
   NavbarItem,
@@ -20,10 +19,29 @@ import {
 import { SearchIcon } from "./SearchIcon";
 import { TfiWrite } from "react-icons/tfi";
 import { LoginModal } from "@/components/Modals/LoginModal/LoginModal";
+import { useSession, signOut } from "next-auth/react";
+import { IoMdNotificationsOutline } from "react-icons/io";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-  const user = false;
+  const session = useSession();
+  const router = useRouter();
+  // console.log(session);
+
+  // handle sign out
+  const handleSignOut = async () => {
+    try {
+      await signOut({ redirect: false });
+      toast.success("Logged out successfully");
+
+      // Navigate to the home page
+      router.push("/");
+    } catch (error) {
+      console.error("Error during sign out:", error);
+    }
+  };
 
   return (
     <Nav
@@ -72,14 +90,29 @@ export const Navbar = () => {
       </NavbarContent>
 
       {/* conditional rendering  */}
-      {user ? (
+      {session?.status === "loading" ? (
+        // Show loading state while the session is being fetched
+        <NavbarContent justify="end">
+          <NavbarItem>Loading...</NavbarItem>
+        </NavbarContent>
+      ) : session?.data ? (
         <>
-          {/* show this if user is available*/}
+          {/* show this if user is available */}
           <NavbarContent justify="end">
+            {/* write button */}
             <NavbarItem className="flex justify-center items-center gap-1 cursor-pointer">
               <TfiWrite />
               write
             </NavbarItem>
+
+            {/* notification icon */}
+            <NavbarItem>
+              <Button variant="light" isIconOnly>
+                <IoMdNotificationsOutline className="text-xl" />
+              </Button>
+            </NavbarItem>
+
+            {/* avatar */}
             <NavbarItem>
               <Dropdown className="bg-background" placement="bottom-start">
                 <DropdownTrigger>
@@ -88,19 +121,23 @@ export const Navbar = () => {
                     as="button"
                     className="transition-transform"
                     color="secondary"
-                    name="Jason Hughes"
+                    name={session.data?.user?.name}
                     size="sm"
-                    src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
+                    src={session.data?.user?.image}
                   />
                 </DropdownTrigger>
                 <DropdownMenu aria-label="Profile Actions" variant="flat">
                   <DropdownItem key="profile" className="h-14 gap-2">
                     <p className="font-semibold">Signed in as</p>
-                    <p className="font-semibold">zoey@example.com</p>
+                    <p className="font-semibold">{session.data?.user?.email}</p>
                   </DropdownItem>
                   <DropdownItem key="profile">My Profile</DropdownItem>
                   <DropdownItem key="blogs">My Blogs</DropdownItem>
-                  <DropdownItem key="logout" color="danger">
+                  <DropdownItem
+                    onClick={handleSignOut}
+                    key="logout"
+                    color="danger"
+                  >
                     Log Out
                   </DropdownItem>
                 </DropdownMenu>
@@ -110,11 +147,13 @@ export const Navbar = () => {
         </>
       ) : (
         <>
-          {/* show this if no user is not available */}
+          {/* show this if user is not available */}
           <NavbarContent justify="end">
+            {/* login */}
             <NavbarItem className="hidden lg:flex">
               <LoginModal btnName={"Log in"} />
             </NavbarItem>
+            {/* register */}
             <NavbarItem>
               <Link href="register">
                 <Button color="primary" href="#" variant="flat">

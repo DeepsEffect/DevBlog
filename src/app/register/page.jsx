@@ -1,15 +1,87 @@
-import { Button, Input, Link } from "@nextui-org/react";
-import React from "react";
-import { FcGoogle } from "react-icons/fc";
-import { FaGithub } from "react-icons/fa";
+"use client";
+import { Button, Input, Link, Spinner } from "@nextui-org/react";
+import React, { useState } from "react";
+import SocialLoginButtons from "@/components/shared/SocialLoginButtons/SocialLoginButtons";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { LoginModal } from "@/components/Modals/LoginModal/LoginModal";
+import { toast } from "react-toastify";
 
 const RegisterPage = () => {
+  const [loading, setLoading] = useState(false);
+  const { data: session, status } = useSession(); // Destructure session and status
+  const router = useRouter();
+  // console.log(session);
+
+  // show a spinner if session is loading
+  if (status === "loading") {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <Spinner />
+      </div>
+    );
+  }
+
+  // redirect if user is already logged in
+  if (session) {
+    router.replace("/");
+    return null;
+  }
+
+  const registerUser = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    const form = e.target;
+    const name = form.name.value;
+    const photo = form.photo.value;
+    const email = form.email.value;
+    const password = form.password.value;
+    const newUser = { name, photo, email, password };
+    // console.log(newUser);
+
+    try {
+      // Send newUser data to DB
+      const resp = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/register/api`,
+        {
+          method: "POST",
+          body: JSON.stringify(newUser),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      // console.log(resp);
+
+      const data = await resp.json(); // Parse the response
+      // console.log("Response Status:", resp.status);
+      // console.log("Response Data:", data);
+
+      if (resp.status === 201) {
+        toast.success("Account Created Successfully! You may now Login", {
+          autoClose: 5000,
+        });
+        router.replace("/login");
+        form.reset(); // Reset the form on success
+      } else {
+        console.error("Error:", data.message);
+        toast.error(data.message); // Handle other status codes
+      }
+    } catch (error) {
+      console.error("Fetch error:", error); // Handle network errors
+      toast.error(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div
       style={{
         position: "relative",
         background: `linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)),
-                     url('https://s11.gifyu.com/images/S1ubh.png') no-repeat center center/cover`,
+                     url('https://i.ibb.co.com/LpBB6RN/techbg.jpg') no-repeat center center/cover`,
         minHeight: "100vh",
       }}
       className="flex justify-center items-center"
@@ -23,16 +95,9 @@ const RegisterPage = () => {
           </p>
         </section>
 
-        {/* social sign up section */}
-        <section className="space-y-4">
-          {/* google button*/}
-          <Button className="w-full">
-            <FcGoogle className="text-xl" /> Continue with Google
-          </Button>
-          {/* GitHub button */}
-          <Button className="w-full">
-            <FaGithub className="text-xl" /> Continue with GitHub
-          </Button>
+        {/* google and github login buttons */}
+        <section>
+          <SocialLoginButtons />
         </section>
 
         {/* divider */}
@@ -44,9 +109,10 @@ const RegisterPage = () => {
         {/* divider ends */}
 
         {/* user input section */}
-        <form>
+        <form onSubmit={registerUser}>
           <div className="space-y-4">
             <Input
+              required
               variant="underlined"
               name="name"
               type="text"
@@ -59,29 +125,48 @@ const RegisterPage = () => {
               placeholder="paste your photo url"
             />
             <Input
+              required
               variant="underlined"
               name="email"
               type="email"
               placeholder="enter your email"
             />
             <Input
+              required
               variant="underlined"
               name="password"
               type="password"
               placeholder="make a password"
             />
-            <Button fullWidth variant="flat" color="primary" type="submit">
-              create account
-            </Button>
+            {loading ? (
+              <Button
+                fullWidth
+                variant="flat"
+                color="primary"
+                type="submit"
+                isLoading={true}
+              >
+                creating account
+              </Button>
+            ) : (
+              <Button
+                fullWidth
+                variant="flat"
+                color="primary"
+                type="submit"
+                isLoading={false}
+                className="font-bold"
+              >
+                create account
+              </Button>
+            )}
           </div>
         </form>
-        {/* toggle option */}
-        {/* <span>
-        already have an account?{" "}
-        <Link href="login" underline="hover">
-          log in
-        </Link>
-      </span> */}
+        {/* toggle option to login page */}
+        <div>
+          already have an account?
+          <LoginModal />
+        </div>
       </div>
     </div>
   );
