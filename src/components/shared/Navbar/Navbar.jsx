@@ -7,7 +7,6 @@ import {
   NavbarMenu,
   NavbarContent,
   NavbarItem,
-  Link,
   Button,
   Input,
   Avatar,
@@ -23,6 +22,7 @@ import { useSession, signOut } from "next-auth/react";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -101,8 +101,10 @@ export const Navbar = () => {
           <NavbarContent justify="end">
             {/* write button */}
             <NavbarItem className="flex justify-center items-center gap-1 cursor-pointer">
-              <TfiWrite />
-              write
+              <Link href="/write" className="flex gap-1 items-center">
+                <TfiWrite />
+                write
+              </Link>
             </NavbarItem>
 
             {/* notification icon */}
