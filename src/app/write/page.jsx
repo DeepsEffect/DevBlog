@@ -1,18 +1,9 @@
 "use client";
+import usePrivateRoute from "@/hooks/usePrivateRoute";
 import { Spinner } from "@nextui-org/react";
-import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
-import React, { useEffect } from "react";
 
 const page = () => {
-  const { data: session, status } = useSession();
-  const router = useRouter();
-
-  useEffect(() => {
-    if (!session && status !== "loading") {
-      router.push("/");
-    }
-  }, [session, status, router]);
+  const { session, status } = usePrivateRoute();
 
   if (status === "loading") {
     return (
@@ -26,6 +17,7 @@ const page = () => {
   if (!session) {
     return null; // Return nothing while redirecting
   }
+
   return <div>write blog form...</div>;
 };
 
