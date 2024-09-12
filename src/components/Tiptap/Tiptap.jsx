@@ -49,10 +49,11 @@ const Tiptap = () => {
   return (
     <div className="w-full mx-auto ">
       {/* toolbar */}
-      <div className="flex space-x-2 mb-2 mx-auto">
+      <div className="flex space-x-2 mb-2 mx-auto ">
         {/* Bold */}
         <Button
           size="sm"
+          variant="flat"
           isIconOnly
           auto
           onClick={() => editor.chain().focus().toggleBold().run()}
@@ -63,6 +64,7 @@ const Tiptap = () => {
         {/* Italic */}
         <Button
           size="sm"
+          variant="flat"
           isIconOnly
           auto
           onClick={() => editor.chain().focus().toggleItalic().run()}
@@ -73,6 +75,7 @@ const Tiptap = () => {
         {/* Underline */}
         <Button
           size="sm"
+          variant="flat"
           isIconOnly
           auto
           onClick={() => editor.chain().focus().toggleUnderline().run()}
@@ -83,6 +86,7 @@ const Tiptap = () => {
         {/* Link */}
         <Button
           size="sm"
+          variant="flat"
           isIconOnly
           auto
           onClick={() => {

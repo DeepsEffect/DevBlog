@@ -20,21 +20,40 @@ const WritePage = () => {
   }
 
   return (
-    <div className="max-w-3xl mx-auto mt-4 lg:mt-10 p-3 lg:p-0">
+    <div className="max-w-3xl mx-auto mt-4 lg:mt-10 p-2 lg:p-0">
+      {/* blog form */}
       <form>
         <div className="space-y-4">
-          <label htmlFor="title">
-            <Input
-              size="lg"
-              className="font-bold text-2xl"
-              variant="flat"
-              type="text"
-              placeholder="Write your blog title here..."
-            />
-          </label>
-          {/* tiptap editor */}
-            <Tiptap />
-          <Button variant="flat" color="primary" type="button" fullWidth>
+          {/* title section */}
+          <section>
+            <h2 className="text-text font-semibold text-medium">
+              Add title:
+            </h2>
+            <div className="bg-gray-600 rounded-lg py-6 p-4">
+              <div>
+                <Input
+                  size="lg"
+                  className="font-bold text-2xl rounded-none"
+                  variant="flat"
+                  type="text"
+                  placeholder="Write your blog title here..."
+                />
+              </div>
+            </div>
+          </section>
+
+          {/* Tiptap editor section */}
+          <section>
+            <h2 className="text-text font-semibold text-medium">
+              Add blog content:
+            </h2>
+            <div className="bg-gray-600 rounded-lg py-6 p-4">
+              <Tiptap />
+            </div>
+          </section>
+
+          {/* submit button */}
+          <Button variant="flat" color="primary" type="button" fullWidth className="font-bold">
             Submit Blog
           </Button>
         </div>
