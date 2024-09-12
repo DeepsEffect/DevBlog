@@ -59,9 +59,7 @@ const RegisterPage = () => {
       // console.log("Response Data:", data);
 
       if (resp.status === 201) {
-        toast.success("Account Created Successfully! You may now Login", {
-          autoClose: 5000,
-        });
+        toast.success("Account Created Successfully! You may now Login");
         router.replace("/login");
         form.reset(); // Reset the form on success
       } else {

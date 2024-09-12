@@ -40,7 +40,13 @@ const handler = nextAuth({
           throw new Error("Invalid Password");
         }
         // current user
-        return currentUser;
+        return {
+          id: currentUser._id,
+          name: currentUser.name,
+          email: currentUser.email,
+          photo: currentUser.photo,
+          createdAt: currentUser.createdAt,
+        };
       },
     }),
     GoogleProvider({
@@ -56,6 +62,7 @@ const handler = nextAuth({
     signIn: "/login",
   },
   callbacks: {
+    // store social login info to DB
     async signIn({ user, account }) {
       if (account.provider === "google" || account.provider === "github") {
         try {
@@ -66,7 +73,7 @@ const handler = nextAuth({
             await userCollection.insertOne({
               name: user.name,
               email: user.email,
-              photo: user.image,
+              image: user.image,
               provider: account.provider,
               createdAt: new Date(),
             });
