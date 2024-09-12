@@ -44,7 +44,7 @@ const handler = nextAuth({
           id: currentUser._id,
           name: currentUser.name,
           email: currentUser.email,
-          photo: currentUser.photo,
+          image: currentUser.photo,
           createdAt: currentUser.createdAt,
         };
       },

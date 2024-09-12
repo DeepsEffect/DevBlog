@@ -28,7 +28,7 @@ export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const session = useSession();
   const router = useRouter();
-  // console.log(session);
+  console.log(session);
 
   // handle sign out
   const handleSignOut = async () => {
