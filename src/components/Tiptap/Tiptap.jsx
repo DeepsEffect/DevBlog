@@ -15,7 +15,7 @@ import { BiBold, BiItalic, BiLink, BiUnderline } from "react-icons/bi";
 import { Button } from "@nextui-org/react";
 import "./styles.css";
 
-const Tiptap = () => {
+const Tiptap = ({ setContent }) => {
   const editor = useEditor({
     extensions: [
       StarterKit,
@@ -39,6 +39,11 @@ const Tiptap = () => {
       attributes: {
         class: "min-h-[200px] p-3 bg-[#2E2E30] rounded-lg outline-none mt-0",
       },
+    },
+
+    onUpdate: ({ editor }) => {
+      const html = editor.getHTML();
+      setContent(html);
     },
   });
 
