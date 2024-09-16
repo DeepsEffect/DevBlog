@@ -2,18 +2,19 @@
 import Tiptap from "@/components/Tiptap/Tiptap";
 import usePrivateRoute from "@/hooks/usePrivateRoute";
 import { Button, Input, Spinner } from "@nextui-org/react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "react-toastify";
 
 const WritePage = () => {
   const { session, status } = usePrivateRoute();
+  const router = useRouter();
   const [blogTitle, setBlogTitle] = useState(""); // Handle title
   const [blogContent, setBlogContent] = useState(""); // Handle content
   const [coverPhoto, setCoverPhoto] = useState("");
   const [tags, setTags] = useState("");
   const [categories, setCategories] = useState("");
   const [readingTime, setReadingTime] = useState("");
-
   const [loading, setLoading] = useState(false);
 
   if (status === "loading") {
@@ -70,6 +71,7 @@ const WritePage = () => {
 
       if (resp.ok) {
         toast.success(responseData.message || "Blog posted successfully!");
+        router.push("/");
       } else {
         toast.error(responseData.message || "Failed to post blog.");
       }
@@ -80,12 +82,16 @@ const WritePage = () => {
     }
   };
 
-  // generate slug from title
+  // generate unique slug from title
   const generateSlut = (title) => {
-    return title
+    const baseSlug = title
       .toLowerCase()
       .replace(/[^a-z0-9]+/g, "-")
       .replace(/^-|-$/g, "");
+
+    const uniquePart = Math.random().toString(36).substring(2, 6); // Generates a 4-character random string
+
+    return `${baseSlug}-${uniquePart}`;
   };
 
   return (
