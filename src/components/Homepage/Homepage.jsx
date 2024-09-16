@@ -1,3 +1,4 @@
+"use client";
 import {
   Button,
   ButtonGroup,
@@ -7,10 +8,11 @@ import {
   CardHeader,
 } from "@nextui-org/react";
 import React from "react";
-import blogs from "../../data/blogs.json";
 import BlogCard from "./BlogCard/BlogCard";
+import useBlogs from "@/hooks/useBlogs";
 
 export const Homepage = () => {
+  const { blogs, loading } = useBlogs();
   return (
     <div className="container mx-auto grid grid-cols-1 md:grid-cols-4 lg:grid-cols-12 gap-4 md:px-4 py-6 ">
       {/* TODO: toggle button for right sidebar for mobile view */}
@@ -65,8 +67,8 @@ export const Homepage = () => {
 
         {/* show blog cards */}
         <div className="grid gird-cols-1 gap-4 lg:p-4 mt-4 lg:mt-2">
-          {blogs?.map((blog) => (
-            <BlogCard blog={blog} key={blog.id} />
+          {blogs?.map((blog, loading) => (
+            <BlogCard blog={blog} loading={loading} key={blog.id} />
           ))}
         </div>
       </main>

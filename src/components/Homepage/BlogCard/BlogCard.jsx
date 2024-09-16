@@ -1,4 +1,3 @@
-"use client";
 import {
   Avatar,
   Button,
@@ -19,29 +18,42 @@ import { BiComment } from "react-icons/bi";
 import { BiBookmark } from "react-icons/bi";
 import { FiMoreHorizontal } from "react-icons/fi";
 import { BiRocket } from "react-icons/bi";
+import DOMPurify from "dompurify";
 
 export default function BlogCard({ blog }) {
   const {
     id,
     title,
     slug,
-    author,
-    cover_photo,
     content,
-    posted_date,
+    cover_photo,
+    postedDate,
+    author,
     tags,
     categories,
-    reading_time,
+    readingTime,
     reactions,
   } = blog;
+
+  // Function to strip HTML and return a brief preview
+  const getBriefContent = (htmlContent) => {
+    const plainText = DOMPurify.sanitize(htmlContent, { ALLOWED_TAGS: [] });
+    return plainText.slice(0, 150);
+  };
   return (
     <Card>
       <CardHeader className="flex justify-between items-center">
         <div className="flex items-center gap-2">
-          <Avatar />
+          <Avatar src={author?.image} name={author?.name} />
           <span className="flex items-start flex-col text-sm">
-            <p className="font-bold text-medium">{author.username}</p>
-            <p>{posted_date}</p>
+            <p className="font-bold text-medium">{author?.name}</p>
+            <p>
+              {new Date(postedDate).toLocaleDateString("en-GB", {
+                day: "2-digit",
+                month: "long",
+                year: "numeric",
+              })}
+            </p>
           </span>
         </div>
 
@@ -71,9 +83,7 @@ export default function BlogCard({ blog }) {
           >
             {title}
           </Link>
-          <p className="text-sm text-gray-400">
-            {`${content.body.slice(0, 100)}`}...
-          </p>
+          <p className="text-sm text-gray-400">{getBriefContent(content)}...</p>
         </div>
 
         {/* Render cover photo only if it's provided */}
@@ -100,7 +110,7 @@ export default function BlogCard({ blog }) {
                 <BiRocket className="text-xl" /> {/* A rocket icon for "Pog" */}
               </Button>
               {/* Pog Count */}
-              <span className="text-sm font-semibold">{reactions.upvotes}</span>
+              <span className="text-sm font-semibold">{reactions?.pogs}</span>
             </div>
           </Tooltip>
 
@@ -113,7 +123,7 @@ export default function BlogCard({ blog }) {
               </Button>
               {/* comment count */}
               <span className="text-sm font-semibold">
-                {reactions.comments}
+                {reactions?.comments}
               </span>
             </div>
           </Tooltip>
@@ -122,7 +132,7 @@ export default function BlogCard({ blog }) {
         {/* bookmark and minute read section */}
         <section className="flex items-center gap-2">
           <div className="hidden lg:flex">
-            <p className="text-sm">{reading_time} min read</p>
+            <p className="text-sm">{readingTime} min read</p>
           </div>
 
           <Tooltip content="bookmark blog">
