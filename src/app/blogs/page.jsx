@@ -4,7 +4,7 @@ import useBlogs from "@/hooks/useBlogs";
 
 const blogPage = () => {
   const { blogs, loading } = useBlogs();
-  console.log(blogs);
+  // console.log(blogs);
 
   // Sanitize HTML before rendering
   const createMarkup = (htmlContent) => {

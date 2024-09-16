@@ -89,20 +89,19 @@ export default function BlogCard({ blog }) {
 
         <CardBody className="flex flex-row items-center gap-2 py-0">
           {/* title and description */}
-          <div className={`space-y-1 ${cover_photo || "w-full"}`}>
-            <Link
-              href={slug}
-              className="text-xl lg:text-2xl font-semibold hover:underline cursor-pointer"
-            >
-              {title}
-            </Link>
-            <p
-              title={getBriefContent(content)}
-              className="text-sm text-gray-400"
-            >
-              {getBriefContent(content)}...
-            </p>
-          </div>
+          <Link href={slug}>
+            <div className={`space-y-1 ${cover_photo || "w-full"}`}>
+              <h2 className="text-xl lg:text-2xl font-semibold hover:underline cursor-pointer">
+                {title}
+              </h2>
+              <p
+                title={getBriefContent(content)}
+                className="text-sm text-gray-400"
+              >
+                {getBriefContent(content)}...
+              </p>
+            </div>
+          </Link>
 
           {/* Render cover photo only if it's provided */}
           {cover_photo && (
