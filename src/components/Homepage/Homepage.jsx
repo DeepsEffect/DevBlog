@@ -7,10 +7,25 @@ import {
   CardHeader,
 } from "@nextui-org/react";
 import React from "react";
-import blogs from "../../data/blogs.json";
 import BlogCard from "./BlogCard/BlogCard";
 
-export const Homepage = () => {
+export const Homepage = async () => {
+  // fetch the blogs data
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/blogs/api`, {
+    cache: "no-store", // using 'no-store' to ensure fresh data on each request
+  });
+
+  // Handle loading state
+  if (!res.ok) {
+    return (
+      // todo: show an actual error page here
+      <div className="flex items-center justify-center h-screen text-xl">
+        <p>Failed to load blogs</p>
+      </div>
+    );
+  }
+  const blogs = await res.json();
+  // console.log(blogs);
   return (
     <div className="container mx-auto grid grid-cols-1 md:grid-cols-4 lg:grid-cols-12 gap-4 md:px-4 py-6 ">
       {/* TODO: toggle button for right sidebar for mobile view */}
@@ -65,9 +80,13 @@ export const Homepage = () => {
 
         {/* show blog cards */}
         <div className="grid gird-cols-1 gap-4 lg:p-4 mt-4 lg:mt-2">
-          {blogs?.map((blog) => (
-            <BlogCard blog={blog} key={blog.id} />
-          ))}
+          {blogs.length === 0 ? (
+            <div className="flex items-center justify-center lg:mt-10">
+              <p>No blogs found</p>
+            </div>
+          ) : (
+            blogs.map((blog) => <BlogCard blog={blog} key={blog.id} />)
+          )}
         </div>
       </main>
 
