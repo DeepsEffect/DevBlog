@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-
+// pre-made hook if I ever need Client Side Rendering
 const useBlogs = () => {
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(false);

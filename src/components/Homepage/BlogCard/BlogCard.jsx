@@ -1,3 +1,4 @@
+"use client";
 import {
   Avatar,
   Button,
@@ -25,7 +26,6 @@ export default function BlogCard({ blog }) {
   const router = useRouter();
 
   const {
-    id,
     title,
     slug,
     content,

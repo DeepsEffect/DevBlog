@@ -1,4 +1,3 @@
-"use client";
 import {
   Button,
   ButtonGroup,
@@ -6,15 +5,27 @@ import {
   CardBody,
   CardFooter,
   CardHeader,
-  Spinner,
 } from "@nextui-org/react";
 import React from "react";
 import BlogCard from "./BlogCard/BlogCard";
-import useBlogs from "@/hooks/useBlogs";
 
-export const Homepage = () => {
-  const { blogs, loading } = useBlogs();
-  console.log(blogs);
+export const Homepage = async () => {
+  // fetch the blogs data
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/blogs/api`, {
+    cache: "no-store", // using 'no-store' to ensure fresh data on each request
+  });
+
+  // Handle loading state
+  if (!res.ok) {
+    return (
+      // todo: show an actual error page here
+      <div className="flex items-center justify-center h-screen text-xl">
+        <p>Failed to load blogs</p>
+      </div>
+    );
+  }
+  const blogs = await res.json();
+  // console.log(blogs);
   return (
     <div className="container mx-auto grid grid-cols-1 md:grid-cols-4 lg:grid-cols-12 gap-4 md:px-4 py-6 ">
       {/* TODO: toggle button for right sidebar for mobile view */}
@@ -69,17 +80,12 @@ export const Homepage = () => {
 
         {/* show blog cards */}
         <div className="grid gird-cols-1 gap-4 lg:p-4 mt-4 lg:mt-2">
-          {loading ? (
-            <div className="flex items-center justify-center gap-2 lg:mt-10">
-              <Spinner />
-              <p>Loading blogs...</p>
+          {blogs.length === 0 ? (
+            <div className="flex items-center justify-center lg:mt-10">
+              <p>No blogs found</p>
             </div>
           ) : (
-            <>
-              {blogs?.map((blog, loading) => (
-                <BlogCard blog={blog} loading={loading} key={blog.id} />
-              ))}
-            </>
+            blogs.map((blog) => <BlogCard blog={blog} key={blog.id} />)
           )}
         </div>
       </main>
