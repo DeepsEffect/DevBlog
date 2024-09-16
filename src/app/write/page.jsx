@@ -43,6 +43,7 @@ const WritePage = () => {
       author: {
         name: session?.user?.name,
         email: session?.user?.email,
+        image: session?.user?.image,
       },
       postedDate: new Date().toISOString(),
       tags: tags || "",
