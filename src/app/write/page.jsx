@@ -9,6 +9,11 @@ const WritePage = () => {
   const { session, status } = usePrivateRoute();
   const [blogTitle, setBlogTitle] = useState(""); // Handle title
   const [blogContent, setBlogContent] = useState(""); // Handle content
+  const [coverPhoto, setCoverPhoto] = useState("");
+  const [tags, setTags] = useState("");
+  const [categories, setCategories] = useState("");
+  const [readingTime, setReadingTime] = useState("");
+
   const [loading, setLoading] = useState(false);
 
   if (status === "loading") {
@@ -28,7 +33,26 @@ const WritePage = () => {
   const handleBlogSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    const blogData = { blogTitle, blogContent };
+
+    // make blog data
+    const blogData = {
+      title: blogTitle,
+      slug: generateSlut(blogTitle),
+      content: blogContent,
+      coverPhoto: coverPhoto || "",
+      author: {
+        name: session?.user?.name,
+        email: session?.user?.email,
+      },
+      postedDate: new Date().toISOString(),
+      tags: tags || "",
+      categories: categories || "",
+      readingTime: readingTime || 0,
+      reactions: {
+        pogs: 0,
+        comments: 0,
+      },
+    };
     // console.log(blogData);
 
     try {
@@ -53,6 +77,14 @@ const WritePage = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  // generate slug from title
+  const generateSlut = (title) => {
+    return title
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-|-$/g, "");
   };
 
   return (

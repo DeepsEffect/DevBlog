@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
+import DOMPurify from "dompurify";
 
 const page = () => {
   const [blogs, setBlogs] = useState([]);
@@ -25,9 +26,25 @@ const page = () => {
   }, []);
   console.log(blogs);
 
+  // Sanitize HTML before rendering
+  const createMarkup = (htmlContent) => {
+    return { __html: DOMPurify.sanitize(htmlContent) };
+  };
+
   return (
     <div>
       <div>Total Blogs: {blogs?.length}</div>
+      {loading ? (
+        <p>Loading...</p>
+      ) : (
+        blogs.map((blog) => (
+          <div className="border text-center" key={blog.id}>
+            <h2>{blog.title}</h2>
+            {/* Render sanitized HTML */}
+            <div dangerouslySetInnerHTML={createMarkup(blog.content)} />
+          </div>
+        ))
+      )}
     </div>
   );
 };

@@ -6,7 +6,7 @@ export const POST = async (request) => {
     const blogContent = await request.json();
 
     // Validate input
-    if (!blogContent.blogTitle || !blogContent.blogContent) {
+    if (!blogContent.title || !blogContent.content) {
       return Response.json(
         { message: "Title and content are required." },
         { status: 400 }
@@ -16,11 +16,7 @@ export const POST = async (request) => {
     const db = await connectDB();
 
     // insert blogData to the database
-    const result = await db.collection("blogs").insertOne({
-      title: blogContent.blogTitle,
-      content: blogContent.blogContent,
-      createdAt: new Date(),
-    });
+    const result = await db.collection("blogs").insertOne(blogContent);
 
     return Response.json(
       { message: "Blog posted successfully!" },
