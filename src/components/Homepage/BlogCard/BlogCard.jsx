@@ -50,8 +50,8 @@ export default function BlogCard({ blog }) {
   };
 
   return (
-    <div onClick={handleCardClick}>
-      <Card>
+    <Card>
+      <div onClick={handleCardClick}>
         <CardHeader className="flex justify-between items-center">
           <div
             onClick={(e) => e.stopPropagation()}
@@ -89,8 +89,8 @@ export default function BlogCard({ blog }) {
 
         <CardBody className="flex flex-row items-center gap-2 py-0">
           {/* title and description */}
-          <Link href={slug}>
-            <div className={`space-y-1 ${coverPhoto || "w-full"}`}>
+          <div className={`space-y-1 ${coverPhoto || "w-full"}`}>
+            <Link href={slug}>
               <h2 className="text-xl lg:text-2xl font-semibold hover:underline cursor-pointer">
                 {title}
               </h2>
@@ -100,13 +100,13 @@ export default function BlogCard({ blog }) {
               >
                 {getBriefContent(content)}...
               </p>
-            </div>
-          </Link>
+            </Link>
+          </div>
 
           {/* Render cover photo only if it's provided */}
           {coverPhoto && (
-            <Link href={slug}>
-              <div className="mt-2 relative w-full lg:w-[300px] h-[100px] lg:h-[200px]">
+            <div className="mt-2 relative w-full lg:w-[300px] h-[100px] ">
+              <Link href={slug}>
                 <Image
                   alt={title}
                   className="object-cover rounded-xl"
@@ -114,8 +114,8 @@ export default function BlogCard({ blog }) {
                   fill
                   sizes="(max-width: 1024px) 100vw, 300px"
                 />
-              </div>
-            </Link>
+              </Link>
+            </div>
           )}
         </CardBody>
 
@@ -168,7 +168,7 @@ export default function BlogCard({ blog }) {
             </Tooltip>
           </section>
         </CardFooter>
-      </Card>
-    </div>
+      </div>
+    </Card>
   );
 }

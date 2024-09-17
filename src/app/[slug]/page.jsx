@@ -1,3 +1,4 @@
+import SanitizeMarkup from "@/services/SanitizeMarkup";
 import {
   Avatar,
   Button,
@@ -42,7 +43,6 @@ const blogDetailsPage = async ({ params }) => {
     reactions,
   } = blog;
 
-  // console.log(blog);
   return (
     <div className="lg:max-w-[680px] mx-auto">
       <Card>
@@ -54,7 +54,7 @@ const blogDetailsPage = async ({ params }) => {
 
           {/* title and tags section */}
           <section>
-            <h2 className="text-4xl font-bold">{title}</h2>
+            <h2 className="text-2xl lg:text-4xl font-bold">{title}</h2>
             {/* <p className="text-sm mt-2">
               {tags?.map((tag) => (
                 <Chip className="mr-1" size="sm" key={tag} variant="bordered">
@@ -139,18 +139,23 @@ const blogDetailsPage = async ({ params }) => {
         <CardBody>
           {/* cover photo section */}
           <section>
-            <div className="relative overflow-hidden h-[500px]">
-              <Image
-                src={coverPhoto}
-                layout="fill"
-                objectFit="cover"
-                alt={title}
-                sizes="(max-width: 1024px) 100vw, (max-width: 768px) 50vw, 33vw"
-              />
-            </div>
+            {coverPhoto && (
+              <div className="relative overflow-hidden h-[200px] lg:h-[400px]">
+                <Image
+                  src={coverPhoto}
+                  layout="fill"
+                  objectFit="cover"
+                  alt={title}
+                  sizes="(max-width: 1024px) 100vw, (max-width: 768px) 50vw, 33vw"
+                />
+              </div>
+            )}
           </section>
+
           {/* blog content section */}
-          <section></section>
+          <section className="leading-relaxed text-text mt-4 mb-4">
+            <SanitizeMarkup htmlContent={content} />
+          </section>
         </CardBody>
       </Card>
     </div>
