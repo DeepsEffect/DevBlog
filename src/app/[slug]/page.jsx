@@ -2,10 +2,13 @@ import {
   Avatar,
   Button,
   Card,
+  CardBody,
   CardHeader,
   Chip,
+  Divider,
   Tooltip,
 } from "@nextui-org/react";
+import Image from "next/image";
 import React from "react";
 import { BiBookmark, BiComment, BiRocket } from "react-icons/bi";
 import { TbShare3 } from "react-icons/tb";
@@ -14,7 +17,9 @@ const blogDetailsPage = async ({ params }) => {
   const { slug } = params;
 
   // fetch the blog data on the slug
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/blogs/${slug}`);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/blogs/${slug}`, {
+    cache: "no-store", // Disable caching to always fetch fresh data
+  });
   if (!res.ok) {
     // TODO: show an actual error page
     return (
@@ -36,6 +41,8 @@ const blogDetailsPage = async ({ params }) => {
     readingTime,
     reactions,
   } = blog;
+
+  // console.log(blog);
   return (
     <div className="lg:max-w-[680px] mx-auto">
       <Card>
@@ -125,6 +132,26 @@ const blogDetailsPage = async ({ params }) => {
             </div>
           </section>
         </CardHeader>
+
+        <Divider />
+
+        {/* main content */}
+        <CardBody>
+          {/* cover photo section */}
+          <section>
+            <div className="relative overflow-hidden h-[500px]">
+              <Image
+                src={coverPhoto}
+                layout="fill"
+                objectFit="cover"
+                alt={title}
+                sizes="(max-width: 1024px) 100vw, (max-width: 768px) 50vw, 33vw"
+              />
+            </div>
+          </section>
+          {/* blog content section */}
+          <section></section>
+        </CardBody>
       </Card>
     </div>
   );
