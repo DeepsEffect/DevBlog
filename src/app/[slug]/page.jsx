@@ -1,4 +1,11 @@
-import { Avatar, Button, Card, CardHeader, Tooltip } from "@nextui-org/react";
+import {
+  Avatar,
+  Button,
+  Card,
+  CardHeader,
+  Chip,
+  Tooltip,
+} from "@nextui-org/react";
 import React from "react";
 import { BiBookmark, BiComment, BiRocket } from "react-icons/bi";
 import { TbShare3 } from "react-icons/tb";
@@ -37,10 +44,19 @@ const blogDetailsPage = async ({ params }) => {
           <section>
             <p className="text-gray-400">{categories.toUpperCase()}</p>
           </section>
-          {/* header section */}
+
+          {/* title and tags section */}
           <section>
             <h2 className="text-4xl font-bold">{title}</h2>
+            {/* <p className="text-sm mt-2">
+              {tags?.map((tag) => (
+                <Chip className="mr-1" size="sm" key={tag} variant="bordered">
+                  # {tag}
+                </Chip>
+              ))}
+            </p> */}
           </section>
+
           {/* avatar and posted date */}
           <section className="flex items-center gap-2">
             <Avatar src={author?.image} name={author?.name} />

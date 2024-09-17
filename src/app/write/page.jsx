@@ -47,7 +47,7 @@ const WritePage = () => {
         image: session?.user?.image,
       },
       postedDate: new Date().toISOString(),
-      tags: tags || "",
+      tags: tags || [],
       categories: categories || "",
       readingTime: readingTime || 0,
       reactions: {
