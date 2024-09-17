@@ -29,7 +29,7 @@ export default function BlogCard({ blog }) {
     title,
     slug,
     content,
-    cover_photo,
+    coverPhoto,
     postedDate,
     author,
     tags,
@@ -60,10 +60,10 @@ export default function BlogCard({ blog }) {
             <Avatar src={author?.image} name={author?.name} />
             <span className="flex items-start flex-col text-sm">
               <p className="font-bold text-medium">{author?.name}</p>
-              <p>
+              <p className="text-sm">
                 {new Date(postedDate).toLocaleDateString("en-GB", {
                   day: "2-digit",
-                  month: "long",
+                  month: "short",
                   year: "numeric",
                 })}
               </p>
@@ -90,7 +90,7 @@ export default function BlogCard({ blog }) {
         <CardBody className="flex flex-row items-center gap-2 py-0">
           {/* title and description */}
           <Link href={slug}>
-            <div className={`space-y-1 ${cover_photo || "w-full"}`}>
+            <div className={`space-y-1 ${coverPhoto || "w-full"}`}>
               <h2 className="text-xl lg:text-2xl font-semibold hover:underline cursor-pointer">
                 {title}
               </h2>
@@ -104,13 +104,13 @@ export default function BlogCard({ blog }) {
           </Link>
 
           {/* Render cover photo only if it's provided */}
-          {cover_photo && (
+          {coverPhoto && (
             <Link href={slug}>
               <div className="mt-2 relative w-full lg:w-[300px] h-[100px] lg:h-[200px]">
                 <Image
                   alt={title}
                   className="object-cover rounded-xl"
-                  src={cover_photo}
+                  src={coverPhoto}
                   fill
                   sizes="(max-width: 1024px) 100vw, 300px"
                 />
