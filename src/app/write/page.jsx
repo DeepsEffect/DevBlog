@@ -1,7 +1,8 @@
 "use client";
+import CustomTagInput from "@/components/CustomTagInput/CustomTagInput";
 import Tiptap from "@/components/Tiptap/Tiptap";
 import usePrivateRoute from "@/hooks/usePrivateRoute";
-import { Button, Input, Spinner } from "@nextui-org/react";
+import { Button, Input, Spinner, Select, SelectItem } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "react-toastify";
@@ -12,8 +13,8 @@ const WritePage = () => {
   const [blogTitle, setBlogTitle] = useState(""); // Handle title
   const [blogContent, setBlogContent] = useState(""); // Handle content
   const [coverPhoto, setCoverPhoto] = useState("");
-  const [tags, setTags] = useState("");
-  const [categories, setCategories] = useState("");
+  const [tags, setTags] = useState([]);
+  const [category, setCategory] = useState("");
   const [readingTime, setReadingTime] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -48,7 +49,7 @@ const WritePage = () => {
       },
       postedDate: new Date().toISOString(),
       tags: tags || [],
-      categories: categories || "",
+      category: category || "",
       readingTime: readingTime || 0,
       reactions: {
         pogs: 0,
@@ -94,6 +95,42 @@ const WritePage = () => {
     return `${baseSlug}-${uniquePart}`;
   };
 
+  // category lists
+  const catItems = [
+    {
+      key: "web-dev",
+      label: "Web Dev",
+    },
+    {
+      key: "frontend-dev",
+      label: "Front-end Dev",
+    },
+    {
+      key: "backend-dev",
+      label: "Back-end Dev",
+    },
+    {
+      key: "framework",
+      label: "Framework",
+    },
+    {
+      key: "javascript",
+      label: "Javascript",
+    },
+    {
+      key: "react",
+      label: "React.js",
+    },
+    {
+      key: "next.js",
+      label: "Next.js",
+    },
+    {
+      key: "tailwind",
+      label: "Tailwind CSS",
+    },
+  ];
+
   return (
     <div className="max-w-3xl mx-auto mt-4 lg:mt-10 p-2 lg:p-0">
       {/* blog form */}
@@ -101,32 +138,60 @@ const WritePage = () => {
         <div className="space-y-4">
           {/* title section */}
           <section>
-            <h2 className="text-text font-semibold text-medium">Add title:</h2>
-            <div className="bg-gray-600 rounded-lg py-6 p-4">
-              <div>
-                <Input
-                  required
-                  size="lg"
-                  className="font-bold text-2xl rounded-none"
-                  variant="flat"
-                  type="text"
-                  placeholder="Write your blog title here..."
-                  value={blogTitle}
-                  onChange={(e) => setBlogTitle(e.target.value)}
-                />
-              </div>
+            <div>
+              <Input
+                isRequired
+                size="lg"
+                variant="flat"
+                type="text"
+                placeholder="Blog title"
+                value={blogTitle}
+                onChange={(e) => setBlogTitle(e.target.value)}
+              />
             </div>
+          </section>
+
+          {/* cover photo and category section section */}
+          <section className="flex gap-4">
+            {/* cover photo */}
+            <div className="w-full">
+              <Input
+                size="lg"
+                variant="flat"
+                type="url"
+                placeholder="Cover photo link"
+                value={coverPhoto}
+                onChange={(e) => setCoverPhoto(e.target.value)}
+              />
+            </div>
+            {/* category */}
+            <div className="w-full">
+              <Select
+                size="sm"
+                radius="md"
+                variant="flat"
+                isRequired
+                label="Select a category"
+                onChange={(e) => setCategory(e.target.value)}
+                value={category}
+              >
+                {catItems.map((item) => (
+                  <SelectItem key={item.key} value={item.key}>
+                    {item.label}
+                  </SelectItem>
+                ))}
+              </Select>
+            </div>
+          </section>
+
+          {/* tags section */}
+          <section>
+            <CustomTagInput tags={tags} setTags={setTags} maxTags={4} />
           </section>
 
           {/* Tiptap editor section */}
           <section>
-            <h2 className="text-text font-semibold text-medium">
-              Add blog content:
-            </h2>
-            <div className="bg-gray-600 rounded-lg py-6 p-4">
-              {/* get the blog content from Tiptap component and store it in a state */}
-              <Tiptap setContent={setBlogContent} />
-            </div>
+            <Tiptap setContent={setBlogContent} />
           </section>
 
           {/* submit button */}

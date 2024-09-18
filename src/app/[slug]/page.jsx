@@ -19,7 +19,7 @@ const blogDetailsPage = async ({ params }) => {
 
   // fetch the blog data on the slug
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/blogs/${slug}`, {
-    cache: "no-store", // Disable caching to always fetch fresh data
+    next: { revalidate: 60 }, // Revalidate every 60 seconds
   });
   if (!res.ok) {
     // TODO: show an actual error page
@@ -38,30 +38,30 @@ const blogDetailsPage = async ({ params }) => {
     postedDate,
     author,
     tags,
-    categories,
+    category,
     readingTime,
     reactions,
   } = blog;
 
   return (
-    <div className="lg:max-w-[680px] mx-auto">
+    <div className="max-w-3xl mx-auto">
       <Card>
         <CardHeader className="flex flex-col gap-4 items-start ">
           {/* category section */}
           <section>
-            <p className="text-gray-400">{categories.toUpperCase()}</p>
+            <p className="text-gray-400">{category.toUpperCase()}</p>
           </section>
 
           {/* title and tags section */}
           <section>
             <h2 className="text-2xl lg:text-4xl font-bold">{title}</h2>
-            {/* <p className="text-sm mt-2">
+            <div className="flex items-center gap-1 mt-2">
               {tags?.map((tag) => (
                 <Chip className="mr-1" size="sm" key={tag} variant="bordered">
                   # {tag}
                 </Chip>
               ))}
-            </p> */}
+            </div>
           </section>
 
           {/* avatar and posted date */}

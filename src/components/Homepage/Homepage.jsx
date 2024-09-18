@@ -12,7 +12,7 @@ import BlogCard from "./BlogCard/BlogCard";
 export const Homepage = async () => {
   // fetch the blogs data
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/blogs/api`, {
-    cache: "no-store", // using 'no-store' to ensure fresh data on each request
+    cache: "no-store", //fetch new data each time
   });
 
   // Handle loading state
@@ -80,12 +80,12 @@ export const Homepage = async () => {
 
         {/* show blog cards */}
         <div className="grid gird-cols-1 gap-4 lg:p-4 mt-4 lg:mt-2">
-          {blogs.length === 0 ? (
+          {blogs?.length === 0 ? (
             <div className="flex items-center justify-center lg:mt-10">
               <p>No blogs found</p>
             </div>
           ) : (
-            blogs.map((blog) => <BlogCard blog={blog} key={blog.id} />)
+            blogs?.map((blog) => <BlogCard blog={blog} key={blog.id} />)
           )}
         </div>
       </main>
