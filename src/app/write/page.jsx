@@ -1,4 +1,5 @@
 "use client";
+import CustomTagInput from "@/components/CustomTagInput/CustomTagInput";
 import Tiptap from "@/components/Tiptap/Tiptap";
 import usePrivateRoute from "@/hooks/usePrivateRoute";
 import { Button, Input, Spinner, Select, SelectItem } from "@nextui-org/react";
@@ -12,7 +13,7 @@ const WritePage = () => {
   const [blogTitle, setBlogTitle] = useState(""); // Handle title
   const [blogContent, setBlogContent] = useState(""); // Handle content
   const [coverPhoto, setCoverPhoto] = useState("");
-  const [tags, setTags] = useState("");
+  const [tags, setTags] = useState([]);
   const [category, setCategory] = useState("");
   const [readingTime, setReadingTime] = useState("");
   const [loading, setLoading] = useState(false);
@@ -139,9 +140,8 @@ const WritePage = () => {
           <section>
             <div>
               <Input
-                required
+                isRequired
                 size="lg"
-                className="font-bold text-2xl rounded-none"
                 variant="flat"
                 type="text"
                 placeholder="Write your blog title here..."
@@ -151,12 +151,27 @@ const WritePage = () => {
             </div>
           </section>
 
-          {/* categories and tags section */}
-          <section>
-            <div>
+          {/* cover photo and category section section */}
+          <section className="flex gap-4">
+            {/* cover photo */}
+            <div className="w-full">
+              <Input
+                size="lg"
+                variant="flat"
+                type="url"
+                placeholder="Paste your cover photo link here..."
+                value={coverPhoto}
+                onChange={(e) => setCoverPhoto(e.target.value)}
+              />
+            </div>
+            {/* category */}
+            <div className="w-full">
               <Select
+                size="sm"
+                radius="md"
+                variant="flat"
+                isRequired
                 label="Select a category"
-                className="max-w-xs"
                 onChange={(e) => setCategory(e.target.value)}
                 value={category}
               >
@@ -167,6 +182,11 @@ const WritePage = () => {
                 ))}
               </Select>
             </div>
+          </section>
+
+          {/* tags section */}
+          <section>
+            <CustomTagInput tags={tags} setTags={setTags} maxTags={4} />
           </section>
 
           {/* Tiptap editor section */}

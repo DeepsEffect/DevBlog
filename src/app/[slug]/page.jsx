@@ -38,7 +38,7 @@ const blogDetailsPage = async ({ params }) => {
     postedDate,
     author,
     tags,
-    categories,
+    category,
     readingTime,
     reactions,
   } = blog;
@@ -49,19 +49,19 @@ const blogDetailsPage = async ({ params }) => {
         <CardHeader className="flex flex-col gap-4 items-start ">
           {/* category section */}
           <section>
-            <p className="text-gray-400">{categories.toUpperCase()}</p>
+            <p className="text-gray-400">{category.toUpperCase()}</p>
           </section>
 
           {/* title and tags section */}
           <section>
             <h2 className="text-2xl lg:text-4xl font-bold">{title}</h2>
-            {/* <p className="text-sm mt-2">
+            <p className="text-sm mt-2">
               {tags?.map((tag) => (
                 <Chip className="mr-1" size="sm" key={tag} variant="bordered">
                   # {tag}
                 </Chip>
               ))}
-            </p> */}
+            </p>
           </section>
 
           {/* avatar and posted date */}
