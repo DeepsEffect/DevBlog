@@ -53,8 +53,10 @@ const Tiptap = ({ setContent }) => {
 
   return (
     <div className="w-full mx-auto ">
+
       {/* toolbar */}
       <div className="flex space-x-2 mb-2 mx-auto ">
+
         {/* Bold */}
         <Button
           size="sm"
@@ -66,6 +68,7 @@ const Tiptap = ({ setContent }) => {
         >
           <BiBold className="text-xl" />
         </Button>
+
         {/* Italic */}
         <Button
           size="sm"
@@ -77,6 +80,7 @@ const Tiptap = ({ setContent }) => {
         >
           <BiItalic className="text-xl" />
         </Button>
+
         {/* Underline */}
         <Button
           size="sm"
@@ -88,6 +92,7 @@ const Tiptap = ({ setContent }) => {
         >
           <BiUnderline className="text-xl" />
         </Button>
+        
         {/* Link */}
         <Button
           size="sm"
