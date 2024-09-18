@@ -11,7 +11,12 @@ const SanitizeMarkup = ({ htmlContent }) => {
     }
   }, [htmlContent]);
 
-  return <div dangerouslySetInnerHTML={{ __html: sanitizedContent }} />;
+  return (
+    <div
+      style={{ whiteSpace: "pre-wrap" }}
+      dangerouslySetInnerHTML={{ __html: sanitizedContent }}
+    />
+  );
 };
 
 export default SanitizeMarkup;
