@@ -12,7 +12,7 @@ import BlogCard from "./BlogCard/BlogCard";
 export const Homepage = async () => {
   // fetch the blogs data
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/blogs/api`, {
-    cache: "no-store", // using 'no-store' to ensure fresh data on each request
+    next: { revalidate: 60 }, // Revalidate every 60 seconds
   });
 
   // Handle loading state
