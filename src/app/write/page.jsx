@@ -98,15 +98,15 @@ const WritePage = () => {
   // category lists
   const catItems = [
     {
-      key: "webdev",
+      key: "web-dev",
       label: "Web Dev",
     },
     {
-      key: "frontend",
+      key: "frontend-dev",
       label: "Front-end Dev",
     },
     {
-      key: "backend",
+      key: "backend-dev",
       label: "Back-end Dev",
     },
     {
@@ -114,7 +114,7 @@ const WritePage = () => {
       label: "Framework",
     },
     {
-      key: "js",
+      key: "javascript",
       label: "Javascript",
     },
     {
@@ -122,7 +122,7 @@ const WritePage = () => {
       label: "React.js",
     },
     {
-      key: "nextjs",
+      key: "next.js",
       label: "Next.js",
     },
     {
@@ -144,7 +144,7 @@ const WritePage = () => {
                 size="lg"
                 variant="flat"
                 type="text"
-                placeholder="Write your blog title here..."
+                placeholder="Blog title"
                 value={blogTitle}
                 onChange={(e) => setBlogTitle(e.target.value)}
               />
@@ -159,7 +159,7 @@ const WritePage = () => {
                 size="lg"
                 variant="flat"
                 type="url"
-                placeholder="Paste your cover photo link here..."
+                placeholder="Cover photo link"
                 value={coverPhoto}
                 onChange={(e) => setCoverPhoto(e.target.value)}
               />

@@ -19,7 +19,7 @@ const blogDetailsPage = async ({ params }) => {
 
   // fetch the blog data on the slug
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/blogs/${slug}`, {
-    cache: "no-store", // Disable caching to always fetch fresh data
+    next: { revalidate: 60 }, // Revalidate every 60 seconds
   });
   if (!res.ok) {
     // TODO: show an actual error page
@@ -44,7 +44,7 @@ const blogDetailsPage = async ({ params }) => {
   } = blog;
 
   return (
-    <div className="lg:max-w-[680px] mx-auto">
+    <div className="max-w-3xl mx-auto">
       <Card>
         <CardHeader className="flex flex-col gap-4 items-start ">
           {/* category section */}
