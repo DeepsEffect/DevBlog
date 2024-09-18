@@ -55,13 +55,13 @@ const blogDetailsPage = async ({ params }) => {
           {/* title and tags section */}
           <section>
             <h2 className="text-2xl lg:text-4xl font-bold">{title}</h2>
-            <p className="text-sm mt-2">
+            <div className="flex items-center gap-1 mt-2">
               {tags?.map((tag) => (
                 <Chip className="mr-1" size="sm" key={tag} variant="bordered">
                   # {tag}
                 </Chip>
               ))}
-            </p>
+            </div>
           </section>
 
           {/* avatar and posted date */}
