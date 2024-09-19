@@ -10,10 +10,15 @@ import Italic from "@tiptap/extension-italic";
 import Underline from "@tiptap/extension-underline";
 import Link from "@tiptap/extension-link";
 import Heading from "@tiptap/extension-heading";
-import { BiBold, BiItalic, BiLink, BiUnderline } from "react-icons/bi";
+import { BiBold, BiCode, BiItalic, BiLink, BiUnderline } from "react-icons/bi";
 import { Button } from "@nextui-org/react";
 import { LuHeading1, LuHeading2, LuHeading3 } from "react-icons/lu";
+import CodeBlockLowlight from "@tiptap/extension-code-block-lowlight";
+import { all, createLowlight } from "lowlight";
 import "./styles.css";
+
+// create a lowlight instance
+const lowlight = createLowlight(all);
 
 const Tiptap = ({ setContent }) => {
   const editor = useEditor({
@@ -31,6 +36,9 @@ const Tiptap = ({ setContent }) => {
           class: "my-custom-class",
           levels: [1, 2, 3],
         },
+      }),
+      CodeBlockLowlight.configure({
+        lowlight,
       }),
       Placeholder.configure({
         placeholder: "Write your blog content here...",
@@ -154,6 +162,18 @@ const Tiptap = ({ setContent }) => {
           className={editor.isActive("link") ? "bg-primary" : ""}
         >
           <BiLink className="text-xl" />
+        </Button>
+
+        {/* codeBlock */}
+        <Button
+          size="sm"
+          variant="flat"
+          isIconOnly
+          auto
+          onClick={() => editor.chain().focus().setCodeBlock().run()}
+          className={editor.isActive("codeBlock") ? "bg-primary" : ""}
+        >
+          <BiCode className="text-xl" />
         </Button>
       </div>
 

@@ -7,7 +7,9 @@ const SanitizeMarkup = ({ htmlContent }) => {
 
   useEffect(() => {
     if (htmlContent) {
-      setSanitizedContent(DOMPurify.sanitize(htmlContent));
+      setSanitizedContent(DOMPurify.sanitize(htmlContent), {
+        ALLOWED_TAGS: [],
+      });
     }
   }, [htmlContent]);
 
