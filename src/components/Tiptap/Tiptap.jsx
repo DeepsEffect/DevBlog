@@ -10,7 +10,14 @@ import Italic from "@tiptap/extension-italic";
 import Underline from "@tiptap/extension-underline";
 import Link from "@tiptap/extension-link";
 import Heading from "@tiptap/extension-heading";
-import { BiBold, BiCode, BiItalic, BiLink, BiUnderline } from "react-icons/bi";
+import {
+  BiBold,
+  BiCode,
+  BiItalic,
+  BiLink,
+  BiUnderline,
+  BiUnlink,
+} from "react-icons/bi";
 import { Button } from "@nextui-org/react";
 import { LuHeading1, LuHeading2, LuHeading3 } from "react-icons/lu";
 import CodeBlockLowlight from "@tiptap/extension-code-block-lowlight";
@@ -19,6 +26,7 @@ import { GoListOrdered, GoListUnordered } from "react-icons/go";
 import OrderedList from "@tiptap/extension-ordered-list";
 import ListItem from "@tiptap/extension-list-item";
 import BulletList from "@tiptap/extension-bullet-list";
+import { useCallback } from "react";
 import "./styles.css";
 
 // create a lowlight instance
@@ -47,6 +55,11 @@ const Tiptap = ({ setContent }) => {
       CodeBlockLowlight.configure({
         lowlight,
       }),
+      Link.configure({
+        HTMLAttributes: {
+          class: "custom-tiptap-link",
+        },
+      }),
       OrderedList.configure({
         itemTypeName: "listItem",
         HTMLAttributes: {
@@ -74,6 +87,27 @@ const Tiptap = ({ setContent }) => {
       setContent(html);
     },
   });
+
+  // set link functionality
+  const setLink = useCallback(() => {
+    const previousUrl = editor.getAttributes("link").href;
+    const url = window.prompt("URL", previousUrl);
+
+    // cancelled
+    if (url === null) {
+      return;
+    }
+
+    // empty
+    if (url === "") {
+      editor.chain().focus().extendMarkRange("link").unsetLink().run();
+
+      return;
+    }
+
+    // update link
+    editor.chain().focus().extendMarkRange("link").setLink({ href: url }).run();
+  }, [editor]);
 
   if (!editor) {
     return null;
@@ -173,13 +207,22 @@ const Tiptap = ({ setContent }) => {
           variant="flat"
           isIconOnly
           auto
-          onClick={() => {
-            const url = prompt("Enter the URL");
-            editor.chain().focus().setLink({ href: url }).run();
-          }}
+          onClick={setLink}
           className={editor.isActive("link") ? "bg-primary" : ""}
         >
           <BiLink className="text-2xl" />
+        </Button>
+
+        {/* unset link */}
+        <Button
+          size="sm"
+          variant="flat"
+          isIconOnly
+          auto
+          onClick={() => editor.chain().focus().unsetLink().run()}
+          disabled={!editor.isActive("link")}
+        >
+          <BiUnlink className="text-2xl" />
         </Button>
 
         {/* codeBlock */}

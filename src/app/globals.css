@@ -56,6 +56,31 @@ h3.my-custom-class {
   margin-bottom: 0.6rem;
 }
 
+/* link styles */
+.custom-tiptap-link {
+  color: #007bff;
+  text-decoration: none;
+  transition: color 0.3s ease, text-decoration 0.3s ease;
+}
+
+.custom-tiptap-link:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+
+.custom-tiptap-link:active {
+  color: #003d80;
+}
+
+.custom-tiptap-link:focus {
+  outline: 2px solid #80bdff;
+  outline-offset: 2px;
+}
+
+.custom-tiptap-link:visited {
+  color: #551a8b;
+}
+
 /* ordered list  */
 .custom-ordered-list,
 .rendered-content ol {
@@ -109,10 +134,34 @@ h3.my-custom-class {
   margin-bottom: 0.5em;
 }
 
-/* Basic editor styles */
+/* Basic editor styles, this shows only on the tiptap editor */
 .tiptap {
   :first-child {
     margin-top: 0;
+  }
+  /* link styles */
+  .custom-tiptap-link {
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.3s ease, text-decoration 0.3s ease;
+  }
+
+  .custom-tiptap-link:hover {
+    color: #0056b3;
+    text-decoration: underline;
+  }
+
+  .custom-tiptap-link:active {
+    color: #003d80;
+  }
+
+  .custom-tiptap-link:focus {
+    outline: 2px solid #80bdff;
+    outline-offset: 2px;
+  }
+
+  .custom-tiptap-link:visited {
+    color: #551a8b;
   }
 
   /* Ordered List Styles */
