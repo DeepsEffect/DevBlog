@@ -42,6 +42,7 @@ const CustomTagInput = ({ tags, setTags, maxTags = 4 }) => {
     <div className="space-y-2">
       <Input
         label="Add tags (max 4)"
+        variant="flat"
         placeholder="Type and press Enter to add a tag"
         value={inputValue}
         onChange={handleInputChange}
@@ -62,7 +63,7 @@ const CustomTagInput = ({ tags, setTags, maxTags = 4 }) => {
               key={tag}
               size="sm"
               auto
-              flat
+              variant="flat"
               onClick={() => addTag(tag)}
               disabled={tags.includes(tag) || tags.length >= maxTags}
             >
