@@ -15,7 +15,10 @@ import { Button } from "@nextui-org/react";
 import { LuHeading1, LuHeading2, LuHeading3 } from "react-icons/lu";
 import CodeBlockLowlight from "@tiptap/extension-code-block-lowlight";
 import { all, createLowlight } from "lowlight";
+import { GoListOrdered } from "react-icons/go";
 import "./styles.css";
+import OrderedList from "@tiptap/extension-ordered-list";
+import ListItem from "@tiptap/extension-list-item";
 
 // create a lowlight instance
 const lowlight = createLowlight(all);
@@ -29,6 +32,8 @@ const Tiptap = ({ setContent }) => {
       Underline,
       Link,
       Document,
+      OrderedList,
+      ListItem,
       Text,
       Paragraph,
       Heading.configure({
@@ -39,6 +44,12 @@ const Tiptap = ({ setContent }) => {
       }),
       CodeBlockLowlight.configure({
         lowlight,
+      }),
+      OrderedList.configure({
+        itemTypeName: "listItem",
+        HTMLAttributes: {
+          class: "custom-ordered-list",
+        },
       }),
       Placeholder.configure({
         placeholder: "Write your blog content here...",
@@ -170,10 +181,22 @@ const Tiptap = ({ setContent }) => {
           variant="flat"
           isIconOnly
           auto
-          onClick={() => editor.chain().focus().setCodeBlock().run()}
+          onClick={() => editor.chain().focus().toggleCodeBlock().run()}
           className={editor.isActive("codeBlock") ? "bg-primary" : ""}
         >
           <BiCode className="text-xl" />
+        </Button>
+
+        {/* ordered lists */}
+        <Button
+          size="sm"
+          variant="flat"
+          isIconOnly
+          auto
+          onClick={() => editor.chain().focus().toggleOrderedList().run()}
+          className={editor.isActive("orderedList") ? "bg-primary" : ""}
+        >
+          <GoListOrdered className="text-xl" />
         </Button>
       </div>
 
