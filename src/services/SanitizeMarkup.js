@@ -2,7 +2,7 @@
 import DOMPurify from "dompurify";
 import React, { useEffect, useState } from "react";
 import hljs from "highlight.js";
-import "highlight.js/styles/atom-one-dark.css"; 
+import "highlight.js/styles/atom-one-dark.css";
 
 const SanitizeMarkup = ({ htmlContent }) => {
   const [sanitizedContent, setSanitizedContent] = useState("");
@@ -47,6 +47,7 @@ const SanitizeMarkup = ({ htmlContent }) => {
 
   return (
     <div
+      // className="rendered-content"
       dangerouslySetInnerHTML={{ __html: sanitizedContent }}
     />
   );

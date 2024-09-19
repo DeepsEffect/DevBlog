@@ -15,10 +15,11 @@ import { Button } from "@nextui-org/react";
 import { LuHeading1, LuHeading2, LuHeading3 } from "react-icons/lu";
 import CodeBlockLowlight from "@tiptap/extension-code-block-lowlight";
 import { all, createLowlight } from "lowlight";
-import { GoListOrdered } from "react-icons/go";
-import "./styles.css";
+import { GoListOrdered, GoListUnordered } from "react-icons/go";
 import OrderedList from "@tiptap/extension-ordered-list";
 import ListItem from "@tiptap/extension-list-item";
+import BulletList from "@tiptap/extension-bullet-list";
+import "./styles.css";
 
 // create a lowlight instance
 const lowlight = createLowlight(all);
@@ -33,6 +34,7 @@ const Tiptap = ({ setContent }) => {
       Link,
       Document,
       OrderedList,
+      BulletList,
       ListItem,
       Text,
       Paragraph,
@@ -49,6 +51,11 @@ const Tiptap = ({ setContent }) => {
         itemTypeName: "listItem",
         HTMLAttributes: {
           class: "custom-ordered-list",
+        },
+      }),
+      BulletList.configure({
+        HTMLAttributes: {
+          class: "custom-unordered-list",
         },
       }),
       Placeholder.configure({
@@ -197,6 +204,18 @@ const Tiptap = ({ setContent }) => {
           className={editor.isActive("orderedList") ? "bg-primary" : ""}
         >
           <GoListOrdered className="text-xl" />
+        </Button>
+
+        {/* unordered lists */}
+        <Button
+          size="sm"
+          variant="flat"
+          isIconOnly
+          auto
+          onClick={() => editor.chain().focus().toggleBulletList().run()}
+          className={editor.isActive("bulletList") ? "bg-primary" : ""}
+        >
+          <GoListUnordered className="text-xl" />
         </Button>
       </div>
 
