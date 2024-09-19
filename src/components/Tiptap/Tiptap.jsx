@@ -12,7 +12,7 @@ import Link from "@tiptap/extension-link";
 import Heading from "@tiptap/extension-heading";
 import { BiBold, BiItalic, BiLink, BiUnderline } from "react-icons/bi";
 import { Button } from "@nextui-org/react";
-import { LuHeading1 } from "react-icons/lu";
+import { LuHeading1, LuHeading2, LuHeading3 } from "react-icons/lu";
 import "./styles.css";
 
 const Tiptap = ({ setContent }) => {
@@ -71,6 +71,38 @@ const Tiptap = ({ setContent }) => {
           }
         >
           <LuHeading1 className="text-xl" />
+        </Button>
+
+        {/* heading 2 */}
+        <Button
+          size="sm"
+          variant="flat"
+          isIconOnly
+          auto
+          onClick={() =>
+            editor.chain().focus().toggleHeading({ level: 2 }).run()
+          }
+          className={
+            editor.isActive("heading", { level: 2 }) ? "bg-primary" : ""
+          }
+        >
+          <LuHeading2 className="text-xl" />
+        </Button>
+
+        {/* heading 3 */}
+        <Button
+          size="sm"
+          variant="flat"
+          isIconOnly
+          auto
+          onClick={() =>
+            editor.chain().focus().toggleHeading({ level: 3 }).run()
+          }
+          className={
+            editor.isActive("heading", { level: 3 }) ? "bg-primary" : ""
+          }
+        >
+          <LuHeading3 className="text-xl" />
         </Button>
 
         {/* Bold */}
