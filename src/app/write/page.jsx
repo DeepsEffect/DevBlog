@@ -140,11 +140,10 @@ const WritePage = () => {
           <section>
             <div>
               <Input
+                required
                 isRequired
-                size="lg"
-                variant="flat"
                 type="text"
-                placeholder="Blog title"
+                label={"Add blog title"}
                 value={blogTitle}
                 onChange={(e) => setBlogTitle(e.target.value)}
               />
@@ -156,10 +155,9 @@ const WritePage = () => {
             {/* cover photo */}
             <div className="w-full">
               <Input
-                size="lg"
                 variant="flat"
                 type="url"
-                placeholder="Cover photo link"
+                label={"Cover photo link (optional)"}
                 value={coverPhoto}
                 onChange={(e) => setCoverPhoto(e.target.value)}
               />
@@ -167,7 +165,8 @@ const WritePage = () => {
             {/* category */}
             <div className="w-full">
               <Select
-                size="sm"
+                required
+                isRequired
                 radius="md"
                 variant="flat"
                 label="Select a category"

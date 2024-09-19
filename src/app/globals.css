@@ -78,7 +78,7 @@ h3.my-custom-class {
 }
 
 .custom-tiptap-link:visited {
-  color: #551a8b;
+  color: #8a25e8;
 }
 
 /* ordered list  */
@@ -160,9 +160,6 @@ h3.my-custom-class {
     outline-offset: 2px;
   }
 
-  .custom-tiptap-link:visited {
-    color: #551a8b;
-  }
 
   /* Ordered List Styles */
   ol {
