@@ -9,10 +9,10 @@ import Bold from "@tiptap/extension-bold";
 import Italic from "@tiptap/extension-italic";
 import Underline from "@tiptap/extension-underline";
 import Link from "@tiptap/extension-link";
-import Code from "@tiptap/extension-code";
 import Heading from "@tiptap/extension-heading";
 import { BiBold, BiItalic, BiLink, BiUnderline } from "react-icons/bi";
 import { Button } from "@nextui-org/react";
+import { LuHeading1 } from "react-icons/lu";
 import "./styles.css";
 
 const Tiptap = ({ setContent }) => {
@@ -26,9 +26,11 @@ const Tiptap = ({ setContent }) => {
       Document,
       Text,
       Paragraph,
-      Code,
       Heading.configure({
-        levels: [1, 2, 3],
+        HTMLAttributes: {
+          class: "my-custom-class",
+          levels: [1, 2, 3],
+        },
       }),
       Placeholder.configure({
         placeholder: "Write your blog content here...",
@@ -53,9 +55,23 @@ const Tiptap = ({ setContent }) => {
 
   return (
     <div className="w-full mx-auto ">
-
       {/* toolbar */}
       <div className="flex space-x-2 mb-2 mx-auto ">
+        {/* heading 1 */}
+        <Button
+          size="sm"
+          variant="flat"
+          isIconOnly
+          auto
+          onClick={() =>
+            editor.chain().focus().toggleHeading({ level: 1 }).run()
+          }
+          className={
+            editor.isActive("heading", { level: 1 }) ? "bg-primary" : ""
+          }
+        >
+          <LuHeading1 className="text-xl" />
+        </Button>
 
         {/* Bold */}
         <Button
@@ -92,7 +108,7 @@ const Tiptap = ({ setContent }) => {
         >
           <BiUnderline className="text-xl" />
         </Button>
-        
+
         {/* Link */}
         <Button
           size="sm"
