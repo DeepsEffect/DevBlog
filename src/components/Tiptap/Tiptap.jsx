@@ -18,7 +18,7 @@ import {
   BiUnderline,
   BiUnlink,
 } from "react-icons/bi";
-import { Button } from "@nextui-org/react";
+import { Button, Tooltip } from "@nextui-org/react";
 import { LuHeading1, LuHeading2, LuHeading3 } from "react-icons/lu";
 import CodeBlockLowlight from "@tiptap/extension-code-block-lowlight";
 import { all, createLowlight } from "lowlight";
@@ -118,148 +118,170 @@ const Tiptap = ({ setContent }) => {
       {/* toolbar */}
       <div className="flex flex-wrap gap-2 mb-2 mx-auto">
         {/* heading 1 */}
-        <Button
-          size="sm"
-          variant="flat"
-          isIconOnly
-          auto
-          onClick={() =>
-            editor.chain().focus().toggleHeading({ level: 1 }).run()
-          }
-          className={
-            editor.isActive("heading", { level: 1 }) ? "bg-primary" : ""
-          }
-        >
-          <LuHeading1 className="text-2xl" />
-        </Button>
+        <Tooltip content="heading 1">
+          <Button
+            size="sm"
+            variant="flat"
+            isIconOnly
+            auto
+            onClick={() =>
+              editor.chain().focus().toggleHeading({ level: 1 }).run()
+            }
+            className={
+              editor.isActive("heading", { level: 1 }) ? "bg-primary" : ""
+            }
+          >
+            <LuHeading1 className="text-2xl" />
+          </Button>
+        </Tooltip>
 
         {/* heading 2 */}
-        <Button
-          size="sm"
-          variant="flat"
-          isIconOnly
-          auto
-          onClick={() =>
-            editor.chain().focus().toggleHeading({ level: 2 }).run()
-          }
-          className={
-            editor.isActive("heading", { level: 2 }) ? "bg-primary" : ""
-          }
-        >
-          <LuHeading2 className="text-2xl" />
-        </Button>
+        <Tooltip content="heading 2">
+          <Button
+            size="sm"
+            variant="flat"
+            isIconOnly
+            auto
+            onClick={() =>
+              editor.chain().focus().toggleHeading({ level: 2 }).run()
+            }
+            className={
+              editor.isActive("heading", { level: 2 }) ? "bg-primary" : ""
+            }
+          >
+            <LuHeading2 className="text-2xl" />
+          </Button>
+        </Tooltip>
 
         {/* heading 3 */}
-        <Button
-          size="sm"
-          variant="flat"
-          isIconOnly
-          auto
-          onClick={() =>
-            editor.chain().focus().toggleHeading({ level: 3 }).run()
-          }
-          className={
-            editor.isActive("heading", { level: 3 }) ? "bg-primary" : ""
-          }
-        >
-          <LuHeading3 className="text-2xl" />
-        </Button>
+        <Tooltip content="Heading 3">
+          <Button
+            size="sm"
+            variant="flat"
+            isIconOnly
+            auto
+            onClick={() =>
+              editor.chain().focus().toggleHeading({ level: 3 }).run()
+            }
+            className={
+              editor.isActive("heading", { level: 3 }) ? "bg-primary" : ""
+            }
+          >
+            <LuHeading3 className="text-2xl" />
+          </Button>
+        </Tooltip>
 
         {/* Bold */}
-        <Button
-          size="sm"
-          variant="flat"
-          isIconOnly
-          auto
-          onClick={() => editor.chain().focus().toggleBold().run()}
-          className={editor.isActive("bold") ? "bg-primary" : ""}
-        >
-          <BiBold className="text-2xl" />
-        </Button>
+        <Tooltip content="Bold">
+          <Button
+            size="sm"
+            variant="flat"
+            isIconOnly
+            auto
+            onClick={() => editor.chain().focus().toggleBold().run()}
+            className={editor.isActive("bold") ? "bg-primary" : ""}
+          >
+            <BiBold className="text-2xl" />
+          </Button>
+        </Tooltip>
 
         {/* Italic */}
-        <Button
-          size="sm"
-          variant="flat"
-          isIconOnly
-          auto
-          onClick={() => editor.chain().focus().toggleItalic().run()}
-          className={editor.isActive("italic") ? "bg-primary" : ""}
-        >
-          <BiItalic className="text-2xl" />
-        </Button>
-
-        {/* Underline */}
-        <Button
-          size="sm"
-          variant="flat"
-          isIconOnly
-          auto
-          onClick={() => editor.chain().focus().toggleUnderline().run()}
-          className={editor.isActive("underline") ? "bg-primary" : ""}
-        >
-          <BiUnderline className="text-2xl" />
-        </Button>
-
-        {/* Link */}
-        <Button
-          size="sm"
-          variant="flat"
-          isIconOnly
-          auto
-          onClick={setLink}
-          className={editor.isActive("link") ? "bg-primary" : ""}
-        >
-          <BiLink className="text-2xl" />
-        </Button>
-
-        {/* unset link */}
-        <Button
-          size="sm"
-          variant="flat"
-          isIconOnly
-          auto
-          onClick={() => editor.chain().focus().unsetLink().run()}
-          disabled={!editor.isActive("link")}
-        >
-          <BiUnlink className="text-2xl" />
-        </Button>
+        <Tooltip content="Italic">
+          <Button
+            size="sm"
+            variant="flat"
+            isIconOnly
+            auto
+            onClick={() => editor.chain().focus().toggleItalic().run()}
+            className={editor.isActive("italic") ? "bg-primary" : ""}
+          >
+            <BiItalic className="text-2xl" />
+          </Button>
+        </Tooltip>
 
         {/* codeBlock */}
-        <Button
-          size="sm"
-          variant="flat"
-          isIconOnly
-          auto
-          onClick={() => editor.chain().focus().toggleCodeBlock().run()}
-          className={editor.isActive("codeBlock") ? "bg-primary" : ""}
-        >
-          <BiCode className="text-2xl" />
-        </Button>
+        <Tooltip content="Code Block">
+          <Button
+            size="sm"
+            variant="flat"
+            isIconOnly
+            auto
+            onClick={() => editor.chain().focus().toggleCodeBlock().run()}
+            className={editor.isActive("codeBlock") ? "bg-primary" : ""}
+          >
+            <BiCode className="text-3xl" />
+          </Button>
+        </Tooltip>
 
-        {/* ordered lists */}
-        <Button
-          size="sm"
-          variant="flat"
-          isIconOnly
-          auto
-          onClick={() => editor.chain().focus().toggleOrderedList().run()}
-          className={editor.isActive("orderedList") ? "bg-primary" : ""}
-        >
-          <GoListOrdered className="text-2xl" />
-        </Button>
+        {/* Link */}
+        <Tooltip content="Link">
+          <Button
+            size="sm"
+            variant="flat"
+            isIconOnly
+            auto
+            onClick={setLink}
+            className={editor.isActive("link") ? "bg-primary" : ""}
+          >
+            <BiLink className="text-2xl" />
+          </Button>
+        </Tooltip>
+
+        {/* unset link */}
+        <Tooltip content="Remove Link">
+          <Button
+            size="sm"
+            variant="flat"
+            isIconOnly
+            auto
+            onClick={() => editor.chain().focus().unsetLink().run()}
+            disabled={!editor.isActive("link")}
+          >
+            <BiUnlink className="text-2xl" />
+          </Button>
+        </Tooltip>
+
+        {/* Underline */}
+        <Tooltip content="Underline">
+          <Button
+            size="sm"
+            variant="flat"
+            isIconOnly
+            auto
+            onClick={() => editor.chain().focus().toggleUnderline().run()}
+            className={editor.isActive("underline") ? "bg-primary" : ""}
+          >
+            <BiUnderline className="text-2xl" />
+          </Button>
+        </Tooltip>
 
         {/* unordered lists */}
-        <Button
-          size="sm"
-          variant="flat"
-          isIconOnly
-          auto
-          onClick={() => editor.chain().focus().toggleBulletList().run()}
-          className={editor.isActive("bulletList") ? "bg-primary" : ""}
-        >
-          <GoListUnordered className="text-2xl" />
-        </Button>
+        <Tooltip content="Unordered List">
+          <Button
+            size="sm"
+            variant="flat"
+            isIconOnly
+            auto
+            onClick={() => editor.chain().focus().toggleBulletList().run()}
+            className={editor.isActive("bulletList") ? "bg-primary" : ""}
+          >
+            <GoListUnordered className="text-2xl" />
+          </Button>
+        </Tooltip>
+
+        {/* ordered lists */}
+        <Tooltip content="Ordered List">
+          <Button
+            size="sm"
+            variant="flat"
+            isIconOnly
+            auto
+            onClick={() => editor.chain().focus().toggleOrderedList().run()}
+            className={editor.isActive("orderedList") ? "bg-primary" : ""}
+          >
+            <GoListOrdered className="text-2xl" />
+          </Button>
+        </Tooltip>
       </div>
 
       {/* editor */}
