@@ -82,7 +82,7 @@ const Tiptap = ({ setContent }) => {
   return (
     <div className="w-full mx-auto ">
       {/* toolbar */}
-      <div className="flex space-x-2 mb-2 mx-auto ">
+      <div className="flex flex-wrap gap-2 mb-2 mx-auto">
         {/* heading 1 */}
         <Button
           size="sm"
@@ -96,7 +96,7 @@ const Tiptap = ({ setContent }) => {
             editor.isActive("heading", { level: 1 }) ? "bg-primary" : ""
           }
         >
-          <LuHeading1 className="text-xl" />
+          <LuHeading1 className="text-2xl" />
         </Button>
 
         {/* heading 2 */}
@@ -112,7 +112,7 @@ const Tiptap = ({ setContent }) => {
             editor.isActive("heading", { level: 2 }) ? "bg-primary" : ""
           }
         >
-          <LuHeading2 className="text-xl" />
+          <LuHeading2 className="text-2xl" />
         </Button>
 
         {/* heading 3 */}
@@ -128,7 +128,7 @@ const Tiptap = ({ setContent }) => {
             editor.isActive("heading", { level: 3 }) ? "bg-primary" : ""
           }
         >
-          <LuHeading3 className="text-xl" />
+          <LuHeading3 className="text-2xl" />
         </Button>
 
         {/* Bold */}
@@ -140,7 +140,7 @@ const Tiptap = ({ setContent }) => {
           onClick={() => editor.chain().focus().toggleBold().run()}
           className={editor.isActive("bold") ? "bg-primary" : ""}
         >
-          <BiBold className="text-xl" />
+          <BiBold className="text-2xl" />
         </Button>
 
         {/* Italic */}
@@ -152,7 +152,7 @@ const Tiptap = ({ setContent }) => {
           onClick={() => editor.chain().focus().toggleItalic().run()}
           className={editor.isActive("italic") ? "bg-primary" : ""}
         >
-          <BiItalic className="text-xl" />
+          <BiItalic className="text-2xl" />
         </Button>
 
         {/* Underline */}
@@ -164,7 +164,7 @@ const Tiptap = ({ setContent }) => {
           onClick={() => editor.chain().focus().toggleUnderline().run()}
           className={editor.isActive("underline") ? "bg-primary" : ""}
         >
-          <BiUnderline className="text-xl" />
+          <BiUnderline className="text-2xl" />
         </Button>
 
         {/* Link */}
@@ -179,7 +179,7 @@ const Tiptap = ({ setContent }) => {
           }}
           className={editor.isActive("link") ? "bg-primary" : ""}
         >
-          <BiLink className="text-xl" />
+          <BiLink className="text-2xl" />
         </Button>
 
         {/* codeBlock */}
@@ -191,7 +191,7 @@ const Tiptap = ({ setContent }) => {
           onClick={() => editor.chain().focus().toggleCodeBlock().run()}
           className={editor.isActive("codeBlock") ? "bg-primary" : ""}
         >
-          <BiCode className="text-xl" />
+          <BiCode className="text-2xl" />
         </Button>
 
         {/* ordered lists */}
@@ -203,7 +203,7 @@ const Tiptap = ({ setContent }) => {
           onClick={() => editor.chain().focus().toggleOrderedList().run()}
           className={editor.isActive("orderedList") ? "bg-primary" : ""}
         >
-          <GoListOrdered className="text-xl" />
+          <GoListOrdered className="text-2xl" />
         </Button>
 
         {/* unordered lists */}
@@ -215,7 +215,7 @@ const Tiptap = ({ setContent }) => {
           onClick={() => editor.chain().focus().toggleBulletList().run()}
           className={editor.isActive("bulletList") ? "bg-primary" : ""}
         >
-          <GoListUnordered className="text-xl" />
+          <GoListUnordered className="text-2xl" />
         </Button>
       </div>
 

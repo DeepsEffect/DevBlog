@@ -152,7 +152,7 @@ const WritePage = () => {
           </section>
 
           {/* cover photo and category section section */}
-          <section className=" flex flex-col lg:fle-row gap-4">
+          <section className=" flex flex-row lg:fle-col gap-4">
             {/* cover photo */}
             <div className="w-full">
               <Input
