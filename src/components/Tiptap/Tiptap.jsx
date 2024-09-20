@@ -21,16 +21,13 @@ import {
 import { Button, Tooltip } from "@nextui-org/react";
 import { LuHeading1, LuHeading2, LuHeading3 } from "react-icons/lu";
 import CodeBlockLowlight from "@tiptap/extension-code-block-lowlight";
-import { all, createLowlight } from "lowlight";
 import { GoListOrdered, GoListUnordered } from "react-icons/go";
 import OrderedList from "@tiptap/extension-ordered-list";
 import ListItem from "@tiptap/extension-list-item";
 import BulletList from "@tiptap/extension-bullet-list";
 import { useCallback } from "react";
 import "./styles.css";
-
-// create a lowlight instance
-const lowlight = createLowlight(all);
+import CodeBlock from "@tiptap/extension-code-block";
 
 const Tiptap = ({ setContent }) => {
   const editor = useEditor({
@@ -46,14 +43,12 @@ const Tiptap = ({ setContent }) => {
       ListItem,
       Text,
       Paragraph,
+      CodeBlock,
       Heading.configure({
         HTMLAttributes: {
           class: "my-custom-class",
           levels: [1, 2, 3],
         },
-      }),
-      CodeBlockLowlight.configure({
-        lowlight,
       }),
       Link.configure({
         HTMLAttributes: {

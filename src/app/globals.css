@@ -160,7 +160,6 @@ h3.my-custom-class {
     outline-offset: 2px;
   }
 
-
   /* Ordered List Styles */
   ol {
     list-style-type: decimal;
@@ -181,86 +180,5 @@ h3.my-custom-class {
 
   ul li {
     margin-bottom: 0.5em;
-  }
-
-  /* Code Block Styles */
-  pre {
-    background: var(--black, #1e1e1e);
-    border-radius: 0.5rem;
-    color: var(--white, #ffffff);
-    font-family: "JetBrainsMono", monospace;
-    margin: 1.5rem 0;
-    padding: 0.75rem 1rem;
-    overflow-x: auto;
-
-    code {
-      background: none;
-      color: inherit;
-      font-size: 0.9rem;
-      padding: 0;
-    }
-
-    /* Code syntax highlighting */
-    .hljs-comment,
-    .hljs-quote {
-      color: #6a9955;
-    }
-
-    .hljs-variable,
-    .hljs-template-variable,
-    .hljs-attribute,
-    .hljs-tag,
-    .hljs-name,
-    .hljs-regexp,
-    .hljs-link,
-    .hljs-name,
-    .hljs-selector-id,
-    .hljs-selector-class {
-      color: #d16969;
-    }
-
-    .hljs-number,
-    .hljs-meta,
-    .hljs-built_in,
-    .hljs-builtin-name,
-    .hljs-literal,
-    .hljs-type,
-    .hljs-params {
-      color: #b5cea8;
-    }
-
-    .hljs-string,
-    .hljs-symbol,
-    .hljs-bullet {
-      color: #ce9178;
-    }
-
-    .hljs-title,
-    .hljs-section {
-      color: #dcdcaa;
-    }
-
-    .hljs-keyword,
-    .hljs-selector-tag {
-      color: #569cd6;
-    }
-
-    .hljs-emphasis {
-      font-style: italic;
-    }
-
-    .hljs-strong {
-      font-weight: 700;
-    }
-  }
-
-  /* Inline code styles */
-  p code {
-    background-color: rgba(#616161, 0.1);
-    border-radius: 0.25em;
-    box-decoration-break: clone;
-    color: #616161;
-    font-size: 0.9rem;
-    padding: 0.15em 0.3em;
   }
 }
