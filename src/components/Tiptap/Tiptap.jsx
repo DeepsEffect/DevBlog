@@ -20,7 +20,6 @@ import {
 } from "react-icons/bi";
 import { Button, Tooltip } from "@nextui-org/react";
 import { LuHeading1, LuHeading2, LuHeading3 } from "react-icons/lu";
-import CodeBlockLowlight from "@tiptap/extension-code-block-lowlight";
 import { GoListOrdered, GoListUnordered } from "react-icons/go";
 import OrderedList from "@tiptap/extension-ordered-list";
 import ListItem from "@tiptap/extension-list-item";
