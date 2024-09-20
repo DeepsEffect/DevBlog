@@ -7,7 +7,13 @@ export const GET = async () => {
 
     // fetch all the blogs data from the database
     const blogs = await db.collection("blogs").find().toArray();
-    return new Response(JSON.stringify(blogs), { status: 200 });
+    return new Response(JSON.stringify(blogs), {
+      status: 200,
+      headers: {
+        "Content-Type": "application/json",
+        "Cache-Control": "no-store, max-age=0",
+      },
+    });
   } catch (error) {
     return new Response(
       JSON.stringify({ message: "Error fetching blogs", error }),
