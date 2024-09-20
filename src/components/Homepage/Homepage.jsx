@@ -13,10 +13,8 @@ export const Homepage = async () => {
   // fetch the blogs data
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/blogs/api`, {
     cache: "no-store",
-    headers: {
-      "Cache-Control": "no-cache, no-store, must-revalidate",
-      Pragma: "no-cache",
-      Expires: "0",
+    next: {
+      revalidate: 0,
     },
   });
 
