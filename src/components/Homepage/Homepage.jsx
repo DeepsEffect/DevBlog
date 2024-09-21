@@ -18,7 +18,7 @@ const fetchBlogs = async () => {
       `${process.env.NEXT_PUBLIC_API_URL}/blogs/api`,
       {
         headers: {
-          "Cache-Control": "no-store",
+          "Cache-Control": "no-store max-age=0",
         },
       }
     );
