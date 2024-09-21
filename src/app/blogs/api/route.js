@@ -11,7 +11,7 @@ export const GET = async () => {
       status: 200,
       headers: {
         "Content-Type": "application/json",
-        "Cache-Control": "no-cache, no-store, must-revalidate",
+        "Cache-Control": "no-cache, no-store, must-revalidate max-ago=0",
       },
     });
   } catch (error) {
