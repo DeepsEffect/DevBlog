@@ -5,7 +5,7 @@ export const GET = async () => {
     // connect to the database
     const db = await connectDB();
 
-    // fetch all the blogs data from the database
+    // get all the blogs data from the database
     const blogs = await db.collection("blogs").find().toArray();
     return new Response(JSON.stringify(blogs), {
       status: 200,
@@ -20,4 +20,4 @@ export const GET = async () => {
       { status: 500 }
     );
   }
-};
+}; 

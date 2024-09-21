@@ -1,10 +1,8 @@
 "use client";
 import { useEditor, EditorContent } from "@tiptap/react";
-import StarterKit from "@tiptap/starter-kit";
 import Document from "@tiptap/extension-document";
 import Placeholder from "@tiptap/extension-placeholder";
 import Paragraph from "@tiptap/extension-paragraph";
-import Text from "@tiptap/extension-text";
 import Bold from "@tiptap/extension-bold";
 import Italic from "@tiptap/extension-italic";
 import Underline from "@tiptap/extension-underline";
@@ -25,13 +23,15 @@ import OrderedList from "@tiptap/extension-ordered-list";
 import ListItem from "@tiptap/extension-list-item";
 import BulletList from "@tiptap/extension-bullet-list";
 import { useCallback } from "react";
-import "./styles.css";
 import CodeBlock from "@tiptap/extension-code-block";
+import "./styles.css";
+import Text from "@tiptap/extension-text";
 
 const Tiptap = ({ setContent }) => {
   const editor = useEditor({
+    immediatelyRender: false,
     extensions: [
-      StarterKit,
+      Text,
       Bold,
       Italic,
       Underline,
@@ -40,7 +40,6 @@ const Tiptap = ({ setContent }) => {
       OrderedList,
       BulletList,
       ListItem,
-      Text,
       Paragraph,
       CodeBlock,
       Heading.configure({
