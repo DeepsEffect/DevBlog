@@ -31,7 +31,7 @@ const fetchBlogs = async () => {
 
 export const Homepage = async () => {
   const blogs = await fetchBlogs();
-  console.log(blogs);
+  // console.log(blogs);  
   return (
     <div className="container mx-auto grid grid-cols-1 md:grid-cols-4 lg:grid-cols-12 gap-4 md:px-4 py-6 ">
       {/* TODO: toggle button for right sidebar for mobile view */}

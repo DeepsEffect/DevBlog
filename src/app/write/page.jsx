@@ -88,7 +88,7 @@ const WritePage = () => {
     const baseSlug = title
       .toLowerCase()
       .replace(/[^a-z0-9]+/g, "-")
-      .replace(/^-|-$/g, "");
+      .replace(/(^-|-$)/g, "");
 
     const uniquePart = Math.random().toString(36).substring(2, 6); // Generates a 4-character random string
 
