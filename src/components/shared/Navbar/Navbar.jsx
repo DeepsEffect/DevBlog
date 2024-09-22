@@ -134,7 +134,16 @@ export const Navbar = () => {
                     <p className="font-semibold">{session.data?.user?.email}</p>
                   </DropdownItem>
                   <DropdownItem key="profile">My Profile</DropdownItem>
-                  <DropdownItem key="blogs">My Blogs</DropdownItem>
+
+                  <DropdownItem key="blogs">
+                    <Link
+                      href={`/my-blogs?email=${encodeURIComponent(
+                        session.data.user.email
+                      )}`}
+                    >
+                      My Blogs
+                    </Link>
+                  </DropdownItem>
                   <DropdownItem
                     onClick={handleSignOut}
                     key="logout"
