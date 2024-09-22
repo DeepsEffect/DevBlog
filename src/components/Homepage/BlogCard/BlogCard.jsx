@@ -41,6 +41,7 @@ export default function BlogCard({ blog }) {
   // Function to strip HTML and return a brief preview
   const getBriefContent = (htmlContent) => {
     // if (typeof window !== "undefined") {
+    // TODO: make a different component for this
     const plainText = DOMPurify.sanitize(htmlContent, { ALLOWED_TAGS: [] });
     return plainText.slice(0, 170);
     // }
@@ -125,13 +126,13 @@ export default function BlogCard({ blog }) {
         <CardFooter className="flex justify-between">
           {/* pog and comments section */}
           <section
-            onClick={(e) => e.stopPropagation()}
+            // onClick={(e) => e.stopPropagation()}
             className="flex items-center gap-2"
           >
             <Tooltip content="pogs count">
               <div className="flex items-center gap-1">
                 {/* Pog Button */}
-                <Button isIconOnly aria-label="pog">
+                <Button onClick={handleCardClick} isIconOnly aria-label="pog">
                   <BiRocket className="text-xl" />{" "}
                   {/* A rocket icon for "Pog" */}
                 </Button>

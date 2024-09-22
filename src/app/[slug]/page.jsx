@@ -1,3 +1,4 @@
+"use client";
 import SanitizeMarkup from "@/services/SanitizeMarkup";
 import {
   Avatar,
@@ -9,8 +10,8 @@ import {
   Divider,
   Tooltip,
 } from "@nextui-org/react";
+import axios from "axios";
 import Image from "next/image";
-import React from "react";
 import { BiBookmark, BiComment, BiRocket } from "react-icons/bi";
 import { TbShare3 } from "react-icons/tb";
 
@@ -42,6 +43,19 @@ const blogDetailsPage = async ({ params }) => {
     readingTime,
     reactions,
   } = blog;
+
+  // handle pog clicks
+  const handlePogClick = async (slug) => {
+    // try {
+    //   const res = await axios.put(
+    //     `${process.env.NEXT_PUBLIC_API_URL}/${slug}/api/pog`,
+    //     { pogs: 1 } // Send the increment value
+    //   );
+    //   console.log("Pog updated", res.data);
+    // } catch (error) {
+    //   console.log("Error updating pog", error);
+    // }
+  };
 
   return (
     <div className="max-w-3xl mx-auto">
@@ -86,9 +100,19 @@ const blogDetailsPage = async ({ params }) => {
             {/* left side icons */}
             <div className="flex items-center gap-2">
               <Tooltip content="pog">
-                <div className="flex items-center gap-1">
+                <div
+                  onClick={handlePogClick}
+                  className="flex items-center gap-1"
+                >
                   {/* Pog Button */}
-                  <Button size="sm" isIconOnly aria-label="pog">
+                  <Button
+                    onClick={() => {
+                      handlePogClick(slug);
+                    }}
+                    size="sm"
+                    isIconOnly
+                    aria-label="pog"
+                  >
                     <BiRocket className="text-xl" />{" "}
                     {/* A rocket icon for "Pog" */}
                   </Button>
