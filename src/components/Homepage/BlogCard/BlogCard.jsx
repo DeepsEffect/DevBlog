@@ -9,6 +9,7 @@ import {
   Dropdown,
   DropdownItem,
   DropdownMenu,
+  DropdownSection,
   DropdownTrigger,
   Tooltip,
 } from "@nextui-org/react";
@@ -22,7 +23,7 @@ import { BiRocket } from "react-icons/bi";
 import DOMPurify from "dompurify";
 import { useRouter } from "next/navigation";
 
-export default function BlogCard({ blog }) {
+export default function BlogCard({ blog, pageType }) {
   const router = useRouter();
 
   const {
@@ -83,9 +84,19 @@ export default function BlogCard({ blog }) {
               </DropdownTrigger>
 
               <DropdownMenu aria-label="Dynamic Actions">
-                <DropdownItem key={"report"}>Report Blog</DropdownItem>
-                <DropdownItem key={"hide"}>Hide Blog</DropdownItem>
-                <DropdownItem key={"share"}>Share Blog</DropdownItem>
+                {/* show different options based on pageType */}
+                {pageType === "my-blogs" ? (
+                  <DropdownSection title={"author actions"}>
+                    <DropdownItem>Edit Blog</DropdownItem>
+                    <DropdownItem>Delete Blog</DropdownItem>
+                  </DropdownSection>
+                ) : (
+                  <DropdownSection title={"general actions"}>
+                    <DropdownItem>Report Blog</DropdownItem>
+                    <DropdownItem>Hide Blog</DropdownItem>
+                    <DropdownItem>Share Blog</DropdownItem>
+                  </DropdownSection>
+                )}
               </DropdownMenu>
             </Dropdown>
           </div>
