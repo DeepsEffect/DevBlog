@@ -41,12 +41,9 @@ export default function BlogCard({ blog, pageType }) {
 
   // Function to strip HTML and return a brief preview
   const getBriefContent = (htmlContent) => {
-    // if (typeof window !== "undefined") {
     // TODO: make a different component for this
     const plainText = DOMPurify.sanitize(htmlContent, { ALLOWED_TAGS: [] });
     return plainText.slice(0, 170);
-    // }
-    return ""; // or handle appropriately if running server-side
   };
 
   // navigation function
