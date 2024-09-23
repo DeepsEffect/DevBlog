@@ -1,4 +1,4 @@
-"use client";
+import Reactions from "@/components/Reactions/Reactions";
 import SanitizeMarkup from "@/services/SanitizeMarkup";
 import {
   Avatar,
@@ -8,50 +8,26 @@ import {
   CardHeader,
   Chip,
   Divider,
-  Tooltip,
 } from "@nextui-org/react";
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import { BiBookmark, BiComment, BiRocket } from "react-icons/bi";
-import { TbShare3 } from "react-icons/tb";
 
-const blogDetailsPage = ({ params }) => {
+const blogDetailsPage = async ({ params }) => {
   const { slug } = params;
-  const [blog, setBlog] = useState(null);
-  const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchBlog = async () => {
-      try {
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/blogs/${slug}`
-        );
-        if (!res.ok) throw new Error("Blog not found");
-        const data = await res.json();
-        setBlog(data);
-      } catch (error) {
-        setError(error.message);
-      }
-    };
+  // Fetch blog data from API
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/blogs/${slug}`, {
+    cache: "no-store", // To avoid caching
+  });
 
-    fetchBlog();
-  }, [slug]);
-
-  if (error) {
+  if (!res.ok) {
     return (
       <p className="flex justify-center items-center h-screen text-xl">
-        {error}
+        Blog not found
       </p>
     );
   }
 
-  if (!blog) {
-    return (
-      <p className="flex justify-center items-center h-screen text-xl">
-        Loading...
-      </p>
-    );
-  }
+  const blog = await res.json();
 
   const {
     title,
@@ -64,19 +40,6 @@ const blogDetailsPage = ({ params }) => {
     readingTime,
     reactions,
   } = blog;
-
-  // handle pog clicks
-  const handlePogClick = async (slug) => {
-    // try {
-    //   const res = await axios.put(
-    //     `${process.env.NEXT_PUBLIC_API_URL}/${slug}/api/pog`,
-    //     { pogs: 1 } // Send the increment value
-    //   );
-    //   console.log("Pog updated", res.data);
-    // } catch (error) {
-    //   console.log("Error updating pog", error);
-    // }
-  };
 
   return (
     <div className="max-w-3xl mx-auto">
@@ -116,66 +79,8 @@ const blogDetailsPage = ({ params }) => {
             </span>
           </section>
 
-          {/* reactions, comments and bookmark */}
-          <section className="flex justify-between items-center w-full gap-2">
-            {/* left side icons */}
-            <div className="flex items-center gap-2">
-              <Tooltip content="pog">
-                <div
-                  onClick={handlePogClick}
-                  className="flex items-center gap-1"
-                >
-                  {/* Pog Button */}
-                  <Button
-                    onClick={() => {
-                      handlePogClick(slug);
-                    }}
-                    size="sm"
-                    isIconOnly
-                    aria-label="pog"
-                  >
-                    <BiRocket className="text-xl" />{" "}
-                    {/* A rocket icon for "Pog" */}
-                  </Button>
-                  {/* Pog Count */}
-                  <span className="text-sm font-semibold">
-                    {reactions?.pogs}
-                  </span>
-                </div>
-              </Tooltip>
-
-              {/* comments */}
-              <Tooltip content="comment">
-                <div className="flex items-center gap-1">
-                  {/* comment button */}
-                  <Button size="sm" isIconOnly aria-level="comments">
-                    <BiComment className="text-xl" />
-                  </Button>
-                  {/* comment count */}
-                  <span className="text-sm font-semibold">
-                    {reactions?.comments}
-                  </span>
-                </div>
-              </Tooltip>
-            </div>
-
-            {/* right side icons */}
-            <div className="flex items-center gap-2">
-              {/* bookmarks */}
-              <Tooltip content="bookmark blog">
-                <Button size="sm" isIconOnly className="cursor-pointer">
-                  <BiBookmark className="text-2xl" />
-                </Button>
-              </Tooltip>
-
-              {/* share */}
-              <Tooltip content="share blog">
-                <Button size="sm" isIconOnly className="cursor-pointer">
-                  <TbShare3 className="text-2xl" />
-                </Button>
-              </Tooltip>
-            </div>
-          </section>
+          {/* Client-side reactions (buttons, pogs) */}
+          <Reactions slug={slug} reactions={reactions} />
         </CardHeader>
 
         <Divider />
@@ -200,7 +105,6 @@ const blogDetailsPage = ({ params }) => {
           {/* blog content section */}
           <section className="leading-relaxed text-text mt-4 mb-4">
             <SanitizeMarkup htmlContent={content} />
-            {/* <CodeHighlighter /> */}
           </section>
         </CardBody>
       </Card>
