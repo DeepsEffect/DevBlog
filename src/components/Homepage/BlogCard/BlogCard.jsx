@@ -20,8 +20,8 @@ import { BiComment } from "react-icons/bi";
 import { BiBookmark } from "react-icons/bi";
 import { FiMoreHorizontal } from "react-icons/fi";
 import { BiRocket } from "react-icons/bi";
-import DOMPurify from "dompurify";
 import { useRouter } from "next/navigation";
+import BriefContent from "./BriefContent/BriefContent";
 
 export default function BlogCard({ blog, pageType }) {
   const router = useRouter();
@@ -38,13 +38,6 @@ export default function BlogCard({ blog, pageType }) {
     readingTime,
     reactions,
   } = blog;
-
-  // Function to strip HTML and return a brief preview
-  const getBriefContent = (htmlContent) => {
-    // TODO: make a different component for this
-    const plainText = DOMPurify.sanitize(htmlContent, { ALLOWED_TAGS: [] });
-    return plainText.slice(0, 170);
-  };
 
   // navigation function
   const handleCardClick = () => {
@@ -106,12 +99,7 @@ export default function BlogCard({ blog, pageType }) {
               <h2 className="text-xl lg:text-2xl font-semibold hover:underline cursor-pointer">
                 {title}
               </h2>
-              <p
-                title={getBriefContent(content)}
-                className="text-sm text-gray-400"
-              >
-                {getBriefContent(content)}...
-              </p>
+              <BriefContent htmlContent={content} />
             </Link>
           </div>
 

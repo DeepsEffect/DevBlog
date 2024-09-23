@@ -10,27 +10,48 @@ import {
   Divider,
   Tooltip,
 } from "@nextui-org/react";
-import axios from "axios";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 import { BiBookmark, BiComment, BiRocket } from "react-icons/bi";
 import { TbShare3 } from "react-icons/tb";
 
-const blogDetailsPage = async ({ params }) => {
+const blogDetailsPage = ({ params }) => {
   const { slug } = params;
+  const [blog, setBlog] = useState(null);
+  const [error, setError] = useState(null);
 
-  // fetch the blog data on the slug
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/blogs/${slug}`, {
-    next: { revalidate: 60 }, // Revalidate every 60 seconds
-  });
-  if (!res.ok) {
-    // TODO: show an actual error page
+  useEffect(() => {
+    const fetchBlog = async () => {
+      try {
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/blogs/${slug}`
+        );
+        if (!res.ok) throw new Error("Blog not found");
+        const data = await res.json();
+        setBlog(data);
+      } catch (error) {
+        setError(error.message);
+      }
+    };
+
+    fetchBlog();
+  }, [slug]);
+
+  if (error) {
     return (
       <p className="flex justify-center items-center h-screen text-xl">
-        Blog not found
+        {error}
       </p>
     );
   }
-  const blog = await res.json();
+
+  if (!blog) {
+    return (
+      <p className="flex justify-center items-center h-screen text-xl">
+        Loading...
+      </p>
+    );
+  }
 
   const {
     title,
@@ -179,6 +200,7 @@ const blogDetailsPage = async ({ params }) => {
           {/* blog content section */}
           <section className="leading-relaxed text-text mt-4 mb-4">
             <SanitizeMarkup htmlContent={content} />
+            {/* <CodeHighlighter /> */}
           </section>
         </CardBody>
       </Card>

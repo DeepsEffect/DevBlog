@@ -1,4 +1,4 @@
-export const fetchCache = "force-no-store";
+export const revalidate = 0;
 import {
   Button,
   ButtonGroup,
@@ -7,31 +7,19 @@ import {
   CardFooter,
   CardHeader,
 } from "@nextui-org/react";
-import React from "react";
 import BlogCard from "./BlogCard/BlogCard";
-import axios from "axios";
-
-// Function to fetch blogs
-const fetchBlogs = async () => {
-  try {
-    const res = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/blogs/api`,
-      {
-        headers: {
-          "Cache-Control": "no-store max-age=0",
-        },
-      }
-    );
-    return res.data; // return the blogs data
-  } catch (error) {
-    console.error("Error fetching blogs:", error);
-    return []; // return an empty array in case of error
-  }
-};
 
 export const Homepage = async () => {
-  const blogs = await fetchBlogs();
-  // console.log(blogs);
+  console.log("Fetching data at:", new Date().toISOString());
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/blogs/api?t=${Date.now()}`,
+    {
+      cache: "no-store",
+    }
+  );
+  console.log("Fetch completed at:", new Date().toISOString());
+  const blogs = await res.json();
+  console.log("Data parsed at:", new Date().toISOString());
   return (
     <div className="container mx-auto grid grid-cols-1 md:grid-cols-4 lg:grid-cols-12 gap-4 md:px-4 py-6 ">
       {/* TODO: toggle button for right sidebar for mobile view */}
@@ -83,6 +71,8 @@ export const Homepage = async () => {
           <Button>Latest</Button>
           <Button>Top</Button>
         </ButtonGroup>
+
+        <div>{Date.now()}</div>
 
         {/* show blog cards */}
         <div className="grid gird-cols-1 gap-4 lg:p-4 mt-4 lg:mt-2">

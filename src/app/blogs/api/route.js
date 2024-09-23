@@ -1,6 +1,8 @@
+export const dynamic = "force-dynamic";
 import { connectDB } from "@/lib/connectDB";
 
 export const GET = async () => {
+  console.log("API route called in production at:", new Date().toISOString());
   try {
     // connect to the database
     const db = await connectDB();
@@ -9,10 +11,6 @@ export const GET = async () => {
     const blogs = await db.collection("blogs").find().toArray();
     return new Response(JSON.stringify(blogs), {
       status: 200,
-      headers: {
-        "Content-Type": "application/json",
-        "Cache-Control": "no-cache, no-store, must-revalidate max-ago=0",
-      },
     });
   } catch (error) {
     return new Response(
