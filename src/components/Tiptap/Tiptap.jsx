@@ -41,7 +41,12 @@ const Tiptap = ({ setContent }) => {
       BulletList,
       ListItem,
       Paragraph,
-      CodeBlock,
+      CodeBlock.configure({
+        HTMLAttributes: {
+          class: "custom-code-block",
+        },
+        languageClassPrefix: "language-",
+      }),
       Heading.configure({
         HTMLAttributes: {
           class: "my-custom-class",

@@ -9,6 +9,7 @@ import {
   Dropdown,
   DropdownItem,
   DropdownMenu,
+  DropdownSection,
   DropdownTrigger,
   Tooltip,
 } from "@nextui-org/react";
@@ -19,10 +20,10 @@ import { BiComment } from "react-icons/bi";
 import { BiBookmark } from "react-icons/bi";
 import { FiMoreHorizontal } from "react-icons/fi";
 import { BiRocket } from "react-icons/bi";
-import DOMPurify from "dompurify";
 import { useRouter } from "next/navigation";
+import BriefContent from "./BriefContent/BriefContent";
 
-export default function BlogCard({ blog }) {
+export default function BlogCard({ blog, pageType }) {
   const router = useRouter();
 
   const {
@@ -37,15 +38,6 @@ export default function BlogCard({ blog }) {
     readingTime,
     reactions,
   } = blog;
-
-  // Function to strip HTML and return a brief preview
-  const getBriefContent = (htmlContent) => {
-    // if (typeof window !== "undefined") {
-    const plainText = DOMPurify.sanitize(htmlContent, { ALLOWED_TAGS: [] });
-    return plainText.slice(0, 170);
-    // }
-    return ""; // or handle appropriately if running server-side
-  };
 
   // navigation function
   const handleCardClick = () => {
@@ -82,9 +74,19 @@ export default function BlogCard({ blog }) {
               </DropdownTrigger>
 
               <DropdownMenu aria-label="Dynamic Actions">
-                <DropdownItem key={"report"}>Report Blog</DropdownItem>
-                <DropdownItem key={"hide"}>Hide Blog</DropdownItem>
-                <DropdownItem key={"share"}>Share Blog</DropdownItem>
+                {/* show different options based on pageType */}
+                {pageType === "my-blogs" ? (
+                  <DropdownSection title={"author actions"}>
+                    <DropdownItem>Edit Blog</DropdownItem>
+                    <DropdownItem>Delete Blog</DropdownItem>
+                  </DropdownSection>
+                ) : (
+                  <DropdownSection title={"general actions"}>
+                    <DropdownItem>Report Blog</DropdownItem>
+                    <DropdownItem>Hide Blog</DropdownItem>
+                    <DropdownItem>Share Blog</DropdownItem>
+                  </DropdownSection>
+                )}
               </DropdownMenu>
             </Dropdown>
           </div>
@@ -97,12 +99,7 @@ export default function BlogCard({ blog }) {
               <h2 className="text-xl lg:text-2xl font-semibold hover:underline cursor-pointer">
                 {title}
               </h2>
-              <p
-                title={getBriefContent(content)}
-                className="text-sm text-gray-400"
-              >
-                {getBriefContent(content)}...
-              </p>
+              <BriefContent htmlContent={content} />
             </Link>
           </div>
 
@@ -125,13 +122,13 @@ export default function BlogCard({ blog }) {
         <CardFooter className="flex justify-between">
           {/* pog and comments section */}
           <section
-            onClick={(e) => e.stopPropagation()}
+            // onClick={(e) => e.stopPropagation()}
             className="flex items-center gap-2"
           >
             <Tooltip content="pogs count">
               <div className="flex items-center gap-1">
                 {/* Pog Button */}
-                <Button isIconOnly aria-label="pog">
+                <Button onClick={handleCardClick} isIconOnly aria-label="pog">
                   <BiRocket className="text-xl" />{" "}
                   {/* A rocket icon for "Pog" */}
                 </Button>

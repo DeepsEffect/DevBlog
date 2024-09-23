@@ -1,3 +1,4 @@
+"use client";
 import SanitizeMarkup from "@/services/SanitizeMarkup";
 import {
   Avatar,
@@ -10,26 +11,47 @@ import {
   Tooltip,
 } from "@nextui-org/react";
 import Image from "next/image";
-import React from "react";
+import { useEffect, useState } from "react";
 import { BiBookmark, BiComment, BiRocket } from "react-icons/bi";
 import { TbShare3 } from "react-icons/tb";
 
-const blogDetailsPage = async ({ params }) => {
+const blogDetailsPage = ({ params }) => {
   const { slug } = params;
+  const [blog, setBlog] = useState(null);
+  const [error, setError] = useState(null);
 
-  // fetch the blog data on the slug
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/blogs/${slug}`, {
-    next: { revalidate: 60 }, // Revalidate every 60 seconds
-  });
-  if (!res.ok) {
-    // TODO: show an actual error page
+  useEffect(() => {
+    const fetchBlog = async () => {
+      try {
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/blogs/${slug}`
+        );
+        if (!res.ok) throw new Error("Blog not found");
+        const data = await res.json();
+        setBlog(data);
+      } catch (error) {
+        setError(error.message);
+      }
+    };
+
+    fetchBlog();
+  }, [slug]);
+
+  if (error) {
     return (
       <p className="flex justify-center items-center h-screen text-xl">
-        Blog not found
+        {error}
       </p>
     );
   }
-  const blog = await res.json();
+
+  if (!blog) {
+    return (
+      <p className="flex justify-center items-center h-screen text-xl">
+        Loading...
+      </p>
+    );
+  }
 
   const {
     title,
@@ -42,6 +64,19 @@ const blogDetailsPage = async ({ params }) => {
     readingTime,
     reactions,
   } = blog;
+
+  // handle pog clicks
+  const handlePogClick = async (slug) => {
+    // try {
+    //   const res = await axios.put(
+    //     `${process.env.NEXT_PUBLIC_API_URL}/${slug}/api/pog`,
+    //     { pogs: 1 } // Send the increment value
+    //   );
+    //   console.log("Pog updated", res.data);
+    // } catch (error) {
+    //   console.log("Error updating pog", error);
+    // }
+  };
 
   return (
     <div className="max-w-3xl mx-auto">
@@ -86,9 +121,19 @@ const blogDetailsPage = async ({ params }) => {
             {/* left side icons */}
             <div className="flex items-center gap-2">
               <Tooltip content="pog">
-                <div className="flex items-center gap-1">
+                <div
+                  onClick={handlePogClick}
+                  className="flex items-center gap-1"
+                >
                   {/* Pog Button */}
-                  <Button size="sm" isIconOnly aria-label="pog">
+                  <Button
+                    onClick={() => {
+                      handlePogClick(slug);
+                    }}
+                    size="sm"
+                    isIconOnly
+                    aria-label="pog"
+                  >
                     <BiRocket className="text-xl" />{" "}
                     {/* A rocket icon for "Pog" */}
                   </Button>
@@ -155,6 +200,7 @@ const blogDetailsPage = async ({ params }) => {
           {/* blog content section */}
           <section className="leading-relaxed text-text mt-4 mb-4">
             <SanitizeMarkup htmlContent={content} />
+            {/* <CodeHighlighter /> */}
           </section>
         </CardBody>
       </Card>
