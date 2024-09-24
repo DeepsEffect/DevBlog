@@ -92,9 +92,9 @@ export default function BlogCard({ blog, pageType }) {
           </div>
         </CardHeader>
 
-        <CardBody className="flex flex-row items-center gap-2 py-0">
+        <CardBody className="flex flex-row items-center justify-between gap-2 lg:gap-4 py-0">
           {/* title and description */}
-          <div className={`space-y-1 ${coverPhoto || "w-full"}`}>
+          <div className="space-y-1 min-w-[75%] lg:w-full">
             <Link href={slug}>
               <h2 className="text-xl lg:text-2xl font-semibold hover:underline cursor-pointer">
                 {title}
@@ -105,14 +105,14 @@ export default function BlogCard({ blog, pageType }) {
 
           {/* Render cover photo only if it's provided */}
           {coverPhoto && (
-            <div className="mt-2 relative w-full lg:w-[300px] h-[100px] ">
+            <div className="mt-2 relative w-full lg:max-w-[150px] h-[100px] ">
               <Link href={slug}>
                 <Image
                   alt={title}
                   className="object-cover rounded-xl"
                   src={coverPhoto}
                   fill
-                  sizes="(max-width: 1024px) 100vw, 300px"
+                  sizes="(max-width: 150px) 100vw, 150px"
                 />
               </Link>
             </div>
