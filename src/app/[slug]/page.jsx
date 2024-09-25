@@ -2,7 +2,6 @@ import Reactions from "@/components/Reactions/Reactions";
 import SanitizeMarkup from "@/services/SanitizeMarkup";
 import {
   Avatar,
-  Button,
   Card,
   CardBody,
   CardHeader,

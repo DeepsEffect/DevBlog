@@ -1,26 +1,38 @@
 "use client";
 
 import { Button, Tooltip } from "@nextui-org/react";
+import { useState } from "react";
 import { BiBookmark, BiComment, BiRocket } from "react-icons/bi";
 import { TbShare3 } from "react-icons/tb";
+import { toast } from "react-toastify";
 
 const Reactions = ({ slug, reactions }) => {
-  //   const handlePogClick = async () => {
-  //     try {
-  //       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/${slug}/api/pog`, {
-  //         method: "PUT",
-  //         body: JSON.stringify({ pogs: 1 }),
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //       });
-
-  //       if (!res.ok) throw new Error("Failed to update pog");
-  //       console.log("Pog updated successfully");
-  //     } catch (error) {
-  //       console.error("Error updating pog", error);
-  //     }
-  //   };
+  const [pogs, setPogs] = useState(reactions.pogs);
+  const handlePogClick = async () => {
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/reactions/pogs`,
+        {
+          method: "PUT",
+          body: JSON.stringify({ slug }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const data = await res.json();
+      if (res.ok) {
+        setPogs((prevPogs) => prevPogs + 1);
+        toast.success("pogged +1", {
+          autoClose: 100,
+        });
+      } else {
+        console.error(data.message);
+      }
+    } catch (error) {
+      console.error("Error updating pog", error);
+    }
+  };
 
   return (
     <section className="flex justify-between items-center w-full gap-2">
@@ -31,11 +43,11 @@ const Reactions = ({ slug, reactions }) => {
               size="sm"
               isIconOnly
               aria-label="pog"
-            //   onClick={handlePogClick}
+              onClick={handlePogClick}
             >
               <BiRocket className="text-xl" />
             </Button>
-            <span className="text-sm font-semibold">{reactions?.pogs}</span>
+            <span className="text-sm font-semibold">{pogs}</span>
           </div>
         </Tooltip>
 

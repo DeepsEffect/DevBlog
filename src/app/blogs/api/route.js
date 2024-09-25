@@ -2,7 +2,6 @@ export const dynamic = "force-dynamic";
 import { connectDB } from "@/lib/connectDB";
 
 export const GET = async () => {
-  console.log("API route called in production at:", new Date().toISOString());
   try {
     // connect to the database
     const db = await connectDB();
