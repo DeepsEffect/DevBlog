@@ -76,7 +76,8 @@ const Tiptap = ({ setContent }) => {
 
     editorProps: {
       attributes: {
-        class: "min-h-[200px] p-3 bg-[#2E2E30] rounded-lg outline-none mt-0",
+        class:
+          "min-h-[300px] max-h-[300px] p-3 bg-[#2E2E30] rounded-lg outline-none mt-0 overflow-y-auto",
       },
     },
 
