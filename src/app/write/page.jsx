@@ -50,7 +50,7 @@ const WritePage = () => {
       postedDate: new Date().toISOString(),
       tags: tags || [],
       category: category || "",
-      readingTime: readingTime || 0,
+      // readingTime: readingTime || 0, //* doing the reading time calc in the client so don't need this field
       reactions: {
         pogs: 0,
         comments: 0,

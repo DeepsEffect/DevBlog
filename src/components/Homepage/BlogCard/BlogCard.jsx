@@ -15,7 +15,7 @@ import {
 } from "@nextui-org/react";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { BiComment } from "react-icons/bi";
 import { BiBookmark } from "react-icons/bi";
 import { FiMoreHorizontal } from "react-icons/fi";
@@ -25,6 +25,7 @@ import BriefContent from "./BriefContent/BriefContent";
 
 export default function BlogCard({ blog, pageType }) {
   const router = useRouter();
+  const [readingTime, setReadingTime] = useState(0);
 
   const {
     title,
@@ -35,14 +36,28 @@ export default function BlogCard({ blog, pageType }) {
     author,
     tags,
     categories,
-    readingTime,
     reactions,
   } = blog;
 
   // navigation function
   const handleCardClick = () => {
-    router.push(slug);
+    router.push(`${slug}?readingTime=${readingTime}`);
   };
+
+  // reading time calculation function
+  const readingTimeCalc = () => {
+    const wordsPerMin = 200;
+    const plainText = content.replace(/<[^>]+>/g, ""); // remove html tags
+    const wordCount = plainText.split(/\s+/).length; // split by whitespace
+    const timeToRead = Math.ceil(wordCount / wordsPerMin);
+    return timeToRead;
+  };
+
+  // set reading time when the component mounts
+  useEffect(() => {
+    const time = readingTimeCalc();
+    setReadingTime(time);
+  }, [readingTime]);
 
   return (
     <Card>
@@ -56,6 +71,8 @@ export default function BlogCard({ blog, pageType }) {
             <span className="flex items-start flex-col text-sm">
               <p className="font-bold text-medium">{author?.name}</p>
               <p className="text-sm">
+                {" "}
+                Posted {""}
                 {new Date(postedDate).toLocaleDateString("en-GB", {
                   day: "2-digit",
                   month: "short",
@@ -95,7 +112,7 @@ export default function BlogCard({ blog, pageType }) {
         <CardBody className="flex flex-row items-center justify-between gap-2 lg:gap-4 py-0">
           {/* title and description */}
           <div className="space-y-1 min-w-[75%] lg:w-full">
-            <Link href={slug}>
+            <Link href={`${slug}?readingTime=${readingTime}`}>
               <h2 className="text-xl lg:text-2xl font-semibold hover:underline cursor-pointer">
                 {title}
               </h2>
@@ -106,7 +123,7 @@ export default function BlogCard({ blog, pageType }) {
           {/* Render cover photo only if it's provided */}
           {coverPhoto && (
             <div className="mt-2 relative w-full lg:max-w-[150px] h-[100px] ">
-              <Link href={slug}>
+              <Link href={`${slug}?readingTime=${readingTime}`}>
                 <Image
                   alt={title}
                   className="object-cover rounded-xl"
@@ -157,9 +174,11 @@ export default function BlogCard({ blog, pageType }) {
             onClick={(e) => e.stopPropagation()}
             className="flex items-center gap-2"
           >
-            <div className="hidden lg:flex">
-              <p className="text-sm">{readingTime} min read</p>
-            </div>
+            <Tooltip content={`${readingTime} minute read`}>
+              <div className="hidden lg:flex">
+                <p className="text-sm">{readingTime} min read</p>
+              </div>
+            </Tooltip>
 
             <Tooltip content="bookmark blog">
               <Button isIconOnly variant="light" className="cursor-pointer">

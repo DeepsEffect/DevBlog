@@ -10,8 +10,9 @@ import {
 } from "@nextui-org/react";
 import Image from "next/image";
 
-const blogDetailsPage = async ({ params }) => {
+const blogDetailsPage = async ({ params, searchParams }) => {
   const { slug } = params;
+  const readingTime = searchParams.readingTime;
 
   // Fetch blog data from API
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/blogs/${slug}`, {
@@ -36,7 +37,6 @@ const blogDetailsPage = async ({ params }) => {
     author,
     tags,
     category,
-    readingTime,
     reactions,
   } = blog;
 
