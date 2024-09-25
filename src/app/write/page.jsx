@@ -110,12 +110,20 @@ const WritePage = () => {
       label: "Back-end Dev",
     },
     {
+      key: "fullstack-dev",
+      label: "Full-stack Dev",
+    },
+    {
       key: "framework",
       label: "Framework",
     },
     {
       key: "javascript",
       label: "Javascript",
+    },
+    {
+      key: "typescript",
+      label: "TypeScript",
     },
     {
       key: "react",
@@ -126,8 +134,56 @@ const WritePage = () => {
       label: "Next.js",
     },
     {
+      key: "angular",
+      label: "Angular",
+    },
+    {
+      key: "vue",
+      label: "Vue.js",
+    },
+    {
       key: "tailwind",
       label: "Tailwind CSS",
+    },
+    {
+      key: "node.js",
+      label: "Node.js",
+    },
+    {
+      key: "database",
+      label: "Database",
+    },
+    {
+      key: "devops",
+      label: "DevOps",
+    },
+    {
+      key: "blockchain",
+      label: "Blockchain",
+    },
+    {
+      key: "security",
+      label: "Security",
+    },
+    {
+      key: "cloud",
+      label: "Cloud Computing",
+    },
+    {
+      key: "testing",
+      label: "Testing",
+    },
+    {
+      key: "ai-ml",
+      label: "AI/ML",
+    },
+    {
+      key: "open-source",
+      label: "Open Source",
+    },
+    {
+      key: "others",
+      label: "Others",
     },
   ];
 
