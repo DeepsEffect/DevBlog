@@ -126,6 +126,7 @@ export const Navbar = () => {
                     name={session.data?.user?.name}
                     size="sm"
                     src={session.data?.user?.image}
+                    textValue={session.data?.user?.name || "User Avatar"}
                   />
                 </DropdownTrigger>
                 <DropdownMenu aria-label="Profile Actions" variant="flat">
@@ -133,15 +134,23 @@ export const Navbar = () => {
                     <p className="font-semibold">Signed in as</p>
                     <p className="font-semibold">{session.data?.user?.email}</p>
                   </DropdownItem>
-                  <DropdownItem key="profile">My Profile</DropdownItem>
-
-                  <DropdownItem key="blogs">
+                  <DropdownItem key="profile2">My Profile</DropdownItem>
+                  <DropdownItem key="blogs" textValue="My Blogs">
                     <Link
                       href={`/my-blogs?email=${encodeURIComponent(
                         session.data.user.email
                       )}`}
+                      className="w-full h-full flex items-center"
                     >
                       My Blogs
+                    </Link>
+                  </DropdownItem>
+                  <DropdownItem key="bookmarks" textValue="My Bookmarks">
+                    <Link
+                      href="/my-bookmarks"
+                      className="w-full h-full flex items-center"
+                    >
+                      My Bookmarks
                     </Link>
                   </DropdownItem>
                   <DropdownItem
@@ -166,11 +175,13 @@ export const Navbar = () => {
             </NavbarItem>
             {/* register */}
             <NavbarItem>
-              <Link href="register">
-                <Button color="primary" href="#" variant="flat">
-                  Get Started
-                </Button>
-              </Link>
+              <Button
+                onClick={() => router.push("/register")}
+                color="primary"
+                variant="flat"
+              >
+                Get Started
+              </Button>
             </NavbarItem>
           </NavbarContent>
         </>
@@ -178,7 +189,7 @@ export const Navbar = () => {
 
       {/* mobile view */}
       <NavbarMenu>
-        <NavbarItem>
+        <NavbarItem key="search">
           <Input
             classNames={{
               base: "max-w-full h-10",
@@ -193,8 +204,10 @@ export const Navbar = () => {
             type="search"
           />
         </NavbarItem>
-        <NavbarItem className="text-medium">Our Story</NavbarItem>
-        <NavbarItem className="text-medium">
+        <NavbarItem key="our-story" className="text-medium">
+          Our Story
+        </NavbarItem>
+        <NavbarItem key="write" className="text-medium">
           <div className="flex items-center gap-1 cursor-pointer">
             <TfiWrite />
             write
