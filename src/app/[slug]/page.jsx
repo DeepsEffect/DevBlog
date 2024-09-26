@@ -16,7 +16,7 @@ const blogDetailsPage = async ({ params, searchParams }) => {
 
   // Fetch blog data from API
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/blogs/${slug}`, {
-    cache: "no-store", // To avoid caching
+    next: { revalidate: 60 },
   });
 
   if (!res.ok) {
