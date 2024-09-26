@@ -1,13 +1,20 @@
 export const dynamic = "force-dynamic";
 import { connectDB } from "@/lib/connectDB";
 
-export const GET = async () => {
+export const GET = async (req) => {
   try {
     // connect to the database
     const db = await connectDB();
 
-    // get all the blogs data from the database
-    const blogs = await db.collection("blogs").find().toArray();
+    // parse the query params
+    const { searchParams } = new URL(req.url);
+    const category = searchParams.get("category");
+
+    // query for filtering
+    const filter = category ? { category } : {};
+
+    // get blogs data based on the filter query
+    const blogs = await db.collection("blogs").find(filter).toArray();
     return new Response(JSON.stringify(blogs), {
       status: 200,
     });

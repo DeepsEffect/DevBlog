@@ -6,6 +6,10 @@ export const LeftSidebar = ({ onCategorySelect, selectedCategory }) => {
   // category lists
   const catItems = [
     {
+      key: "all",
+      label: "All Categories",
+    },
+    {
       key: "web-dev",
       label: "Web Dev",
     },
@@ -107,7 +111,7 @@ export const LeftSidebar = ({ onCategorySelect, selectedCategory }) => {
           {catItems?.map((item) => (
             <Button
               onClick={() => onCategorySelect(item.key)}
-              variant={selectedCategory ? "solid" : "light"}
+              variant={selectedCategory === item.key ? "solid" : "light"}
               key={item.key}
             >
               {item.label}
