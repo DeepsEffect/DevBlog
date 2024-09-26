@@ -1,7 +1,8 @@
+"use client";
 import { Button, Card, CardBody, CardHeader } from "@nextui-org/react";
 import React from "react";
 
-export const LeftSidebar = () => {
+export const LeftSidebar = ({ onCategorySelect, selectedCategory }) => {
   // category lists
   const catItems = [
     {
@@ -104,7 +105,11 @@ export const LeftSidebar = () => {
 
         <CardBody className="flex flex-col gap-3">
           {catItems?.map((item) => (
-            <Button variant="light" key={item.key}>
+            <Button
+              onClick={() => onCategorySelect(item.key)}
+              variant={selectedCategory ? "solid" : "light"}
+              key={item.key}
+            >
               {item.label}
             </Button>
           ))}
