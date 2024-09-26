@@ -4,12 +4,14 @@ import BlogCard from "./BlogCard/BlogCard";
 import { RightSidebar } from "./BlogCard/RightSidebar/RightSidebar";
 import { LeftSidebar } from "./BlogCard/LeftSidebar/LeftSidebar";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 export const Homepage = () => {
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState(null);
-  console.log(selectedCategory);
+  const [sortOption, setSortOption] = useState("latest");
+  const router = useRouter();
 
   useEffect(() => {
     const fetchBlogs = async () => {
@@ -18,18 +20,41 @@ export const Homepage = () => {
       if (selectedCategory) {
         url += `?category=${encodeURIComponent(selectedCategory)}`;
       }
-      console.log("Fetching blogs from:", url);
-      const res = await fetch(url, { cache: "no-store" });
-      const data = await res.json();
-      setBlogs(data);
-      setLoading(false);
+      try {
+        const res = await fetch(url, { cache: "no-store" });
+        const data = await res.json();
+
+        // Ensure data is an array
+        let blogsData = Array.isArray(data) ? data : [];
+
+        // sort the blogs based on selected option
+        let sortedData = [...blogsData];
+        if (sortOption === "latest") {
+          sortedData.sort(
+            (a, b) => new Date(b.postedDate) - new Date(a.postedDate)
+          );
+        } else if (sortOption === "pogged") {
+          sortedData.sort((a, b) => b.reactions.pogs - a.reactions.pogs);
+        }
+
+        setBlogs(sortedData);
+      } catch (error) {
+        console.error("Error fetching blogs: ", error);
+      } finally {
+        setLoading(false);
+      }
     };
     fetchBlogs();
-  }, [selectedCategory]);
+  }, [selectedCategory, sortOption]);
 
-  // handle selected category
+  // function to set the category to the selectedCategory state
   const handleSelectedCategory = (category) => {
-    setSelectedCategory(category === 'all' ? null : category);
+    setSelectedCategory(category === "all" ? null : category);
+  };
+
+  // function to set the sort to the sortOption state
+  const handleSortChange = (option) => {
+    setSortOption(option);
   };
 
   return (
@@ -47,9 +72,24 @@ export const Homepage = () => {
       {/* main content */}
       <main className="col-span-1 md:col-span-2 lg:col-span-6 lg:p-4 text-center">
         <ButtonGroup>
-          <Button>Latest</Button>
-          <Button>Relevant</Button>
-          <Button>Pogged</Button>
+          <Button
+            variant={sortOption === "latest" ? "flat" : "light"}
+            onClick={() => handleSortChange("latest")}
+          >
+            Latest
+          </Button>
+          <Button
+            variant={sortOption === "relevant" ? "flat" : "light"}
+            onClick={() => handleSortChange("relevant")}
+          >
+            Relevant
+          </Button>
+          <Button
+            variant={sortOption === "pogged" ? "flat" : "light"}
+            onClick={() => handleSortChange("pogged")}
+          >
+            Pogged
+          </Button>
         </ButtonGroup>
 
         {/* show blog cards */}
@@ -63,10 +103,29 @@ export const Homepage = () => {
             <>
               {blogs?.length === 0 ? (
                 <div className="flex items-center justify-center lg:mt-10">
-                  <p>No blogs found</p>
+                  <div>
+                    {selectedCategory ? (
+                      <div className="flex flex-col gap-3 items-center justify-center">
+                        <p>
+                          No blogs were found for category "{selectedCategory}"
+                        </p>
+                        <Button
+                          size="sm"
+                          variant="flat"
+                          color="primary"
+                          onClick={() => router.push("/write")}
+                        >
+                          Write Blog...
+                        </Button>
+                      </div>
+                    ) : (
+                      "No blogs found"
+                    )}
+                  </div>
                 </div>
               ) : (
-                blogs?.map((blog) => (
+                Array.isArray(blogs) &&
+                blogs.map((blog) => (
                   <BlogCard blog={blog} pageType="homepage" key={blog._id} />
                 ))
               )}

@@ -142,7 +142,7 @@ export default function BlogCard({ blog, pageType }) {
             // onClick={(e) => e.stopPropagation()}
             className="flex items-center gap-2"
           >
-            <Tooltip content="pogs count">
+            <Tooltip content={`pog count: ${reactions?.pogs}`}>
               <div className="flex items-center gap-1">
                 {/* Pog Button */}
                 <Button onClick={handleCardClick} isIconOnly aria-label="pog">
@@ -155,7 +155,7 @@ export default function BlogCard({ blog, pageType }) {
             </Tooltip>
 
             {/* comments */}
-            <Tooltip content="comments count">
+            <Tooltip content={`comment count: ${reactions?.comments}`}>
               <div className="flex items-center gap-1">
                 {/* comment button */}
                 <Button isIconOnly aria-level="comments">
