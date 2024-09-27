@@ -8,7 +8,6 @@ import {
   NavbarContent,
   NavbarItem,
   Button,
-  Input,
   Avatar,
   DropdownTrigger,
   DropdownMenu,
@@ -23,8 +22,11 @@ import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Search from "./Search/Search";
+import { LeftSidebar } from "@/components/Homepage/BlogCard/LeftSidebar/LeftSidebar";
+import { useCategory } from "@/contexts/CategoryContext";
 
 export const Navbar = () => {
+  const { selectedCategory, handleSelectedCategory } = useCategory();
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const session = useSession();
   const router = useRouter();
@@ -179,13 +181,10 @@ export const Navbar = () => {
       <NavbarMenu>
         <Search />
         <NavbarItem key="our-story" className="text-medium">
-          Our Story
-        </NavbarItem>
-        <NavbarItem key="write" className="text-medium">
-          <div className="flex items-center gap-1 cursor-pointer">
-            <TfiWrite />
-            write
-          </div>
+          <LeftSidebar
+            onCategorySelect={handleSelectedCategory}
+            selectedCategory={selectedCategory}
+          />
         </NavbarItem>
       </NavbarMenu>
     </Nav>

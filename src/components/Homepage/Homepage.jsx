@@ -6,12 +6,13 @@ import { LeftSidebar } from "./BlogCard/LeftSidebar/LeftSidebar";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useSearch } from "@/contexts/SearchContext";
+import { useCategory } from "@/contexts/CategoryContext";
 
 export const Homepage = () => {
   const { searchQuery } = useSearch();
+  const { selectedCategory, handleSelectedCategory } = useCategory();
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [selectedCategory, setSelectedCategory] = useState(null);
   const [sortOption, setSortOption] = useState("latest");
   const router = useRouter();
 
@@ -55,11 +56,6 @@ export const Homepage = () => {
     };
     fetchBlogs();
   }, [selectedCategory, sortOption, searchQuery]);
-
-  // function to set the category to the selectedCategory state
-  const handleSelectedCategory = (category) => {
-    setSelectedCategory(category === "all" ? null : category);
-  };
 
   // function to set the sort to the sortOption state
   const handleSortChange = (option) => {
