@@ -175,7 +175,7 @@ export default function BlogCard({ blog, pageType }) {
             className="flex items-center gap-2"
           >
             <Tooltip content={`${readingTime} minute read`}>
-              <div className="hidden lg:flex">
+              <div>
                 <p className="text-sm">{readingTime} min read</p>
               </div>
             </Tooltip>
