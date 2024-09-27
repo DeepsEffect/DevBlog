@@ -6,8 +6,8 @@ const SearchContext = createContext();
 
 // hook to use search context
 export const useSearch = () => useContext(SearchContext);
-// provider component
 
+// provider component
 export const SearchProvider = ({ children }) => {
   const [searchQuery, setSearchQuery] = useState("");
 

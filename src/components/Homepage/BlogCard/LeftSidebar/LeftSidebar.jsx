@@ -107,16 +107,18 @@ export const LeftSidebar = ({ onCategorySelect, selectedCategory }) => {
           </h2>
         </CardHeader>
 
-        <CardBody className="flex flex-col gap-3">
-          {catItems?.map((item) => (
-            <Button
-              onClick={() => onCategorySelect(item.key)}
-              variant={selectedCategory === item.key ? "solid" : "light"}
-              key={item.key}
-            >
-              {item.label}
-            </Button>
-          ))}
+        <CardBody>
+          <div className="grid gird-col-1 gap-3 max-h-[400px] overflow-y-auto lg:max-h-none lg:overflow-y-hidden">
+            {catItems?.map((item) => (
+              <Button
+                onClick={() => onCategorySelect(item.key)}
+                variant={selectedCategory === item.key ? "solid" : "light"}
+                key={item.key}
+              >
+                {item.label}
+              </Button>
+            ))}
+          </div>
         </CardBody>
       </Card>
     </div>
