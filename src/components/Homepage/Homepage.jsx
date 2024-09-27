@@ -5,8 +5,10 @@ import { RightSidebar } from "./BlogCard/RightSidebar/RightSidebar";
 import { LeftSidebar } from "./BlogCard/LeftSidebar/LeftSidebar";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useSearch } from "@/contexts/SearchContext";
 
 export const Homepage = () => {
+  const { searchQuery } = useSearch();
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -27,6 +29,13 @@ export const Homepage = () => {
         // Ensure data is an array
         let blogsData = Array.isArray(data) ? data : [];
 
+        // filter data based on search query
+        if (searchQuery) {
+          blogsData = blogsData.filter((blog) =>
+            blog.title.toLowerCase().includes(searchQuery.toLowerCase())
+          );
+        }
+
         // sort the blogs based on selected option
         let sortedData = [...blogsData];
         if (sortOption === "latest") {
@@ -45,7 +54,7 @@ export const Homepage = () => {
       }
     };
     fetchBlogs();
-  }, [selectedCategory, sortOption]);
+  }, [selectedCategory, sortOption, searchQuery]);
 
   // function to set the category to the selectedCategory state
   const handleSelectedCategory = (category) => {
