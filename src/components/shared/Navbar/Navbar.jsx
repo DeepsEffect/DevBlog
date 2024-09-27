@@ -15,7 +15,6 @@ import {
   DropdownItem,
   Dropdown,
 } from "@nextui-org/react";
-import { SearchIcon } from "./SearchIcon";
 import { TfiWrite } from "react-icons/tfi";
 import { LoginModal } from "@/components/Modals/LoginModal/LoginModal";
 import { useSession, signOut } from "next-auth/react";
@@ -23,6 +22,7 @@ import { IoMdNotificationsOutline } from "react-icons/io";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Search from "./Search/Search";
 
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -73,19 +73,7 @@ export const Navbar = () => {
         </NavbarBrand>
         {/* search bar */}
         <NavbarItem>
-          <Input
-            classNames={{
-              base: "sm:max-w-full md:min-w-[400px] lg:min-w-[500px] h-10",
-              mainWrapper: "h-full",
-              input: "text-small",
-              inputWrapper:
-                "h-full font-normal text-default-500 bg-default-400/20 dark:bg-default-500/20",
-            }}
-            placeholder="search blog..."
-            size="sm"
-            startContent={<SearchIcon size={18} />}
-            type="search"
-          />
+          <Search />
         </NavbarItem>
       </NavbarContent>
 
@@ -189,21 +177,7 @@ export const Navbar = () => {
 
       {/* mobile view */}
       <NavbarMenu>
-        <NavbarItem key="search">
-          <Input
-            classNames={{
-              base: "max-w-full h-10",
-              mainWrapper: "h-full",
-              input: "text-small",
-              inputWrapper:
-                "h-full font-normal text-default-500 bg-default-400/20 dark:bg-default-500/20",
-            }}
-            placeholder="search blog..."
-            size="sm"
-            startContent={<SearchIcon size={18} />}
-            type="search"
-          />
-        </NavbarItem>
+        <Search />
         <NavbarItem key="our-story" className="text-medium">
           Our Story
         </NavbarItem>

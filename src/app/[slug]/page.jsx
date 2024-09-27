@@ -16,7 +16,7 @@ const blogDetailsPage = async ({ params, searchParams }) => {
 
   // Fetch blog data from API
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/blogs/${slug}`, {
-    next: { revalidate: 60 },
+    next: { revalidate: 0 },
   });
 
   if (!res.ok) {
