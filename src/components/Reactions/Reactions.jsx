@@ -1,12 +1,14 @@
 "use client";
 
 import { Button, Tooltip } from "@nextui-org/react";
+import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { BiBookmark, BiComment, BiRocket } from "react-icons/bi";
 import { TbShare3 } from "react-icons/tb";
 import { toast } from "react-toastify";
 
 const Reactions = ({ slug, reactions }) => {
+  const queryClient = useQueryClient();
   const [pogs, setPogs] = useState(reactions.pogs);
   const handlePogClick = async () => {
     try {
@@ -22,6 +24,7 @@ const Reactions = ({ slug, reactions }) => {
       );
       const data = await res.json();
       if (res.ok) {
+        queryClient.invalidateQueries("blogs");
         setPogs((prevPogs) => prevPogs + 1);
         toast.success("pogged +1", {
           autoClose: 100,
