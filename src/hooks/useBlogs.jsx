@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-// pre-made hook if I ever need Client Side Rendering
+
 const useBlogs = ({ email }) => {
   const [blogs, setBlogs] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   // get the blog data

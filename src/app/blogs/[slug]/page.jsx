@@ -19,13 +19,13 @@ const blogDetailsPage = async ({ params, searchParams }) => {
     next: { revalidate: 0 },
   });
 
-  // if (!res.ok) {
-  //   return (
-  //     <p className="flex justify-center items-center h-screen text-xl">
-  //       Blog not found
-  //     </p>
-  //   );
-  // }
+  if (!res.ok) {
+    return (
+      <p className="flex justify-center items-center h-screen text-xl">
+        Blog not found
+      </p>
+    );
+  }
 
   const blog = await res.json();
 

@@ -1,8 +1,8 @@
 "use client";
 import { Button, ButtonGroup, Spinner } from "@nextui-org/react";
 import BlogCard from "./BlogCard/BlogCard";
-import { RightSidebar } from "./BlogCard/RightSidebar/RightSidebar";
-import { LeftSidebar } from "./BlogCard/LeftSidebar/LeftSidebar";
+import { RightSidebar } from "./RightSidebar/RightSidebar";
+import { LeftSidebar } from "./LeftSidebar/LeftSidebar";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useSearch } from "@/contexts/SearchContext";
