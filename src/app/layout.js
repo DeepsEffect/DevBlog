@@ -7,6 +7,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { SearchProvider } from "@/contexts/SearchContext";
 import { CategoryProvider } from "@/contexts/CategoryContext";
+import { QueryProvider } from "@/services/QueryProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,12 +23,14 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
         <AuthProvider>
           <NextUIProvider className="dark text-foreground bg-background">
-            <CategoryProvider>
-              <SearchProvider>
-                <Navbar />
-                {children}
-              </SearchProvider>
-            </CategoryProvider>
+            <QueryProvider>
+              <CategoryProvider>
+                <SearchProvider>
+                  <Navbar />
+                  {children}
+                </SearchProvider>
+              </CategoryProvider>
+            </QueryProvider>
           </NextUIProvider>
         </AuthProvider>
         <ToastContainer

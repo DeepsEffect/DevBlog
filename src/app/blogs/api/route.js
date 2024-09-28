@@ -1,4 +1,4 @@
-export const dynamic = "force-dynamic";
+// export const dynamic = "force-dynamic";
 import { connectDB } from "@/lib/connectDB";
 
 export const GET = async (req) => {

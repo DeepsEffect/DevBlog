@@ -3,61 +3,58 @@ import { Button, ButtonGroup, Spinner } from "@nextui-org/react";
 import BlogCard from "./BlogCard/BlogCard";
 import { RightSidebar } from "./BlogCard/RightSidebar/RightSidebar";
 import { LeftSidebar } from "./BlogCard/LeftSidebar/LeftSidebar";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useSearch } from "@/contexts/SearchContext";
 import { useCategory } from "@/contexts/CategoryContext";
+import { useQuery } from "@tanstack/react-query";
+import BlogCardSkeleton from "../shared/BlogCardSkeleton/BlogCardSkeleton";
 
 export const Homepage = () => {
   const { searchQuery } = useSearch();
   const { selectedCategory, handleSelectedCategory } = useCategory();
-  const [blogs, setBlogs] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [sortOption, setSortOption] = useState("latest");
   const router = useRouter();
 
-  useEffect(() => {
-    const fetchBlogs = async () => {
-      setLoading(true);
-      let url = `${process.env.NEXT_PUBLIC_API_URL}/blogs/api`;
-      if (selectedCategory) {
-        url += `?category=${encodeURIComponent(selectedCategory)}`;
-      }
-      try {
-        const res = await fetch(url);
-        const data = await res.json();
+  // Fetch blogs using TanStack Query
+  const fetchBlogs = async () => {
+    let url = `${process.env.NEXT_PUBLIC_API_URL}/blogs/api`;
+    if (selectedCategory) {
+      url += `?category=${encodeURIComponent(selectedCategory)}`;
+    }
+    const res = await fetch(url);
+    const data = await res.json();
 
-        // Ensure data is an array
-        let blogsData = Array.isArray(data) ? data : [];
+    // Ensure data is an array
+    let blogsData = Array.isArray(data) ? data : [];
 
-        // filter data based on search query
-        if (searchQuery) {
-          blogsData = blogsData.filter((blog) =>
-            blog.title.toLowerCase().includes(searchQuery.toLowerCase())
-          );
-        }
+    // Filter data based on search query
+    if (searchQuery) {
+      blogsData = blogsData.filter((blog) =>
+        blog.title.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
 
-        // sort the blogs based on selected option
-        let sortedData = [...blogsData];
-        if (sortOption === "latest") {
-          sortedData.sort(
-            (a, b) => new Date(b.postedDate) - new Date(a.postedDate)
-          );
-        } else if (sortOption === "pogged") {
-          sortedData.sort((a, b) => b.reactions.pogs - a.reactions.pogs);
-        }
+    // Sort the blogs based on selected option
+    let sortedData = [...blogsData];
+    if (sortOption === "latest") {
+      sortedData.sort(
+        (a, b) => new Date(b.postedDate) - new Date(a.postedDate)
+      );
+    } else if (sortOption === "pogged") {
+      sortedData.sort((a, b) => b.reactions.pogs - a.reactions.pogs);
+    }
 
-        setBlogs(sortedData);
-      } catch (error) {
-        console.error("Error fetching blogs: ", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchBlogs();
-  }, [selectedCategory, sortOption, searchQuery]);
+    return sortedData;
+  };
+  const { data: blogs, isLoading } = useQuery({
+    queryKey: ["blogs", selectedCategory, sortOption, searchQuery],
+    queryFn: fetchBlogs,
+    staleTime: 1000 * 60 * 5, // Cache the data for 5 minutes
+    cacheTime: 60 * 60 * 1000, // 1 hour
+  });
 
-  // function to set the sort to the sortOption state
+  // Function to set the sort to the sortOption state
   const handleSortChange = (option) => {
     setSortOption(option);
   };
@@ -99,11 +96,11 @@ export const Homepage = () => {
 
         {/* show blog cards */}
         <div className="grid gird-cols-1 gap-4 lg:p-4 mt-4 lg:mt-2">
-          {loading ? (
-            <div className="flex justify-center items-center gap-2 lg:mt-10">
-              <Spinner size="sm" />
-              <p>Loading blogs...</p>
-            </div>
+          {isLoading ? (
+            // Show skeletons while loading
+            Array.from({ length: 5 }).map((_, index) => (
+              <BlogCardSkeleton key={index} />
+            ))
           ) : (
             <>
               {blogs?.length === 0 ? (

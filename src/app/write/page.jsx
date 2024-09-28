@@ -3,19 +3,20 @@ import CustomTagInput from "@/components/CustomTagInput/CustomTagInput";
 import Tiptap from "@/components/Tiptap/Tiptap";
 import usePrivateRoute from "@/hooks/usePrivateRoute";
 import { Button, Input, Spinner, Select, SelectItem } from "@nextui-org/react";
+import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "react-toastify";
 
 const WritePage = () => {
   const { session, status } = usePrivateRoute();
+  const queryClient = useQueryClient();
   const router = useRouter();
   const [blogTitle, setBlogTitle] = useState(""); // Handle title
   const [blogContent, setBlogContent] = useState(""); // Handle content
   const [coverPhoto, setCoverPhoto] = useState("");
   const [tags, setTags] = useState([]);
   const [category, setCategory] = useState("");
-  const [readingTime, setReadingTime] = useState("");
   const [loading, setLoading] = useState(false);
 
   if (status === "loading") {
@@ -72,6 +73,7 @@ const WritePage = () => {
 
       if (resp.ok) {
         toast.success(responseData.message || "Blog posted successfully!");
+        queryClient.invalidateQueries("blogs");
         router.push("/");
       } else {
         toast.error(responseData.message || "Failed to post blog.");
