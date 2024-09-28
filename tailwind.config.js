@@ -21,9 +21,6 @@ module.exports = {
         secondary: "#4C566A", // Secondary elements, cool gray
         accent: "#81A1C1", // Accent color, a calm blue for highlights
       },
-      maxHeight: {
-        "4/5": "80%",
-      },
     },
   },
   darkMode: "class",
