@@ -100,7 +100,7 @@ export const LeftSidebar = ({ onCategorySelect, selectedCategory }) => {
     },
   ];
   return (
-    <div>
+    <div className="sticky top-[64px]">
       <Card className="max-h-[80vh]">
         <CardHeader>
           <h2 className="text-xl flex justify-center w-full font-bold">
@@ -108,7 +108,7 @@ export const LeftSidebar = ({ onCategorySelect, selectedCategory }) => {
           </h2>
         </CardHeader>
         <CardBody>
-          <div className="grid gird-col-1 gap-3 max-h-[400px] overflow-y-auto lg:max-h-none leftsidebar-scrollbar">
+          <div className="grid gird-col-1 gap-3 overflow-y-auto lg:max-h-none leftsidebar-scrollbar">
             {catItems?.map((item) => (
               <Button
                 onClick={() => onCategorySelect(item.key)}

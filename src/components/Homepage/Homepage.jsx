@@ -50,7 +50,7 @@ export const Homepage = () => {
   const { data: blogs, isLoading } = useQuery({
     queryKey: ["blogs", selectedCategory, sortOption, searchQuery],
     queryFn: fetchBlogs,
-    staleTime: 1000 * 60 * 5, // Cache the data for 5 minutes
+    staleTime: 1000 * 60 * 5, //  5 minutes
     cacheTime: 60 * 60 * 1000, // 1 hour
   });
 
@@ -60,8 +60,7 @@ export const Homepage = () => {
   };
 
   return (
-    <div className="container mx-auto grid grid-cols-1 md:grid-cols-4 lg:grid-cols-12 gap-4 md:px-4 py-4 lg:py-6 ">
-      {/* TODO: toggle button for right sidebar for mobile view */}
+    <div className="container mx-auto grid grid-cols-1 md:grid-cols-4 lg:grid-cols-12 gap-4 md:px-4 py-4 lg:py-6">
 
       {/* left sidebar */}
       <aside className="hidden md:block md:col-span-1 lg:col-span-3 lg:p-4">
