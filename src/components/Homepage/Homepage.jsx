@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { useSearch } from "@/contexts/SearchContext";
 import { useCategory } from "@/contexts/CategoryContext";
 import { useQuery } from "@tanstack/react-query";
+import BlogCardSkeleton from "../shared/BlogCardSkeleton/BlogCardSkeleton";
 
 export const Homepage = () => {
   const { searchQuery } = useSearch();
@@ -46,11 +47,7 @@ export const Homepage = () => {
 
     return sortedData;
   };
-
-  const {
-    data: blogs,
-    isLoading,
-  } = useQuery({
+  const { data: blogs, isLoading } = useQuery({
     queryKey: ["blogs", selectedCategory, sortOption, searchQuery],
     queryFn: fetchBlogs,
     staleTime: 1000 * 60 * 5, // Cache the data for 5 minutes
@@ -100,10 +97,10 @@ export const Homepage = () => {
         {/* show blog cards */}
         <div className="grid gird-cols-1 gap-4 lg:p-4 mt-4 lg:mt-2">
           {isLoading ? (
-            <div className="flex justify-center items-center gap-2 lg:mt-10">
-              <Spinner size="sm" />
-              <p>Loading blogs...</p>
-            </div>
+            // Show skeletons while loading
+            Array.from({ length: 5 }).map((_, index) => (
+              <BlogCardSkeleton key={index} />
+            ))
           ) : (
             <>
               {blogs?.length === 0 ? (
