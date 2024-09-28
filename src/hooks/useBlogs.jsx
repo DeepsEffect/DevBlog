@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 // pre-made hook if I ever need Client Side Rendering
-const useBlogs = ({email}) => {
+const useBlogs = ({ email }) => {
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -11,7 +11,9 @@ const useBlogs = ({email}) => {
       setLoading(true);
       setError(null);
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/my-blogs/api?email=${email}`);
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/api/my-blogs?email=${email}`
+        );
         if (!res.ok) {
           throw new Error("Failed to fetch blogs");
         }
