@@ -6,7 +6,7 @@ import React from "react";
 
 const MyProfilePage = () => {
   const session = useSession();
-  const email = session.data.user.email;
+  const email = session?.data?.user?.email;
   const { blogs } = useBlogs({ email });
   return (
     <div className="max-w-xl mx-auto lg:mt-20">

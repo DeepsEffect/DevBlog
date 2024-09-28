@@ -38,7 +38,7 @@ const BlogContent = () => {
 
   return (
     <div className="max-w-3xl mx-auto grid grid-cols-1 gap-4 lg:p-4 mt-4 lg:mt-2">
-      {blogs.length !== 0 ? (
+      {blogs?.length !== 0 ? (
         <>
           {blogs?.map((blog) => (
             <BlogCard blog={blog} pageType="my-blogs" key={blog._id} />
