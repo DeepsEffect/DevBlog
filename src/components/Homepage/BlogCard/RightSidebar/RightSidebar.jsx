@@ -1,26 +1,29 @@
 import React from "react";
-import {
-  Card,
-  CardBody,
-  CardFooter,
-  CardHeader,
-} from "@nextui-org/react";
+import { Card, CardBody, CardHeader } from "@nextui-org/react";
+import { useEffect, useState } from "react";
+import Clock from "react-clock";
+import "react-clock/dist/Clock.css";
 
 export const RightSidebar = () => {
+  const [clockValue, setClockValue] = useState(new Date());
+  useEffect(() => {
+    const interval = setInterval(() => setClockValue(new Date()), 1000);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
   return (
-    <div>
+    <div className="sticky top-[64px]">
       <Card>
         <CardHeader>
-          <h2 className="text-xl font-bold">Recent Activity</h2>
+          <h2 className="text-xl font-bold text-center mx-auto">
+            Activity bar
+          </h2>
         </CardHeader>
-        <CardBody>
-          <p>Recommended topics will be shown here</p>
-          <p>recently saved will be shown here</p>
+        <CardBody className="flex justify-center items-center gap-4 mx-auto">
+          <Clock secondHandOppositeLength={15} secondHandWidth={2} value={clockValue} />
         </CardBody>
-        <CardHeader>
-          <p>recent comments will be show here</p>
-        </CardHeader>
-        <CardFooter>other banners will be shown here</CardFooter>
       </Card>
     </div>
   );
