@@ -1,6 +1,7 @@
 "use client";
 import { Button, Card, CardBody, CardHeader } from "@nextui-org/react";
 import React from "react";
+import "./LeftSidebar.css";
 
 export const LeftSidebar = ({ onCategorySelect, selectedCategory }) => {
   // category lists
@@ -100,20 +101,20 @@ export const LeftSidebar = ({ onCategorySelect, selectedCategory }) => {
   ];
   return (
     <div>
-      <Card>
+      <Card className="max-h-[80vh]">
         <CardHeader>
           <h2 className="text-xl flex justify-center w-full font-bold">
             Blog Categories
           </h2>
         </CardHeader>
-
         <CardBody>
-          <div className="grid gird-col-1 gap-3 max-h-[400px] overflow-y-auto lg:max-h-none lg:overflow-y-hidden">
+          <div className="grid gird-col-1 gap-3 max-h-[400px] overflow-y-auto lg:max-h-none leftsidebar-scrollbar">
             {catItems?.map((item) => (
               <Button
                 onClick={() => onCategorySelect(item.key)}
                 variant={selectedCategory === item.key ? "solid" : "light"}
                 key={item.key}
+                className="mr-2"
               >
                 {item.label}
               </Button>
