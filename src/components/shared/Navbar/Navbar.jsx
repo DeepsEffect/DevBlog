@@ -22,7 +22,7 @@ import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Search from "./Search/Search";
-import { LeftSidebar } from "@/components/Homepage/BlogCard/LeftSidebar/LeftSidebar";
+import { LeftSidebar } from "@/components/Homepage/LeftSidebar/LeftSidebar";
 import { useCategory } from "@/contexts/CategoryContext";
 
 export const Navbar = () => {

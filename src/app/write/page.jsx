@@ -12,8 +12,8 @@ const WritePage = () => {
   const { session, status } = usePrivateRoute();
   const queryClient = useQueryClient();
   const router = useRouter();
-  const [blogTitle, setBlogTitle] = useState(""); // Handle title
-  const [blogContent, setBlogContent] = useState(""); // Handle content
+  const [blogTitle, setBlogTitle] = useState(""); 
+  const [blogContent, setBlogContent] = useState("");
   const [coverPhoto, setCoverPhoto] = useState("");
   const [tags, setTags] = useState([]);
   const [category, setCategory] = useState("");
