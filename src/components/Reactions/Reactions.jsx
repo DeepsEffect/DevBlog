@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 
 const Reactions = ({ slug, reactions }) => {
   const queryClient = useQueryClient();
-  const [pogs, setPogs] = useState(reactions.pogs);
+  const [pogs, setPogs] = useState(reactions?.pogs);
   const handlePogClick = async () => {
     try {
       const res = await fetch(

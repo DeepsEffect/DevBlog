@@ -18,7 +18,7 @@ export const Homepage = () => {
 
   // Fetch blogs using TanStack Query
   const fetchBlogs = async () => {
-    let url = `${process.env.NEXT_PUBLIC_API_URL}/blogs/api`;
+    let url = `${process.env.NEXT_PUBLIC_API_URL}/api/blogs`;
     if (selectedCategory) {
       url += `?category=${encodeURIComponent(selectedCategory)}`;
     }

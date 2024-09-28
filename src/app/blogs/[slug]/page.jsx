@@ -15,17 +15,17 @@ const blogDetailsPage = async ({ params, searchParams }) => {
   const readingTime = searchParams.readingTime;
 
   // Fetch blog data from API
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/blogs/${slug}`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/blogs/${slug}`, {
     next: { revalidate: 0 },
   });
 
-  if (!res.ok) {
-    return (
-      <p className="flex justify-center items-center h-screen text-xl">
-        Blog not found
-      </p>
-    );
-  }
+  // if (!res.ok) {
+  //   return (
+  //     <p className="flex justify-center items-center h-screen text-xl">
+  //       Blog not found
+  //     </p>
+  //   );
+  // }
 
   const blog = await res.json();
 
@@ -46,7 +46,7 @@ const blogDetailsPage = async ({ params, searchParams }) => {
         <CardHeader className="flex flex-col gap-4 items-start ">
           {/* category section */}
           <section>
-            <p className="text-gray-400">{category.toUpperCase()}</p>
+            <p className="text-gray-400">{category?.toUpperCase()}</p>
           </section>
 
           {/* title and tags section */}

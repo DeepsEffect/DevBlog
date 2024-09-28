@@ -41,7 +41,7 @@ export default function BlogCard({ blog, pageType }) {
 
   // navigation function
   const handleCardClick = () => {
-    router.push(`${slug}?readingTime=${readingTime}`);
+    router.push(`/blogs/${slug}?readingTime=${readingTime}`);
   };
 
   // reading time calculation function
@@ -112,7 +112,7 @@ export default function BlogCard({ blog, pageType }) {
         <CardBody className="flex flex-row items-center justify-between gap-2 lg:gap-4 py-0">
           {/* title and description */}
           <div className="space-y-1 min-w-[75%] lg:w-full">
-            <Link href={`${slug}?readingTime=${readingTime}`}>
+            <Link href={`/blogs/${slug}?readingTime=${readingTime}`}>
               <h2 className="text-xl lg:text-2xl font-semibold hover:underline cursor-pointer">
                 {title}
               </h2>
@@ -123,7 +123,7 @@ export default function BlogCard({ blog, pageType }) {
           {/* Render cover photo only if it's provided */}
           {coverPhoto && (
             <div className="mt-2 relative w-full lg:max-w-[150px] h-[100px] ">
-              <Link href={`${slug}?readingTime=${readingTime}`}>
+              <Link href={`/blogs/${slug}?readingTime=${readingTime}`}>
                 <Image
                   alt={title}
                   className="object-cover rounded-xl"

@@ -43,7 +43,7 @@ const RegisterPage = () => {
     try {
       // Send newUser data to DB
       const resp = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/register/api`,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/register`,
         {
           method: "POST",
           body: JSON.stringify(newUser),

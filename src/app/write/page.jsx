@@ -61,7 +61,7 @@ const WritePage = () => {
 
     try {
       // send the blog data to DB
-      const resp = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/write/api`, {
+      const resp = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/write`, {
         method: "POST",
         body: JSON.stringify(blogData),
         headers: {

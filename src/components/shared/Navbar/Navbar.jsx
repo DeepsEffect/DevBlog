@@ -120,11 +120,22 @@ export const Navbar = () => {
                   />
                 </DropdownTrigger>
                 <DropdownMenu aria-label="Profile Actions" variant="flat">
-                  <DropdownItem key="profile" className="h-14 gap-2">
+                  <DropdownItem
+                    textValue="signed in as"
+                    key="profile"
+                    className="h-14 gap-2"
+                  >
                     <p className="font-semibold">Signed in as</p>
                     <p className="font-semibold">{session.data?.user?.email}</p>
                   </DropdownItem>
-                  <DropdownItem key="profile2">My Profile</DropdownItem>
+                  <DropdownItem textValue="my profile" key="profile2">
+                    <Link
+                      href={"/my-profile"}
+                      className="w-full h-full flex items-center"
+                    >
+                      My Profile
+                    </Link>
+                  </DropdownItem>
                   <DropdownItem key="blogs" textValue="My Blogs">
                     <Link
                       href={`/my-blogs?email=${encodeURIComponent(
@@ -144,6 +155,7 @@ export const Navbar = () => {
                     </Link>
                   </DropdownItem>
                   <DropdownItem
+                    textValue="logout"
                     onClick={handleSignOut}
                     key="logout"
                     color="danger"
