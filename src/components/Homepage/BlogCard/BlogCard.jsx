@@ -17,7 +17,6 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { BiComment } from "react-icons/bi";
-import { BiBookmark } from "react-icons/bi";
 import { FiMoreHorizontal } from "react-icons/fi";
 import { BiRocket } from "react-icons/bi";
 import { useRouter } from "next/navigation";
@@ -194,7 +193,7 @@ export default function BlogCard({ blog, pageType }) {
             </Tooltip>
 
             {/* bookmark  */}
-            <Bookmark page={"homePage"} />
+            <Bookmark blog={blog} page={"homePage"} />
           </section>
         </CardFooter>
       </div>
