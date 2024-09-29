@@ -98,7 +98,7 @@ export const Homepage = () => {
         <div className="grid gird-cols-1 gap-4 lg:p-4 mt-4 lg:mt-2">
           {isLoading ? (
             // Show skeletons while loading
-            Array.from({ length: 5 }).map((_, index) => (
+            Array.from({ length: 3 }).map((_, index) => (
               <BlogCardSkeleton key={index} />
             ))
           ) : (
