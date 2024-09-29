@@ -1,4 +1,6 @@
+import { Bookmark } from "@/components/Bookmark/Bookmark";
 import Reactions from "@/components/Reactions/Reactions";
+import { ShareButton } from "@/components/ShareButton/ShareButton";
 import SanitizeMarkup from "@/services/SanitizeMarkup";
 import {
   Avatar,
@@ -15,9 +17,12 @@ const blogDetailsPage = async ({ params, searchParams }) => {
   const readingTime = searchParams.readingTime;
 
   // Fetch blog data from API
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/blogs/${slug}`, {
-    next: { revalidate: 0 },
-  });
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/api/blogs/${slug}`,
+    {
+      next: { revalidate: 0 },
+    }
+  );
 
   if (!res.ok) {
     return (
@@ -78,8 +83,15 @@ const blogDetailsPage = async ({ params, searchParams }) => {
             </span>
           </section>
 
-          {/* Client-side reactions (buttons, pogs) */}
-          <Reactions slug={slug} reactions={reactions} />
+          {/* pog, comment, bookmark and share */}
+          <section className="flex justify-between items-center w-full gap-2">
+            <Reactions slug={slug} reactions={reactions} />
+            <div className="flex items-center gap-2">
+              <Bookmark blog={blog} page={"blogDetails"} />
+              <ShareButton />
+            </div>
+          </section>
+          {/* pog and comment */}
         </CardHeader>
 
         <Divider />

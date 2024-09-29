@@ -3,13 +3,14 @@
 import { Button, Tooltip } from "@nextui-org/react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-import { BiBookmark, BiComment, BiRocket } from "react-icons/bi";
-import { TbShare3 } from "react-icons/tb";
+import { BiComment, BiRocket } from "react-icons/bi";
 import { toast } from "react-toastify";
 
 const Reactions = ({ slug, reactions }) => {
   const queryClient = useQueryClient();
   const [pogs, setPogs] = useState(reactions?.pogs);
+
+  // handle pog click
   const handlePogClick = async () => {
     try {
       const res = await fetch(
@@ -38,46 +39,33 @@ const Reactions = ({ slug, reactions }) => {
   };
 
   return (
-    <section className="flex justify-between items-center w-full gap-2">
-      <div className="flex items-center gap-2">
-        <Tooltip content="pog">
-          <div className="flex items-center gap-1">
-            <Button
-              size="sm"
-              isIconOnly
-              aria-label="pog"
-              onClick={handlePogClick}
-            >
-              <BiRocket className="text-xl" />
-            </Button>
-            <span className="text-sm font-semibold">{pogs}</span>
-          </div>
-        </Tooltip>
-
-        <Tooltip content="comment">
-          <div className="flex items-center gap-1">
-            <Button size="sm" isIconOnly aria-label="comments">
-              <BiComment className="text-xl" />
-            </Button>
-            <span className="text-sm font-semibold">{reactions?.comments}</span>
-          </div>
-        </Tooltip>
-      </div>
-
-      <div className="flex items-center gap-2">
-        <Tooltip content="bookmark blog">
-          <Button size="sm" isIconOnly>
-            <BiBookmark className="text-2xl" />
+    <div className="flex items-center gap-2">
+      {/* pog button */}
+      <Tooltip content="pog">
+        <div className="flex items-center gap-1">
+          <Button
+            variant="flat"
+            size="sm"
+            isIconOnly
+            aria-label="pog"
+            onClick={handlePogClick}
+          >
+            <BiRocket className="text-xl" />
           </Button>
-        </Tooltip>
+          <span className="text-sm font-semibold">{pogs}</span>
+        </div>
+      </Tooltip>
 
-        <Tooltip content="share blog">
-          <Button size="sm" isIconOnly>
-            <TbShare3 className="text-2xl" />
+      {/* comment button */}
+      <Tooltip content="comment">
+        <div className="flex items-center gap-1">
+          <Button variant="flat" size="sm" isIconOnly aria-label="comments">
+            <BiComment className="text-xl" />
           </Button>
-        </Tooltip>
-      </div>
-    </section>
+          <span className="text-sm font-semibold">{reactions?.comments}</span>
+        </div>
+      </Tooltip>
+    </div>
   );
 };
 

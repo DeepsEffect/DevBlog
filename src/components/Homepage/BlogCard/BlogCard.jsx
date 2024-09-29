@@ -17,11 +17,11 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { BiComment } from "react-icons/bi";
-import { BiBookmark } from "react-icons/bi";
 import { FiMoreHorizontal } from "react-icons/fi";
 import { BiRocket } from "react-icons/bi";
 import { useRouter } from "next/navigation";
 import BriefContent from "./BriefContent/BriefContent";
+import { Bookmark } from "@/components/Bookmark/Bookmark";
 
 export default function BlogCard({ blog, pageType }) {
   const router = useRouter();
@@ -145,7 +145,13 @@ export default function BlogCard({ blog, pageType }) {
             <Tooltip content={`pog count: ${reactions?.pogs}`}>
               <div className="flex items-center gap-1">
                 {/* Pog Button */}
-                <Button onClick={handleCardClick} isIconOnly aria-label="pog">
+                <Button
+                  variant="flat"
+                  size="md"
+                  onClick={handleCardClick}
+                  isIconOnly
+                  aria-label="pog"
+                >
                   <BiRocket className="text-xl" />{" "}
                   {/* A rocket icon for "Pog" */}
                 </Button>
@@ -158,7 +164,12 @@ export default function BlogCard({ blog, pageType }) {
             <Tooltip content={`comment count: ${reactions?.comments}`}>
               <div className="flex items-center gap-1">
                 {/* comment button */}
-                <Button isIconOnly aria-level="comments">
+                <Button
+                  variant="flat"
+                  size="md"
+                  isIconOnly
+                  aria-level="comments"
+                >
                   <BiComment className="text-xl" />
                 </Button>
                 {/* comment count */}
@@ -174,17 +185,15 @@ export default function BlogCard({ blog, pageType }) {
             onClick={(e) => e.stopPropagation()}
             className="flex items-center gap-2"
           >
+            {/* reading time */}
             <Tooltip content={`${readingTime} minute read`}>
               <div>
                 <p className="text-sm">{readingTime} min read</p>
               </div>
             </Tooltip>
 
-            <Tooltip content="bookmark blog">
-              <Button isIconOnly variant="light" className="cursor-pointer">
-                <BiBookmark className="text-2xl" />
-              </Button>
-            </Tooltip>
+            {/* bookmark  */}
+            <Bookmark blog={blog} page={"homePage"} />
           </section>
         </CardFooter>
       </div>
