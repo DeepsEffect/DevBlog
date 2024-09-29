@@ -34,7 +34,7 @@ const MyProfilePage = () => {
                 type="email"
                 variant="bordered"
                 value={session?.data?.user?.email}
-                label="Username"
+                label="User Email"
                 disabled
               />
             </div>
