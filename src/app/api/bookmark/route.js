@@ -9,10 +9,13 @@ export const POST = async (request) => {
     // connect to db
     const db = await connectDB();
 
-    // see if bookmark already exists
+    // see if bookmark already exists for the user
     const alreadyExits = await db
       .collection("bookmarks")
-      .findOne({ blogId: blog.blogId });
+      .findOne({
+        blogId: blog.blogId,
+        "bookmarkedBy.email": blog.bookmarkedBy.email,
+      });
 
     if (alreadyExits) {
       return NextResponse.json(

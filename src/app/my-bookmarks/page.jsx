@@ -40,14 +40,14 @@ const MyBookmarks = () => {
 
   return (
     <div className="max-w-3xl mx-auto grid grid-cols-1 gap-4 lg:p-4 mt-4 lg:mt-2">
-      {bookmarks?.length !== 0 ? (
+      {Array.isArray(bookmarks) && bookmarks.length !== 0 ? (
         <>
           {bookmarks?.map((blog) => (
             <BlogCard key={blog.blogId} blog={blog} pageType={"my-bookmarks"} />
           ))}
         </>
       ) : (
-        <div>No Bookmarks</div>
+        <div className="flex justify-center mt-10 lg:mt-20">No Bookmarks</div>
       )}
     </div>
   );

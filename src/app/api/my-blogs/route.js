@@ -3,6 +3,7 @@ import { connectDB } from "@/lib/connectDB";
 export const GET = async (request) => {
   const { searchParams } = new URL(request.url);
   const email = searchParams.get("email");
+
   if (!email) {
     return new Response(JSON.stringify({ message: "Email is required" }), {
       status: 400,
