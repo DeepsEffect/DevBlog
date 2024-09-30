@@ -21,7 +21,7 @@ const MyBookmarks = () => {
     return data;
   };
 
-  const { data: bookmarks, isLoading } = useQuery({
+  const { data: bookmarks = [], isLoading } = useQuery({
     queryKey: ["bookmarks", email],
     queryFn: fetchBookmarks,
     staleTime: 1000 * 60 * 5, //  5 minutes
