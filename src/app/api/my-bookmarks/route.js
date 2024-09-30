@@ -1,13 +1,23 @@
 import { connectDB } from "@/lib/connectDB";
 import { NextResponse } from "next/server";
 
-export const GET = async () => {
+export const GET = async (request) => {
   try {
     // get the user email
-    const email = "dipuahmed55@gmail.com";
+    const { searchParams } = new URL(request.url);
+    const email = searchParams.get("email");
+
+    // return a bad response if email is missing
+    if (!email) {
+      return NextResponse.json(
+        { message: "Email is required" },
+        { status: 400 }
+      );
+    }
     // connect to db
     const db = await connectDB();
-    // find the bookmarks based on email
+
+    // find the bookmarks based on email and return the data
     const bookmarks = await db
       .collection("bookmarks")
       .find({ "bookmarkedBy.email": email })
