@@ -6,6 +6,7 @@ import {
   CardBody,
   CardFooter,
   CardHeader,
+  Chip,
   Dropdown,
   DropdownItem,
   DropdownMenu,
@@ -126,6 +127,13 @@ export default function BlogCard({ blog, pageType }) {
               </h2>
               <BriefContent htmlContent={content} />
             </Link>
+            <div className="flex items-center gap-1 mt-2">
+              {tags?.map((tag) => (
+                <p className="mr-1 text-sm text-gray-500" key={tag}>
+                  #{tag}
+                </p>
+              ))}
+            </div>
           </div>
 
           {/* Render cover photo only if it's provided */}
