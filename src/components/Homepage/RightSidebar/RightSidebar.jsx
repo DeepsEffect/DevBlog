@@ -14,7 +14,7 @@ export const RightSidebar = () => {
     };
   }, []);
   return (
-    <div className="sticky top-[64px]">
+    <div>
       <Card>
         <CardHeader>
           <h2 className="text-xl font-bold text-center mx-auto">
@@ -22,7 +22,11 @@ export const RightSidebar = () => {
           </h2>
         </CardHeader>
         <CardBody className="flex justify-center items-center gap-4 mx-auto">
-          <Clock secondHandOppositeLength={15} secondHandWidth={2} value={clockValue} />
+          <Clock
+            secondHandOppositeLength={15}
+            secondHandWidth={2}
+            value={clockValue}
+          />
         </CardBody>
       </Card>
     </div>

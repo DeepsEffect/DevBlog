@@ -33,8 +33,8 @@ const MyProfilePage = () => {
                 name="email"
                 type="email"
                 variant="bordered"
-                value={session?.data?.user?.email}
-                label="Username"
+                value={session?.data?.user?.email || "Email not found"}
+                label="User Email"
                 disabled
               />
             </div>

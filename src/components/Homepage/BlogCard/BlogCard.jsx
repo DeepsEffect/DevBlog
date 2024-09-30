@@ -92,12 +92,20 @@ export default function BlogCard({ blog, pageType }) {
 
               <DropdownMenu aria-label="Dynamic Actions">
                 {/* show different options based on pageType */}
-                {pageType === "my-blogs" ? (
+                {pageType === "my-blogs" && (
                   <DropdownSection title={"author actions"}>
                     <DropdownItem>Edit Blog</DropdownItem>
                     <DropdownItem>Delete Blog</DropdownItem>
                   </DropdownSection>
-                ) : (
+                )}
+
+                {pageType === "my-bookmarks" && (
+                  <DropdownSection title={"author actions"}>
+                    <DropdownItem>Delete Bookmark</DropdownItem>
+                  </DropdownSection>
+                )}
+
+                {pageType === "homepage" && (
                   <DropdownSection title={"general actions"}>
                     <DropdownItem>Report Blog</DropdownItem>
                     <DropdownItem>Hide Blog</DropdownItem>

@@ -1,18 +1,33 @@
 "use client";
 import { Button, Tooltip } from "@nextui-org/react";
+import { useSession } from "next-auth/react";
 import React from "react";
 import { FaRegBookmark, FaBookmark } from "react-icons/fa";
 import { toast } from "react-toastify";
 
 export const Bookmark = ({ blog, page }) => {
+  const session = useSession();
   const handleBookmark = async () => {
     try {
+      const email = session?.data?.user?.email;
+      const username = session?.data?.user?.name;
+      const bookmarkedBy = { username, email };
+      const bookmarkDate = new Date().toISOString();
       const { _id: blogId, ...bookmarkPayload } = blog;
+
+      // bookmark data
+      const bookmarkData = {
+        blogId,
+        ...bookmarkPayload,
+        bookmarkedBy,
+        bookmarkDate,
+      };
+      // send data to db
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/api/bookmark`,
         {
           method: "POST",
-          body: JSON.stringify({ blogId, ...bookmarkPayload }),
+          body: JSON.stringify(bookmarkData),
           headers: {
             "Content-type": "Application/json",
           },
