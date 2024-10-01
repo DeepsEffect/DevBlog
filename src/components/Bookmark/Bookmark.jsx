@@ -1,5 +1,6 @@
 "use client";
 import { Button, Tooltip } from "@nextui-org/react";
+import { useQueryClient } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
 import React from "react";
 import { FaRegBookmark, FaBookmark } from "react-icons/fa";
@@ -7,6 +8,7 @@ import { toast } from "react-toastify";
 
 export const Bookmark = ({ blog, page }) => {
   const session = useSession();
+  const queryClient = useQueryClient();
   const handleBookmark = async () => {
     try {
       const email = session?.data?.user?.email;
@@ -36,6 +38,7 @@ export const Bookmark = ({ blog, page }) => {
       const data = await res.json();
       if (res.ok) {
         toast.success(data?.message);
+        queryClient.invalidateQueries("bookmarks");
       } else if (res.status === 409) {
         toast.error(data?.message);
       }
