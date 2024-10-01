@@ -37,18 +37,17 @@ const MyBookmarks = () => {
       </div>
     );
   }
+  if (!bookmarks || bookmarks.length === 0) {
+    return (
+      <div className="flex justify-center mt-10 lg:mt-20">No Bookmarks</div>
+    );
+  }
 
   return (
     <div className="max-w-3xl mx-auto grid grid-cols-1 gap-4 lg:p-4 mt-4 lg:mt-2">
-      {Array.isArray(bookmarks) && bookmarks.length !== 0 ? (
-        <>
-          {bookmarks?.map((blog) => (
-            <BlogCard key={blog.blogId} blog={blog} pageType={"my-bookmarks"} />
-          ))}
-        </>
-      ) : (
-        <div className="flex justify-center mt-10 lg:mt-20">No Bookmarks</div>
-      )}
+      {bookmarks.map((blog) => (
+        <BlogCard key={blog.blogId} blog={blog} pageType={"my-bookmarks"} />
+      ))}
     </div>
   );
 };
