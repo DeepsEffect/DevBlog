@@ -21,7 +21,12 @@ const MyBookmarks = () => {
     return data;
   };
 
-  const { data: bookmarks = [], isLoading } = useQuery({
+  const {
+    data: bookmarks = [],
+    isLoading,
+    isFetching,
+    isSuccess,
+  } = useQuery({
     queryKey: ["bookmarks", email],
     queryFn: fetchBookmarks,
     staleTime: 1000 * 60 * 5, //  5 minutes
@@ -29,7 +34,7 @@ const MyBookmarks = () => {
     enabled: !!email, // Only run the query if the email is available
   });
 
-  if (isLoading) {
+  if (isLoading || isFetching) {
     return (
       <div className="flex justify-center items-center min-h-screen gap-2">
         <Spinner size="sm" />
@@ -37,7 +42,7 @@ const MyBookmarks = () => {
       </div>
     );
   }
-  if (!bookmarks || bookmarks.length === 0) {
+  if (isSuccess && (!Array.isArray(bookmarks) || bookmarks.length === 0)) {
     return (
       <div className="flex justify-center mt-10 lg:mt-20">No Bookmarks</div>
     );
