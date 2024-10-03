@@ -8,6 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { SearchProvider } from "@/contexts/SearchContext";
 import { CategoryProvider } from "@/contexts/CategoryContext";
 import { QueryProvider } from "@/services/QueryProvider";
+import { BookmarkProvider } from "@/contexts/BookmarkContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,8 +27,10 @@ export default function RootLayout({ children }) {
             <QueryProvider>
               <CategoryProvider>
                 <SearchProvider>
-                  <Navbar />
-                  {children}
+                  <BookmarkProvider>
+                    <Navbar />
+                    {children}
+                  </BookmarkProvider>
                 </SearchProvider>
               </CategoryProvider>
             </QueryProvider>
