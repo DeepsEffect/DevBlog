@@ -6,16 +6,22 @@ export const POST = async (request) => {
     // parse the blog from body
     const blog = await request.json();
 
+    // Ensure email exists
+    if (!blog?.bookmarkedBy?.email) {
+      return NextResponse.json(
+        { message: "Unauthorized: User not logged in" },
+        { status: 401 }
+      );
+    }
+
     // connect to db
     const db = await connectDB();
 
     // see if bookmark already exists for the user
-    const alreadyExits = await db
-      .collection("bookmarks")
-      .findOne({
-        blogId: blog.blogId,
-        "bookmarkedBy.email": blog.bookmarkedBy.email,
-      });
+    const alreadyExits = await db.collection("bookmarks").findOne({
+      blogId: blog.blogId,
+      "bookmarkedBy.email": blog.bookmarkedBy.email,
+    });
 
     if (alreadyExits) {
       return NextResponse.json(

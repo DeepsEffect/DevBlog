@@ -6,7 +6,6 @@ import {
   CardBody,
   CardFooter,
   CardHeader,
-  Chip,
   Dropdown,
   DropdownItem,
   DropdownMenu,
@@ -23,10 +22,13 @@ import { BiRocket } from "react-icons/bi";
 import { useRouter } from "next/navigation";
 import BriefContent from "./BriefContent/BriefContent";
 import { Bookmark } from "@/components/Bookmark/Bookmark";
+import { useSession } from "next-auth/react";
 
 export default function BlogCard({ blog, pageType }) {
   const router = useRouter();
   const [readingTime, setReadingTime] = useState(0);
+  const session = useSession();
+  const email = session?.data?.user?.email;
 
   const {
     title,
@@ -60,6 +62,17 @@ export default function BlogCard({ blog, pageType }) {
     setReadingTime(time);
   }, [readingTime]);
 
+  // handle delete blog
+  const handleDeleteBookmark = async (id) => {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/my-bookmarks/delete?email=${email}&blogId=${id}`,
+      {
+        method: "DELETE",
+      }
+    );
+    const data = res.json();
+    console.log(data);
+  };
   return (
     <Card>
       <div onClick={handleCardClick}>
@@ -102,7 +115,11 @@ export default function BlogCard({ blog, pageType }) {
 
                 {pageType === "my-bookmarks" && (
                   <DropdownSection title={"author actions"}>
-                    <DropdownItem>Delete Bookmark</DropdownItem>
+                    <DropdownItem
+                      onClick={() => handleDeleteBookmark(blog?._id)}
+                    >
+                      Delete Bookmark
+                    </DropdownItem>
                   </DropdownSection>
                 )}
 

@@ -9,7 +9,13 @@ import { toast } from "react-toastify";
 export const Bookmark = ({ blog, page }) => {
   const session = useSession();
   const queryClient = useQueryClient();
+
   const handleBookmark = async () => {
+    if (!session?.data) {
+      toast.error("Please login to bookmark");
+      return; // Prevent further execution
+    }
+    
     try {
       const email = session?.data?.user?.email;
       const username = session?.data?.user?.name;
