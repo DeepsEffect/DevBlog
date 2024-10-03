@@ -23,11 +23,14 @@ import { useRouter } from "next/navigation";
 import BriefContent from "./BriefContent/BriefContent";
 import { Bookmark } from "@/components/Bookmark/Bookmark";
 import { useSession } from "next-auth/react";
+import { toast } from "react-toastify";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function BlogCard({ blog, pageType }) {
   const router = useRouter();
   const [readingTime, setReadingTime] = useState(0);
   const session = useSession();
+  const queryClient = useQueryClient();
   const email = session?.data?.user?.email;
 
   const {
@@ -38,7 +41,6 @@ export default function BlogCard({ blog, pageType }) {
     postedDate,
     author,
     tags,
-    categories,
     reactions,
   } = blog;
 
@@ -65,13 +67,16 @@ export default function BlogCard({ blog, pageType }) {
   // handle delete blog
   const handleDeleteBookmark = async (id) => {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/my-bookmarks/delete?email=${email}&blogId=${id}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/api/my-bookmarks/delete?email=${email}&bookmarkId=${id}`,
       {
         method: "DELETE",
       }
     );
-    const data = res.json();
-    console.log(data);
+    const data = await res.json();
+    if (res.ok) {
+      toast.success(data?.message);
+      queryClient.invalidateQueries("bookmarks");
+    }
   };
   return (
     <Card>
