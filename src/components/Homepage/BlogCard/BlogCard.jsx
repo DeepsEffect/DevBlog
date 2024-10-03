@@ -6,7 +6,6 @@ import {
   CardBody,
   CardFooter,
   CardHeader,
-  Chip,
   Dropdown,
   DropdownItem,
   DropdownMenu,
@@ -23,10 +22,16 @@ import { BiRocket } from "react-icons/bi";
 import { useRouter } from "next/navigation";
 import BriefContent from "./BriefContent/BriefContent";
 import { Bookmark } from "@/components/Bookmark/Bookmark";
+import { useSession } from "next-auth/react";
+import { toast } from "react-toastify";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function BlogCard({ blog, pageType }) {
   const router = useRouter();
   const [readingTime, setReadingTime] = useState(0);
+  const session = useSession();
+  const queryClient = useQueryClient();
+  const email = session?.data?.user?.email;
 
   const {
     title,
@@ -36,7 +41,6 @@ export default function BlogCard({ blog, pageType }) {
     postedDate,
     author,
     tags,
-    categories,
     reactions,
   } = blog;
 
@@ -60,6 +64,20 @@ export default function BlogCard({ blog, pageType }) {
     setReadingTime(time);
   }, [readingTime]);
 
+  // handle delete blog
+  const handleDeleteBookmark = async (id) => {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/my-bookmarks/delete?email=${email}&bookmarkId=${id}`,
+      {
+        method: "DELETE",
+      }
+    );
+    const data = await res.json();
+    if (res.ok) {
+      toast.success(data?.message);
+      queryClient.invalidateQueries("bookmarks");
+    }
+  };
   return (
     <Card>
       <div onClick={handleCardClick}>
@@ -102,7 +120,11 @@ export default function BlogCard({ blog, pageType }) {
 
                 {pageType === "my-bookmarks" && (
                   <DropdownSection title={"author actions"}>
-                    <DropdownItem>Delete Bookmark</DropdownItem>
+                    <DropdownItem
+                      onClick={() => handleDeleteBookmark(blog?._id)}
+                    >
+                      Delete Bookmark
+                    </DropdownItem>
                   </DropdownSection>
                 )}
 
