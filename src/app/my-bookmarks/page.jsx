@@ -51,7 +51,7 @@ const MyBookmarks = () => {
   return (
     <div className="max-w-3xl mx-auto grid grid-cols-1 gap-4 lg:p-4 mt-4 lg:mt-2">
       {bookmarks.map((blog) => (
-        <BlogCard key={blog.blogId} blog={blog} pageType={"my-bookmarks"} />
+        <BlogCard key={blog.blogId} blog={blog} pageType="my-bookmarks" />
       ))}
     </div>
   );

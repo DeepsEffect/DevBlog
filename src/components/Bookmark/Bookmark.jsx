@@ -2,11 +2,10 @@
 import { Button, Tooltip } from "@nextui-org/react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
-import React from "react";
 import { FaRegBookmark, FaBookmark } from "react-icons/fa";
 import { toast } from "react-toastify";
 
-export const Bookmark = ({ blog, page }) => {
+export const Bookmark = ({ blog, page, isBookmarked }) => {
   const session = useSession();
   const queryClient = useQueryClient();
 
@@ -15,7 +14,7 @@ export const Bookmark = ({ blog, page }) => {
       toast.error("Please login to bookmark");
       return; // Prevent further execution
     }
-    
+
     try {
       const email = session?.data?.user?.email;
       const username = session?.data?.user?.name;
@@ -62,8 +61,11 @@ export const Bookmark = ({ blog, page }) => {
           size={page === "blogDetails" ? "sm" : "md"}
           isIconOnly
         >
-          <FaRegBookmark className="text-xl " />
-          {/* <FaBookmark className="text-xl"/> */}
+          {isBookmarked ? (
+            <FaBookmark className="text-xl" />
+          ) : (
+            <FaRegBookmark className="text-xl" />
+          )}
         </Button>
       </Tooltip>
     </div>
