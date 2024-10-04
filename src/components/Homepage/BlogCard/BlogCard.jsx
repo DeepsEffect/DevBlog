@@ -75,7 +75,7 @@ export default function BlogCard({ blog, pageType }) {
     setReadingTime(time);
   }, [readingTime]);
 
-  // handle delete blog
+  // handle delete bookmark
   const handleDeleteBookmark = async (id) => {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/api/my-bookmarks/delete?email=${email}&bookmarkId=${id}`,
@@ -88,6 +88,11 @@ export default function BlogCard({ blog, pageType }) {
       toast.success(data?.message);
       queryClient.invalidateQueries("bookmarks");
     }
+  };
+
+  // handle delete blog
+  const handleDeleteBlog = (id) => {
+    console.log(id);
   };
   return (
     <Card>
@@ -124,8 +129,12 @@ export default function BlogCard({ blog, pageType }) {
                 {/* show different options based on pageType */}
                 {pageType === "my-blogs" && (
                   <DropdownSection title={"author actions"}>
-                    <DropdownItem>Edit Blog</DropdownItem>
-                    <DropdownItem>Delete Blog</DropdownItem>
+                    <DropdownItem onClick={() => router.push(`/my-blogs/edit?id=${blog?._id}`)}>
+                      Edit Blog
+                    </DropdownItem>
+                    <DropdownItem onClick={() => handleDeleteBlog(blog?._id)}>
+                      Delete Blog
+                    </DropdownItem>
                   </DropdownSection>
                 )}
 
