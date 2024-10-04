@@ -3,10 +3,10 @@ import Tiptap from "@/components/Tiptap/Tiptap";
 import { Button, Input, Select, SelectItem, Spinner } from "@nextui-org/react";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { toast } from "react-toastify";
 
-const edit = () => {
+const EditBlogForm = () => {
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
   const router = useRouter();
@@ -166,8 +166,19 @@ const edit = () => {
   );
 };
 
-export default edit;
+const Edit = () => (
+  <Suspense
+    fallback={
+      <div className="flex justify-center items-center min-h-screen">
+        <Spinner />
+      </div>
+    }
+  >
+    <EditBlogForm />
+  </Suspense>
+);
 
+export default Edit;
 // category lists
 const catItems = [
   {
