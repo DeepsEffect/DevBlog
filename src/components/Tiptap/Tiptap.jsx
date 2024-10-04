@@ -27,9 +27,9 @@ import CodeBlock from "@tiptap/extension-code-block";
 import "./styles.css";
 import Text from "@tiptap/extension-text";
 
-const Tiptap = ({ setContent }) => {
+const Tiptap = ({ setContent, content }) => {
   const editor = useEditor({
-    immediatelyRender: false,
+    content: content || "",
     extensions: [
       Text,
       Bold,
@@ -284,7 +284,7 @@ const Tiptap = ({ setContent }) => {
       </div>
 
       {/* editor */}
-      <EditorContent editor={editor} />
+      <EditorContent content={content} editor={editor} />
     </div>
   );
 };
