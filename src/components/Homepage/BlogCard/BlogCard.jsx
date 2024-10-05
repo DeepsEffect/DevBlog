@@ -27,6 +27,11 @@ import { toast } from "react-toastify";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useBookmarks } from "@/contexts/BookmarkContext";
 import { useMemo } from "react";
+import { MdDelete } from "react-icons/md";
+import { RiEdit2Fill } from "react-icons/ri";
+import { MdOutlineReport } from "react-icons/md";
+import { BiHide } from "react-icons/bi";
+import { IoShareSocial } from "react-icons/io5";
 
 export default function BlogCard({ blog, pageType, bookmarkRefetch }) {
   const router = useRouter();
@@ -149,37 +154,66 @@ export default function BlogCard({ blog, pageType, bookmarkRefetch }) {
               <DropdownMenu aria-label="Dynamic Actions">
                 {/* show different options based on pageType */}
                 {pageType === "my-blogs" && (
-                  <DropdownSection title={"author actions"}>
+                  <DropdownSection>
                     <DropdownItem
+                      variant="flat"
                       onClick={() =>
                         router.push(`/my-blogs/edit?id=${blog?._id}`)
                       }
                     >
-                      Edit Blog
+                      <div className="flex items-center gap-1">
+                        <RiEdit2Fill className="text-xl" />
+                        Edit Blog
+                      </div>
                     </DropdownItem>
                     <DropdownItem
+                      color="danger"
+                      variant="flat"
                       onClick={() => deleteBlogMutation.mutate(blog?._id)}
                     >
-                      Delete Blog
+                      <div className="flex items-center gap-1">
+                        <MdDelete className="text-xl" />
+                        Delete Blog
+                      </div>
                     </DropdownItem>
                   </DropdownSection>
                 )}
 
                 {pageType === "my-bookmarks" && (
-                  <DropdownSection title={"author actions"}>
+                  <DropdownSection>
                     <DropdownItem
+                      variant="flat"
+                      color="danger"
                       onClick={() => deleteBookmarkMutation.mutate(blog?._id)}
                     >
-                      Delete Bookmark
+                      <div className="flex items-center gap-1">
+                        <MdDelete className="text-xl" />
+                        Delete Bookmark
+                      </div>
                     </DropdownItem>
                   </DropdownSection>
                 )}
 
                 {pageType === "homepage" && (
-                  <DropdownSection title={"general actions"}>
-                    <DropdownItem>Report Blog</DropdownItem>
-                    <DropdownItem>Hide Blog</DropdownItem>
-                    <DropdownItem>Share Blog</DropdownItem>
+                  <DropdownSection>
+                    <DropdownItem variant="flat" color="warning">
+                      <div className="flex items-center gap-2">
+                        <MdOutlineReport className="text-xl" />
+                        Report Blog
+                      </div>
+                    </DropdownItem>
+                    <DropdownItem variant="flat">
+                      <div className="flex items-center gap-2">
+                        <BiHide className="text-xl" />
+                        Hide Blog
+                      </div>
+                    </DropdownItem>
+                    <DropdownItem variant="flat" color="success">
+                      <div className="flex items-center gap-2">
+                        <IoShareSocial className="text-xl" />
+                        Share Blog
+                      </div>
+                    </DropdownItem>
                   </DropdownSection>
                 )}
               </DropdownMenu>

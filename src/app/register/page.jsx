@@ -89,7 +89,12 @@ const RegisterPage = () => {
         <section className="text-center space-y-1 p-4">
           <h2 className=" font-bold text-3xl">Join the DevBlog Community</h2>
           <p className="text-medium">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+            read how to get started{" "}
+            <span>
+              <Link href="/guide" className="hover:underline">
+                Guide
+              </Link>
+            </span>
           </p>
         </section>
 
