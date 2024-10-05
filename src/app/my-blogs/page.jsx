@@ -3,8 +3,7 @@
 import BlogCard from "@/components/Homepage/BlogCard/BlogCard";
 import useBlogs from "@/hooks/useBlogs";
 import { Button, Spinner } from "@nextui-org/react";
-import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 
 const MyBlogsPage = () => {
@@ -25,7 +24,8 @@ const MyBlogsPage = () => {
 const BlogContent = () => {
   const searchParams = useSearchParams();
   const email = searchParams.get("email");
-  const { blogs, loading } = useBlogs({ email });
+  const { blogs, loading, refetch, error } = useBlogs({ email });
+  const router = useRouter();
 
   if (loading) {
     return (
@@ -41,18 +41,25 @@ const BlogContent = () => {
       {blogs?.length !== 0 ? (
         <>
           {blogs?.map((blog) => (
-            <BlogCard blog={blog} pageType="my-blogs" key={blog._id} />
+            <BlogCard
+              refetchMyBlogs={refetch}
+              blog={blog}
+              pageType="my-blogs"
+              key={blog._id}
+            />
           ))}
         </>
       ) : (
-        <div className="flex flex-col gap-2 justify-center items-center font-semibold lg:mt-20">
+        <div className="flex flex-col gap-2 justify-center items-center lg:mt-20">
           You haven't posted any blogs yet...
           <div>
-            <Link href="/write">
-              <Button variant="flat" color="primary">
-                Write now?
-              </Button>
-            </Link>
+            <Button
+              onClick={() => router.push("/write")}
+              variant="flat"
+              color="primary"
+            >
+              Write now?
+            </Button>
           </div>
         </div>
       )}

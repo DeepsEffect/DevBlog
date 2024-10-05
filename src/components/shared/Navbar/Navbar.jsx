@@ -139,7 +139,7 @@ export const Navbar = () => {
                   <DropdownItem key="blogs" textValue="My Blogs">
                     <Link
                       href={`/my-blogs?email=${encodeURIComponent(
-                        session.data.user.email
+                        session?.data?.user?.email
                       )}`}
                       className="w-full h-full flex items-center"
                     >

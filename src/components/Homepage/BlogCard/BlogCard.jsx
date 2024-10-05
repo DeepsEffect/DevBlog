@@ -24,11 +24,11 @@ import BriefContent from "./BriefContent/BriefContent";
 import { Bookmark } from "@/components/Bookmark/Bookmark";
 import { useSession } from "next-auth/react";
 import { toast } from "react-toastify";
-import { useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useBookmarks } from "@/contexts/BookmarkContext";
 import { useMemo } from "react";
 
-export default function BlogCard({ blog, pageType }) {
+export default function BlogCard({ blog, pageType, refetchMyBlogs }) {
   const router = useRouter();
   const [readingTime, setReadingTime] = useState(0);
   const session = useSession();
@@ -90,10 +90,25 @@ export default function BlogCard({ blog, pageType }) {
     }
   };
 
-  // handle delete blog
-  const handleDeleteBlog = (id) => {
-    console.log(id);
-  };
+  // mutation for deleting blogs
+  const deleteBlogMutation = useMutation({
+    mutationFn: async (id) => {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/my-blogs/delete?id=${id}`,
+        { method: "DELETE" }
+      );
+      const data = await res.json();
+      if (!res.ok) {
+        toast.error("Failed to delete blog");
+        throw new Error(data?.message || "Failed to delete blog");
+      }
+    },
+    onSuccess: () => {
+      toast.success("Blog deleted successfully");
+      queryClient.invalidateQueries("my-blogs");
+    },
+  });
+
   return (
     <Card>
       <div onClick={handleCardClick}>
@@ -129,10 +144,16 @@ export default function BlogCard({ blog, pageType }) {
                 {/* show different options based on pageType */}
                 {pageType === "my-blogs" && (
                   <DropdownSection title={"author actions"}>
-                    <DropdownItem onClick={() => router.push(`/my-blogs/edit?id=${blog?._id}`)}>
+                    <DropdownItem
+                      onClick={() =>
+                        router.push(`/my-blogs/edit?id=${blog?._id}`)
+                      }
+                    >
                       Edit Blog
                     </DropdownItem>
-                    <DropdownItem onClick={() => handleDeleteBlog(blog?._id)}>
+                    <DropdownItem
+                      onClick={() => deleteBlogMutation.mutate(blog?._id)}
+                    >
                       Delete Blog
                     </DropdownItem>
                   </DropdownSection>

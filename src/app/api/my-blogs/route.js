@@ -1,15 +1,13 @@
 import { connectDB } from "@/lib/connectDB";
+import { NextResponse } from "next/server";
 
 export const GET = async (request) => {
   const { searchParams } = new URL(request.url);
   const email = searchParams.get("email");
 
   if (!email) {
-    return new Response(JSON.stringify({ message: "Email is required" }), {
-      status: 400,
-    });
+    return NextResponse.json({ message: "email is required" }, { status: 400 });
   }
-  console.log(email);
   try {
     // connect to DB
     const db = await connectDB();
@@ -23,17 +21,14 @@ export const GET = async (request) => {
     // check if user's blogs were found
     if (!usersBlogs || usersBlogs.length === 0) {
       return new Response(
-        JSON.stringify({ message: "No blogs found for this user" }),
+        JSON.stringify([], { message: "no blogs found for this user" }),
         {
-          status: 404,
+          status: 200,
         }
       );
     }
-    return new Response(JSON.stringify(usersBlogs, { status: 200 }));
+    return NextResponse.json(usersBlogs, { status: 200 });
   } catch (error) {
-    return new Response(
-      JSON.stringify({ message: "Error fetching blogs", error }),
-      { status: 500 }
-    );
+    NextResponse.json({ message: "server error" }, { status: 500 });
   }
 };
