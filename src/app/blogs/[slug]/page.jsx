@@ -47,7 +47,7 @@ const blogDetailsPage = async ({ params, searchParams }) => {
 
   return (
     <div className="max-w-3xl mx-auto">
-      <Card>
+      <Card radius="none">
         <CardHeader className="flex flex-col gap-4 items-start ">
           {/* category section */}
           <section>
