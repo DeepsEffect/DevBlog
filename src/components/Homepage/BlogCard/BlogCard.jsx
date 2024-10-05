@@ -120,6 +120,34 @@ export default function BlogCard({ blog, pageType, bookmarkRefetch }) {
     },
   });
 
+  // handle report blog
+  const handleReportBlog = () => {
+    setTimeout(() => {
+      toast.success("Report has been sent");
+    }, 500);
+  };
+
+  const handleShareBlog = () => {
+    if (navigator.share) {
+      navigator.share({
+        title: blog.title,
+        text: `Check out this blog: ${blog.title}`,
+        url: `${window.location.origin}/blogs/${blog.slug}`,
+      });
+    } else {
+      // Fallback: copy to clipboard
+      navigator.clipboard
+        .writeText(`${window.location.origin}/blogs/${blog.slug}`)
+        .then(() => {
+          toast.success("Blog link copied to clipboard!");
+        })
+        .catch((error) => {
+          toast.error("Failed to copy link");
+          console.error("Error copying to clipboard", error);
+        });
+    }
+  };
+
   return (
     <Card>
       <div onClick={handleCardClick}>
@@ -182,7 +210,11 @@ export default function BlogCard({ blog, pageType, bookmarkRefetch }) {
                     )}
 
                     {/* Show Share Blog for everyone on "my-blogs" page */}
-                    <DropdownItem variant="flat" color="success">
+                    <DropdownItem
+                      onClick={handleShareBlog}
+                      variant="flat"
+                      color="success"
+                    >
                       <div className="flex items-center gap-2">
                         <IoShareSocial className="text-xl" />
                         Share Blog
@@ -208,19 +240,27 @@ export default function BlogCard({ blog, pageType, bookmarkRefetch }) {
 
                 {pageType === "homepage" && (
                   <DropdownSection>
-                    <DropdownItem variant="flat" color="warning">
+                    <DropdownItem
+                      onClick={handleReportBlog}
+                      variant="flat"
+                      color="warning"
+                    >
                       <div className="flex items-center gap-2">
                         <MdOutlineReport className="text-xl" />
                         Report Blog
                       </div>
                     </DropdownItem>
-                    <DropdownItem variant="flat">
+                    {/* <DropdownItem variant="flat">
                       <div className="flex items-center gap-2">
                         <BiHide className="text-xl" />
                         Hide Blog
                       </div>
-                    </DropdownItem>
-                    <DropdownItem variant="flat" color="success">
+                    </DropdownItem> */}
+                    <DropdownItem
+                      onClick={handleShareBlog}
+                      variant="flat"
+                      color="success"
+                    >
                       <div className="flex items-center gap-2">
                         <IoShareSocial className="text-xl" />
                         Share Blog
