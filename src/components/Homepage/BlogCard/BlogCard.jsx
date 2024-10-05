@@ -123,7 +123,7 @@ export default function BlogCard({ blog, pageType, bookmarkRefetch }) {
   // handle report blog
   const handleReportBlog = () => {
     setTimeout(() => {
-      toast.success("Report has been sent");
+      toast.warning("Report has been sent");
     }, 500);
   };
 
@@ -132,12 +132,14 @@ export default function BlogCard({ blog, pageType, bookmarkRefetch }) {
       navigator.share({
         title: blog.title,
         text: `Check out this blog: ${blog.title}`,
-        url: `${window.location.origin}/blogs/${blog.slug}`,
+        url: `${window.location.origin}/blogs/${blog.slug}?readingTime=${readingTime}`,
       });
     } else {
       // Fallback: copy to clipboard
       navigator.clipboard
-        .writeText(`${window.location.origin}/blogs/${blog.slug}`)
+        .writeText(
+          `${window.location.origin}/blogs/${blog.slug}?readingTime=${readingTime}`
+        )
         .then(() => {
           toast.success("Blog link copied to clipboard!");
         })

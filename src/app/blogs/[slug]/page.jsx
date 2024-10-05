@@ -88,7 +88,7 @@ const blogDetailsPage = async ({ params, searchParams }) => {
             <Reactions slug={slug} reactions={reactions} />
             <div className="flex items-center gap-2">
               <Bookmark blog={blog} page={"blogDetails"} />
-              <ShareButton />
+              <ShareButton blog={blog} readingTime={readingTime} />
             </div>
           </section>
           {/* pog and comment */}
