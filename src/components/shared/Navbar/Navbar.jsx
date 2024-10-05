@@ -127,7 +127,9 @@ export const Navbar = () => {
                     className="h-14 gap-2"
                   >
                     <p className="font-semibold">Signed in as</p>
-                    <p className="font-semibold">{session.data?.user?.email}</p>
+                    <p className="font-semibold">
+                      {session?.data?.user?.name || session.data?.user?.email}
+                    </p>
                   </DropdownItem>
                   <DropdownItem textValue="my profile" key="profile2">
                     <Link

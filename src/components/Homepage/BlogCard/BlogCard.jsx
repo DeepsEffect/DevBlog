@@ -152,38 +152,43 @@ export default function BlogCard({ blog, pageType, bookmarkRefetch }) {
               </DropdownTrigger>
 
               <DropdownMenu aria-label="Dynamic Actions">
-                {/* show different options based on pageType */}
-                {pageType === "my-blogs" && email === author?.email ? (
+                {pageType === "my-blogs" && (
                   <DropdownSection>
-                    <DropdownItem
-                      variant="flat"
-                      onClick={() =>
-                        router.push(`/my-blogs/edit?id=${blog?._id}`)
-                      }
-                    >
-                      <div className="flex items-center gap-1">
-                        <RiEdit2Fill className="text-xl" />
-                        Edit Blog
-                      </div>
-                    </DropdownItem>
-                    <DropdownItem
-                      color="danger"
-                      variant="flat"
-                      onClick={() => deleteBlogMutation.mutate(blog?._id)}
-                    >
-                      <div className="flex items-center gap-1">
-                        <MdDelete className="text-xl" />
-                        Delete Blog
+                    {/* Show Edit and Delete options if the user is the blog author */}
+                    {email === author?.email && (
+                      <>
+                        <DropdownItem
+                          variant="flat"
+                          onClick={() =>
+                            router.push(`/my-blogs/edit?id=${blog?._id}`)
+                          }
+                        >
+                          <div className="flex items-center gap-1">
+                            <RiEdit2Fill className="text-xl" />
+                            Edit Blog
+                          </div>
+                        </DropdownItem>
+                        <DropdownItem
+                          color="danger"
+                          variant="flat"
+                          onClick={() => deleteBlogMutation.mutate(blog?._id)}
+                        >
+                          <div className="flex items-center gap-1">
+                            <MdDelete className="text-xl" />
+                            Delete Blog
+                          </div>
+                        </DropdownItem>
+                      </>
+                    )}
+
+                    {/* Show Share Blog for everyone on "my-blogs" page */}
+                    <DropdownItem variant="flat" color="success">
+                      <div className="flex items-center gap-2">
+                        <IoShareSocial className="text-xl" />
+                        Share Blog
                       </div>
                     </DropdownItem>
                   </DropdownSection>
-                ) : (
-                  <DropdownItem variant="flat" color="success">
-                    <div className="flex items-center gap-2">
-                      <IoShareSocial className="text-xl" />
-                      Share Blog
-                    </div>
-                  </DropdownItem>
                 )}
 
                 {pageType === "my-bookmarks" && (
