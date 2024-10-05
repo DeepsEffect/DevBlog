@@ -17,7 +17,6 @@ import {
 import { TfiWrite } from "react-icons/tfi";
 import { LoginModal } from "@/components/Modals/LoginModal/LoginModal";
 import { useSession, signOut } from "next-auth/react";
-import { IoMdNotificationsOutline } from "react-icons/io";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -90,18 +89,16 @@ export const Navbar = () => {
           {/* show this if user is available */}
           <NavbarContent justify="end">
             {/* write button */}
-            <NavbarItem className="flex justify-center items-center gap-1 cursor-pointer">
+            <NavbarItem className="flex justify-center items-center cursor-pointer">
               <Link href="/write" className="flex gap-1 items-center">
                 <TfiWrite />
-                write
+                Write
               </Link>
             </NavbarItem>
 
-            {/* notification icon */}
+            {/* faq  */}
             <NavbarItem>
-              <Button variant="light" isIconOnly>
-                <IoMdNotificationsOutline className="text-xl" />
-              </Button>
+              <Link href={"/guide"}>Guide</Link>
             </NavbarItem>
 
             {/* avatar */}
