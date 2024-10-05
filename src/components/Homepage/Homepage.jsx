@@ -43,6 +43,8 @@ export const Homepage = () => {
       );
     } else if (sortOption === "pogged") {
       sortedData.sort((a, b) => b.reactions.pogs - a.reactions.pogs);
+    } else if (sortOption === "random") {
+      sortedData.sort(() => Math.random() - 0.5); // Randomly shuffle the array
     }
 
     return sortedData;
@@ -79,10 +81,10 @@ export const Homepage = () => {
             Latest
           </Button>
           <Button
-            variant={sortOption === "relevant" ? "flat" : "light"}
-            onClick={() => handleSortChange("relevant")}
+            variant={sortOption === "random" ? "flat" : "light"}
+            onClick={() => handleSortChange("random")}
           >
-            Relevant
+            Random
           </Button>
           <Button
             variant={sortOption === "pogged" ? "flat" : "light"}
