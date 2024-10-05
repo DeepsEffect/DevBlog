@@ -26,6 +26,7 @@ const MyBookmarks = () => {
     isLoading,
     isFetching,
     isSuccess,
+    refetch
   } = useQuery({
     queryKey: ["bookmarks", email],
     queryFn: fetchBookmarks,
@@ -34,7 +35,7 @@ const MyBookmarks = () => {
     enabled: !!email, // Only run the query if the email is available
   });
 
-  if (isLoading || isFetching) {
+  if (isLoading) {
     return (
       <div className="flex justify-center items-center min-h-screen gap-2">
         <Spinner size="sm" />
@@ -51,7 +52,7 @@ const MyBookmarks = () => {
   return (
     <div className="max-w-3xl mx-auto grid grid-cols-1 gap-4 lg:p-4 mt-4 lg:mt-2">
       {bookmarks.map((blog) => (
-        <BlogCard key={blog.blogId} blog={blog} pageType="my-bookmarks" />
+        <BlogCard bookmarkRefetch={refetch} key={blog.blogId} blog={blog} pageType="my-bookmarks" />
       ))}
     </div>
   );

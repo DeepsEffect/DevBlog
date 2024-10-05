@@ -23,7 +23,7 @@ export const GET = async (request) => {
       .find({ "bookmarkedBy.email": email })
       .toArray();
     if (!bookmarks || bookmarks.length === 0) {
-      return NextResponse.json({ message: "no bookmark available" });
+      return NextResponse.json([], { message: "no bookmark available" });
     }
     return NextResponse.json(bookmarks, { status: 200 });
   } catch (error) {

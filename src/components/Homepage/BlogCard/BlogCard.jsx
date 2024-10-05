@@ -28,7 +28,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useBookmarks } from "@/contexts/BookmarkContext";
 import { useMemo } from "react";
 
-export default function BlogCard({ blog, pageType, refetchMyBlogs }) {
+export default function BlogCard({ blog, pageType, bookmarkRefetch }) {
   const router = useRouter();
   const [readingTime, setReadingTime] = useState(0);
   const session = useSession();
@@ -76,19 +76,25 @@ export default function BlogCard({ blog, pageType, refetchMyBlogs }) {
   }, [readingTime]);
 
   // handle delete bookmark
-  const handleDeleteBookmark = async (id) => {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/my-bookmarks/delete?email=${email}&bookmarkId=${id}`,
-      {
-        method: "DELETE",
+  const deleteBookmarkMutation = useMutation({
+    mutationFn: async (id) => {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/my-bookmarks/delete?email=${email}&bookmarkId=${id}`,
+        {
+          method: "DELETE",
+        }
+      );
+      const data = res.json();
+      if (!res.ok) {
+        toast.error("Failed to delete bookmark");
+        throw new Error(data?.message || "Failed to delete bookmark");
       }
-    );
-    const data = await res.json();
-    if (res.ok) {
-      toast.success(data?.message);
-      queryClient.invalidateQueries("bookmarks");
-    }
-  };
+    },
+    onSuccess: () => {
+      toast.success("Bookmark deleted");
+      bookmarkRefetch();
+    },
+  });
 
   // mutation for deleting blogs
   const deleteBlogMutation = useMutation({
@@ -104,7 +110,7 @@ export default function BlogCard({ blog, pageType, refetchMyBlogs }) {
       }
     },
     onSuccess: () => {
-      toast.success("Blog deleted successfully");
+      toast.success("Blog deleted");
       queryClient.invalidateQueries("my-blogs");
     },
   });
@@ -162,7 +168,7 @@ export default function BlogCard({ blog, pageType, refetchMyBlogs }) {
                 {pageType === "my-bookmarks" && (
                   <DropdownSection title={"author actions"}>
                     <DropdownItem
-                      onClick={() => handleDeleteBookmark(blog?._id)}
+                      onClick={() => deleteBookmarkMutation.mutate(blog?._id)}
                     >
                       Delete Bookmark
                     </DropdownItem>
