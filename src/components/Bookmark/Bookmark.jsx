@@ -12,7 +12,11 @@ export const Bookmark = ({ blog, page, isBookmarked }) => {
   const handleBookmark = async () => {
     if (!session?.data) {
       toast.error("Please login to bookmark");
-      return; // Prevent further execution
+      return;
+    } else if (!session?.data?.user?.email) {
+      toast.error(
+        "Email not found.\n sorry, you need an email to add to bookmark"
+      );
     }
 
     try {

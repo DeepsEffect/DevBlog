@@ -12,7 +12,7 @@ const WritePage = () => {
   const { session, status } = usePrivateRoute();
   const queryClient = useQueryClient();
   const router = useRouter();
-  const [blogTitle, setBlogTitle] = useState(""); 
+  const [blogTitle, setBlogTitle] = useState("");
   const [blogContent, setBlogContent] = useState("");
   const [coverPhoto, setCoverPhoto] = useState("");
   const [tags, setTags] = useState([]);
@@ -35,6 +35,10 @@ const WritePage = () => {
   // handle posting the blog data
   const handleBlogSubmit = async (e) => {
     e.preventDefault();
+    if (!session?.user?.email) {
+      toast.error("couldn't find email.\n Login with an email to post blog");
+      return;
+    }
     setLoading(true);
 
     // make blog data
