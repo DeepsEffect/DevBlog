@@ -153,7 +153,7 @@ export default function BlogCard({ blog, pageType, bookmarkRefetch }) {
 
               <DropdownMenu aria-label="Dynamic Actions">
                 {/* show different options based on pageType */}
-                {pageType === "my-blogs" && (
+                {pageType === "my-blogs" && email === author?.email ? (
                   <DropdownSection>
                     <DropdownItem
                       variant="flat"
@@ -177,6 +177,13 @@ export default function BlogCard({ blog, pageType, bookmarkRefetch }) {
                       </div>
                     </DropdownItem>
                   </DropdownSection>
+                ) : (
+                  <DropdownItem variant="flat" color="success">
+                    <div className="flex items-center gap-2">
+                      <IoShareSocial className="text-xl" />
+                      Share Blog
+                    </div>
+                  </DropdownItem>
                 )}
 
                 {pageType === "my-bookmarks" && (
