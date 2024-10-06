@@ -64,7 +64,7 @@ const BlogContent = () => {
   }
 
   return (
-    <div className="max-w-3xl mx-auto mt-6">
+    <div className="max-w-3xl mx-auto mt-4 lg:mt-6">
       {/* sort options */}
       <div className=" max-w-[200px] mx-auto ">
         <Select

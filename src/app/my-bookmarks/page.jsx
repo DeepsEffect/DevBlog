@@ -1,15 +1,16 @@
 "use client";
 import BlogCard from "@/components/Homepage/BlogCard/BlogCard";
 import { useSearch } from "@/contexts/SearchContext";
-import { Spinner } from "@nextui-org/react";
+import { Select, SelectItem, Spinner } from "@nextui-org/react";
 import { useQuery } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
-import React from "react";
+import { useState } from "react";
 
 const MyBookmarks = () => {
   const session = useSession();
   const email = session?.data?.user?.email;
   const { searchQuery } = useSearch();
+  const [sortOption, setSortOption] = useState("");
 
   const fetchBookmarks = async () => {
     if (!email) return [];
@@ -44,11 +45,27 @@ const MyBookmarks = () => {
     );
   }
 
+  // sort by options
+  if (bookmarksData) {
+    bookmarksData = [...bookmarksData].sort((a, b) => {
+      if (sortOption === "alphabetic") {
+        return a.title.localeCompare(b.title);
+      } else if (sortOption === "newly-added") {
+        return new Date(b.postedDate) - new Date(a.postedDate);
+      } else if (sortOption === "oldest-first") {
+        return new Date(a.postedDate) - new Date(b.postedDate);
+      } else if (sortOption === "most-popular") {
+        return b.reactions.pogs - a.reactions.pogs;
+      }
+      return 0;
+    });
+  }
+
   if (isLoading) {
     return (
       <div className="flex justify-center items-center min-h-screen gap-2">
         <Spinner size="sm" />
-        <p>Loading...</p>
+        <p>Loading bookmarks...</p>
       </div>
     );
   }
@@ -62,15 +79,31 @@ const MyBookmarks = () => {
   }
 
   return (
-    <div className="max-w-3xl mx-auto grid grid-cols-1 gap-4 lg:p-4 mt-4 lg:mt-2">
-      {bookmarksData?.map((blog) => (
-        <BlogCard
-          bookmarkRefetch={refetch}
-          key={blog.blogId}
-          blog={blog}
-          pageType="my-bookmarks"
-        />
-      ))}
+    <div className="max-w-3xl mx-auto mt-4 lg:mt-6">
+      {/* sort options */}
+      <div className="max-w-[200px] mx-auto ">
+        <Select
+          size="sm"
+          label="Sort By"
+          value={sortOption}
+          onSelectionChange={(keys) => setSortOption(Array.from(keys)[0])}
+        >
+          <SelectItem key="newly-added">Newly Added</SelectItem>
+          <SelectItem key="oldest-first">Oldest First</SelectItem>
+          <SelectItem key="alphabetic">Alphabetic (A-Z)</SelectItem>
+          <SelectItem key="most-popular">Most Popular</SelectItem>
+        </Select>
+      </div>
+      <div className="grid grid-cols-1 gap-4 lg:p-4 mt-4 lg:mt-2">
+        {bookmarksData?.map((blog) => (
+          <BlogCard
+            bookmarkRefetch={refetch}
+            key={blog.blogId}
+            blog={blog}
+            pageType="my-bookmarks"
+          />
+        ))}
+      </div>
     </div>
   );
 };
