@@ -1,6 +1,7 @@
 "use client";
 
 import BlogCard from "@/components/Homepage/BlogCard/BlogCard";
+import { useSearch } from "@/contexts/SearchContext";
 import useBlogs from "@/hooks/useBlogs";
 import { Button, Spinner } from "@nextui-org/react";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -23,9 +24,17 @@ const MyBlogsPage = () => {
 
 const BlogContent = () => {
   const searchParams = useSearchParams();
+  const { searchQuery } = useSearch();
   const email = searchParams.get("email");
   const { blogs, loading, refetch, error } = useBlogs({ email });
   const router = useRouter();
+
+  let blogsData = blogs;
+  if (searchQuery) {
+    blogsData = blogs?.filter((blog) =>
+      blog.title.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  }
 
   if (loading) {
     return (
@@ -38,9 +47,9 @@ const BlogContent = () => {
 
   return (
     <div className="max-w-3xl mx-auto grid grid-cols-1 gap-4 lg:p-4 mt-4 lg:mt-2">
-      {blogs?.length !== 0 ? (
+      {blogsData?.length !== 0 ? (
         <>
-          {blogs?.map((blog) => (
+          {blogsData?.map((blog) => (
             <BlogCard
               refetchMyBlogs={refetch}
               blog={blog}
