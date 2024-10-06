@@ -1,5 +1,6 @@
 "use client";
 import BlogCard from "@/components/Homepage/BlogCard/BlogCard";
+import { useSearch } from "@/contexts/SearchContext";
 import { Spinner } from "@nextui-org/react";
 import { useQuery } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
@@ -8,6 +9,7 @@ import React from "react";
 const MyBookmarks = () => {
   const session = useSession();
   const email = session?.data?.user?.email;
+  const { searchQuery } = useSearch();
 
   const fetchBookmarks = async () => {
     if (!email) return [];
@@ -24,9 +26,8 @@ const MyBookmarks = () => {
   const {
     data: bookmarks = [],
     isLoading,
-    isFetching,
     isSuccess,
-    refetch
+    refetch,
   } = useQuery({
     queryKey: ["bookmarks", email],
     queryFn: fetchBookmarks,
@@ -34,6 +35,14 @@ const MyBookmarks = () => {
     cacheTime: 60 * 60 * 1000, // 1 hour
     enabled: !!email, // Only run the query if the email is available
   });
+
+  // search bookmarks data
+  let bookmarksData = bookmarks;
+  if (searchQuery) {
+    bookmarksData = bookmarks?.filter((bookmark) =>
+      bookmark.title.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  }
 
   if (isLoading) {
     return (
@@ -43,7 +52,10 @@ const MyBookmarks = () => {
       </div>
     );
   }
-  if (isSuccess && (!Array.isArray(bookmarks) || bookmarks.length === 0)) {
+  if (
+    isSuccess &&
+    (!Array.isArray(bookmarksData) || bookmarksData.length === 0)
+  ) {
     return (
       <div className="flex justify-center mt-10 lg:mt-20">No Bookmarks</div>
     );
@@ -51,8 +63,13 @@ const MyBookmarks = () => {
 
   return (
     <div className="max-w-3xl mx-auto grid grid-cols-1 gap-4 lg:p-4 mt-4 lg:mt-2">
-      {bookmarks.map((blog) => (
-        <BlogCard bookmarkRefetch={refetch} key={blog.blogId} blog={blog} pageType="my-bookmarks" />
+      {bookmarksData?.map((blog) => (
+        <BlogCard
+          bookmarkRefetch={refetch}
+          key={blog.blogId}
+          blog={blog}
+          pageType="my-bookmarks"
+        />
       ))}
     </div>
   );
