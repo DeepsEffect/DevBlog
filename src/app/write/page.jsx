@@ -1,5 +1,6 @@
 "use client";
 import CustomTagInput from "@/components/CustomTagInput/CustomTagInput";
+import SpinnerCustom from "@/components/shared/SpinnerCustom/SpinnerCustom";
 import Tiptap from "@/components/Tiptap/Tiptap";
 import usePrivateRoute from "@/hooks/usePrivateRoute";
 import { Button, Input, Spinner, Select, SelectItem } from "@nextui-org/react";
@@ -21,9 +22,8 @@ const WritePage = () => {
 
   if (status === "loading") {
     return (
-      <div className="flex justify-center items-center min-h-screen gap-2">
-        <Spinner />
-        <p>Loading...</p>
+      <div>
+        <SpinnerCustom />
       </div>
     );
   }

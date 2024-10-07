@@ -1,11 +1,12 @@
 "use client";
-import { Button, Input, Link, Spinner } from "@nextui-org/react";
+import { Button, Input, Link } from "@nextui-org/react";
 import React, { useState } from "react";
 import SocialLoginButtons from "@/components/shared/SocialLoginButtons/SocialLoginButtons";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { LoginModal } from "@/components/Modals/LoginModal/LoginModal";
 import { toast } from "react-toastify";
+import SpinnerCustom from "@/components/shared/SpinnerCustom/SpinnerCustom";
 
 const RegisterPage = () => {
   const [loading, setLoading] = useState(false);
@@ -16,8 +17,8 @@ const RegisterPage = () => {
   // show a spinner if session is loading
   if (status === "loading") {
     return (
-      <div className="flex justify-center items-center min-h-screen">
-        <Spinner />
+      <div>
+        <SpinnerCustom />
       </div>
     );
   }
