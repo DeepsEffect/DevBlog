@@ -33,7 +33,7 @@ DevBlog is a portfolio project that features a blogging platform for developers.
 1. **Clone the repository**
 
    ```bash
-   git clone <https://github.com/DeepsEffect/DevBlog.git>
+   git clone https://github.com/DeepsEffect/DevBlog.git
    ```
 
 2. **Navigate to project directory**
