@@ -52,9 +52,12 @@ DevBlog is a portfolio project that features a blogging platform for developers.
    Create a `.env.local` file in the root directory:
 
    ```
-   NEXTAUTH_URL=http://localhost:3000
+   NEXT_PUBLIC_API_URL=http://localhost:3000
+   NEXTAUTH_SECRET=your_nextauth_secret
    GOOGLE_CLIENT_ID=your_google_client_id
    GOOGLE_CLIENT_SECRET=your_google_client_secret
+   GITHUB_CLIENT_ID=your_github_client_id
+   GITHUB_CLIENT_SECRET=your_github_client_secret
    MONGODB_URI=your_mongodb_connection_string
    ```
 
@@ -79,4 +82,4 @@ Have questions or suggestions? Reach out through:
 
 - [GitHub](https://github.com/DeepsEffect)
 - [Twitter](https://x.com/JalalAhmed7845)
-- [LinkedIn](#https://www.linkedin.com/in/jalal-ahmed-dev)
+- [LinkedIn](https://www.linkedin.com/in/jalal-ahmed-dev)

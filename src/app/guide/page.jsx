@@ -221,15 +221,27 @@ const GuidePage = () => {
             any queries or suggestions from the links below:
           </p>
           <div className="flex gap-4 text-sm">
-            <Link href="#" className=" hover:underline flex items-center gap-1">
+            <Link
+              href="https://github.com/DeepsEffect"
+              target="_blank"
+              className=" hover:underline flex items-center gap-1"
+            >
               <FaGithub size={18} />
               GitHub
             </Link>
-            <Link href="#" className=" hover:underline flex items-center gap-1">
+            <Link
+              href="https://x.com/JalalAhmed7845"
+              target="_blank"
+              className=" hover:underline flex items-center gap-1"
+            >
               <FaTwitter size={18} />
               Twitter
             </Link>
-            <Link href="#" className=" hover:underline flex items-center gap-1">
+            <Link
+              href="https://www.linkedin.com/in/jalal-ahmed-dev"
+              target="_blank"
+              className=" hover:underline flex items-center gap-1"
+            >
               <FaLinkedin size={18} />
               LinkedIn
             </Link>
