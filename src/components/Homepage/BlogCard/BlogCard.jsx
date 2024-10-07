@@ -182,41 +182,57 @@ export default function BlogCard({ blog, pageType, bookmarkRefetch }) {
               </DropdownTrigger>
 
               <DropdownMenu aria-label="Dynamic Actions">
-                {pageType === "my-blogs" && email === author?.email ? (
+                {pageType === "my-blogs" ? (
+                  email === author?.email ? (
+                    <DropdownSection>
+                      <DropdownItem
+                        variant="flat"
+                        onClick={() =>
+                          router.push(`/my-blogs/edit?id=${blog?._id}`)
+                        }
+                      >
+                        <div className="flex items-center gap-1">
+                          <RiEdit2Fill className="text-xl" />
+                          Edit Blog
+                        </div>
+                      </DropdownItem>
+                      <DropdownItem
+                        color="danger"
+                        variant="flat"
+                        onClick={() => deleteBlogMutation.mutate(blog?._id)}
+                      >
+                        <div className="flex items-center gap-1">
+                          <MdDelete className="text-xl" />
+                          Delete Blog
+                        </div>
+                      </DropdownItem>
+                    </DropdownSection>
+                  ) : (
+                    <DropdownSection>
+                      <DropdownItem
+                        onClick={handleShareBlog}
+                        variant="flat"
+                        color="success"
+                      >
+                        <div className="flex items-center gap-2">
+                          <IoShareSocial className="text-xl" />
+                          Share Blog
+                        </div>
+                      </DropdownItem>
+                    </DropdownSection>
+                  )
+                ) : null}
+
+                {pageType === "my-bookmarks" && (
                   <DropdownSection>
-                    {/* Show Edit and Delete options if the user is the blog author */}
                     <DropdownItem
+                      onClick={() => deleteBookmarkMutation.mutate(blog?._id)}
                       variant="flat"
-                      onClick={() =>
-                        router.push(`/my-blogs/edit?id=${blog?._id}`)
-                      }
-                    >
-                      <div className="flex items-center gap-1">
-                        <RiEdit2Fill className="text-xl" />
-                        Edit Blog
-                      </div>
-                    </DropdownItem>
-                    <DropdownItem
                       color="danger"
-                      variant="flat"
-                      onClick={() => deleteBlogMutation.mutate(blog?._id)}
                     >
                       <div className="flex items-center gap-1">
                         <MdDelete className="text-xl" />
-                        Delete Blog
-                      </div>
-                    </DropdownItem>
-                  </DropdownSection>
-                ) : (
-                  <DropdownSection>
-                    <DropdownItem
-                      onClick={handleShareBlog}
-                      variant="flat"
-                      color="success"
-                    >
-                      <div className="flex items-center gap-2">
-                        <IoShareSocial className="text-xl" />
-                        Share Blog
+                        Delete Bookmark
                       </div>
                     </DropdownItem>
                   </DropdownSection>
