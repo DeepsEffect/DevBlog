@@ -69,9 +69,11 @@ const MyBookmarks = () => {
       </div>
     );
   }
+
+  // Show "No Bookmarks" if there are no bookmarks or no email
   if (
-    isSuccess &&
-    (!Array.isArray(bookmarksData) || bookmarksData.length === 0)
+    !email ||
+    (isSuccess && (!Array.isArray(bookmarksData) || bookmarksData.length === 0))
   ) {
     return (
       <div className="flex justify-center mt-10 lg:mt-20">No Bookmarks</div>

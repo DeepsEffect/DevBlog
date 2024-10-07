@@ -66,19 +66,21 @@ const BlogContent = () => {
   return (
     <div className="max-w-3xl mx-auto mt-4 lg:mt-6">
       {/* sort options */}
-      <div className=" max-w-[200px] mx-auto ">
-        <Select
-          size="sm"
-          label="Sort By"
-          value={sortOption}
-          onSelectionChange={(keys) => setSortOption(Array.from(keys)[0])}
-        >
-          <SelectItem key="newly-added">Newly Added</SelectItem>
-          <SelectItem key="oldest-first">Oldest First</SelectItem>
-          <SelectItem key="alphabetic">Alphabetic (A-Z)</SelectItem>
-          <SelectItem key="most-popular">Most Popular</SelectItem>
-        </Select>
-      </div>
+      {blogsData?.length !== 0 && (
+        <div className=" max-w-[200px] mx-auto ">
+          <Select
+            size="sm"
+            label="Sort By"
+            value={sortOption}
+            onSelectionChange={(keys) => setSortOption(Array.from(keys)[0])}
+          >
+            <SelectItem key="newly-added">Newly Added</SelectItem>
+            <SelectItem key="oldest-first">Oldest First</SelectItem>
+            <SelectItem key="alphabetic">Alphabetic (A-Z)</SelectItem>
+            <SelectItem key="most-popular">Most Popular</SelectItem>
+          </Select>
+        </div>
+      )}
       <div className="grid grid-cols-1 gap-4 lg:p-4 mt-4 lg:mt-2">
         {blogsData?.length !== 0 ? (
           <>
