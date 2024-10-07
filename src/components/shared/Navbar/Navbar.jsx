@@ -14,7 +14,6 @@ import {
   DropdownItem,
   Dropdown,
 } from "@nextui-org/react";
-import { BsCardText, BsChatRightText, BsChatSquareText } from "react-icons/bs";
 import { LoginModal } from "@/components/Modals/LoginModal/LoginModal";
 import { useSession, signOut } from "next-auth/react";
 import { toast } from "react-toastify";
@@ -23,7 +22,7 @@ import Link from "next/link";
 import Search from "./Search/Search";
 import { LeftSidebar } from "@/components/Homepage/LeftSidebar/LeftSidebar";
 import { useCategory } from "@/contexts/CategoryContext";
-import { RxPencil2 } from "react-icons/rx";
+import { NotepadText, SquarePen } from "lucide-react";
 
 export const Navbar = () => {
   const { selectedCategory, handleSelectedCategory } = useCategory();
@@ -92,7 +91,7 @@ export const Navbar = () => {
             {/* write button */}
             <NavbarItem>
               <Link href="/write" className="flex gap-1 items-center">
-                <RxPencil2 className="text-xl" />
+                <SquarePen size={20} />
                 Write
               </Link>
             </NavbarItem>
@@ -100,7 +99,7 @@ export const Navbar = () => {
             {/* guide  */}
             <NavbarItem className="hidden lg:flex">
               <Link href={"/guide"} className="flex gap-1 items-center ">
-                <BsCardText className="text-xl" />
+                <NotepadText size={20} />
                 Guide
               </Link>
             </NavbarItem>
