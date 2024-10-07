@@ -1,6 +1,7 @@
 "use client";
+import SpinnerCustom from "@/components/shared/SpinnerCustom/SpinnerCustom";
 import Tiptap from "@/components/Tiptap/Tiptap";
-import { Button, Input, Select, SelectItem, Spinner } from "@nextui-org/react";
+import { Button, Input, Select, SelectItem } from "@nextui-org/react";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState, useEffect, Suspense } from "react";
@@ -87,8 +88,8 @@ const EditBlogForm = () => {
   // spinner while fetching
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center min-h-screen">
-        <Spinner />
+      <div>
+        <SpinnerCustom />
       </div>
     );
   }
@@ -169,8 +170,8 @@ const EditBlogForm = () => {
 const Edit = () => (
   <Suspense
     fallback={
-      <div className="flex justify-center items-center min-h-screen">
-        <Spinner />
+      <div>
+        <SpinnerCustom />
       </div>
     }
   >

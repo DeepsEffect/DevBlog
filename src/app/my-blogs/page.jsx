@@ -1,22 +1,16 @@
 "use client";
 
 import BlogCard from "@/components/Homepage/BlogCard/BlogCard";
+import SpinnerCustom from "@/components/shared/SpinnerCustom/SpinnerCustom";
 import { useSearch } from "@/contexts/SearchContext";
 import useBlogs from "@/hooks/useBlogs";
-import { Button, Select, SelectItem, Spinner } from "@nextui-org/react";
+import { Button, Select, SelectItem } from "@nextui-org/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useState } from "react";
 
 const MyBlogsPage = () => {
   return (
-    <Suspense
-      fallback={
-        <div className="flex justify-center items-center min-h-screen gap-2">
-          <Spinner size="sm" />
-          <p>Loading blogs...</p>
-        </div>
-      }
-    >
+    <Suspense fallback={<SpinnerCustom loadingItemName={"blog"} />}>
       <BlogContent />
     </Suspense>
   );
@@ -55,12 +49,7 @@ const BlogContent = () => {
   }
 
   if (loading) {
-    return (
-      <div className="flex justify-center items-center min-h-screen gap-2">
-        <Spinner size="sm" />
-        <p>Loading blogs...</p>
-      </div>
-    );
+    return <SpinnerCustom loadingItemName={"blog"} />;
   }
 
   return (

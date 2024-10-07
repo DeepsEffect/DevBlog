@@ -9,12 +9,12 @@ import {
   useDisclosure,
   Input,
   Link,
-  Spinner,
 } from "@nextui-org/react";
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import SocialLoginButtons from "@/components/shared/SocialLoginButtons/SocialLoginButtons";
 import { toast } from "react-toastify";
+import SpinnerCustom from "@/components/shared/SpinnerCustom/SpinnerCustom";
 
 export const LoginModal = ({ btnName }) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -25,8 +25,8 @@ export const LoginModal = ({ btnName }) => {
   // show a spinner if session is loading
   if (status === "loading") {
     return (
-      <div className="flex justify-center items-center min-h-screen">
-        <Spinner />
+      <div>
+        <SpinnerCustom />
       </div>
     );
   }
