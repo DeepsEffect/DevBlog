@@ -1,14 +1,26 @@
 "use client";
+import { useBookmarks } from "@/contexts/BookmarkContext";
 import { Button, Tooltip } from "@nextui-org/react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
 import { FaRegBookmark, FaBookmark } from "react-icons/fa";
 import { toast } from "react-toastify";
+import { useMemo } from "react";
 
-export const Bookmark = ({ blog, page, isBookmarked }) => {
+export const Bookmark = ({ blog, page, pageType }) => {
   const session = useSession();
   const queryClient = useQueryClient();
+  const { bookmarks } = useBookmarks();
 
+  // Check if this specific blog is bookmarked
+  const isBookmarked = useMemo(() => {
+    if (pageType === "my-bookmarks") {
+      return true;
+    }
+    return bookmarks?.some((bookmark) => bookmark.blogId === blog._id);
+  }, [bookmarks, blog._id]);
+
+  // handle bookmark function
   const handleBookmark = async () => {
     if (!session?.data) {
       toast.error("Please login to bookmark");

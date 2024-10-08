@@ -25,12 +25,9 @@ import { Bookmark } from "@/components/Bookmark/Bookmark";
 import { useSession } from "next-auth/react";
 import { toast } from "react-toastify";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useBookmarks } from "@/contexts/BookmarkContext";
-import { useMemo } from "react";
 import { MdDelete } from "react-icons/md";
 import { RiEdit2Fill } from "react-icons/ri";
 import { MdOutlineReport } from "react-icons/md";
-import { BiHide } from "react-icons/bi";
 import { IoShareSocial } from "react-icons/io5";
 
 export default function BlogCard({ blog, pageType, bookmarkRefetch }) {
@@ -39,15 +36,6 @@ export default function BlogCard({ blog, pageType, bookmarkRefetch }) {
   const session = useSession();
   const queryClient = useQueryClient();
   const email = session?.data?.user?.email;
-  const { bookmarks } = useBookmarks();
-
-  // Check if this specific blog is bookmarked
-  const isBookmarked = useMemo(() => {
-    if (pageType === "my-bookmarks") {
-      return true;
-    }
-    return bookmarks?.some((bookmark) => bookmark.blogId === blog._id);
-  }, [bookmarks, blog._id]);
 
   const {
     title,
@@ -364,11 +352,7 @@ export default function BlogCard({ blog, pageType, bookmarkRefetch }) {
             </Tooltip>
 
             {/* bookmark  */}
-            <Bookmark
-              isBookmarked={isBookmarked}
-              blog={blog}
-              page={"homePage"}
-            />
+            <Bookmark pageType={pageType} blog={blog} page={"homePage"} />
           </section>
         </CardFooter>
       </div>
