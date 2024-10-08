@@ -173,9 +173,23 @@ export const Navbar = () => {
         <>
           {/* show this if user is not available */}
           <NavbarContent justify="end">
+            {/* write button */}
+            <NavbarItem>
+              <Link href="/write" className="flex gap-1 items-center text-sm">
+                Write
+              </Link>
+            </NavbarItem>
+
+            {/* guide  */}
+            <NavbarItem className="hidden lg:flex text-sm">
+              <Link href={"/guide"} className="flex gap-1 items-center ">
+                Guide
+              </Link>
+            </NavbarItem>
+            
             {/* login */}
             <NavbarItem className="hidden lg:flex">
-              <LoginModal btnName={"Log in"} />
+              <LoginModal modalName={"Login"} />
             </NavbarItem>
             {/* register */}
             <NavbarItem>

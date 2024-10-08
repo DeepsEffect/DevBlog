@@ -16,7 +16,7 @@ import SocialLoginButtons from "@/components/shared/SocialLoginButtons/SocialLog
 import { toast } from "react-toastify";
 import SpinnerCustom from "@/components/shared/SpinnerCustom/SpinnerCustom";
 
-export const LoginModal = ({ btnName }) => {
+export const LoginModal = ({ modalName }) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [loading, setLoading] = useState(false);
   const { data: session, status } = useSession();
@@ -66,22 +66,12 @@ export const LoginModal = ({ btnName }) => {
   return (
     <>
       {/* modal open button */}
-      {btnName ? (
-        <Button
-          variant="light"
-          className="text-text text-sm"
-          href="#"
-          onPress={onOpen}
-        >
-          {btnName}
-        </Button>
+      {modalName ? (
+        <div className=" text-sm cursor-pointer" onClick={onOpen}>
+          {modalName}
+        </div>
       ) : (
-        <Link
-          color="primary"
-          underline="hover"
-          className="ml-1 text-medium cursor-pointer"
-          onPress={onOpen}
-        >
+        <Link className="ml-1  text-medium cursor-pointer" onClick={onOpen}>
           Login
         </Link>
       )}
