@@ -71,9 +71,11 @@ export const LoginModal = ({ isOpen, onClose }) => {
                     name="email"
                     type="email"
                     placeholder="enter your email"
+                    value="dummy@gmail.com"
                   />
                   <Input
                     required
+                    value="iAmDummy"
                     variant="underlined"
                     name="password"
                     type="password"

@@ -180,7 +180,10 @@ export const Navbar = () => {
           <NavbarContent justify="end">
             {/* write button */}
             <NavbarItem>
-              <Link href="/write" className="flex gap-1 items-center text-sm">
+              <Link
+                href="/write"
+                className=" hidden lg:flex gap-1 items-center text-sm"
+              >
                 Write
               </Link>
             </NavbarItem>
@@ -215,6 +218,41 @@ export const Navbar = () => {
 
       {/* mobile view */}
       <NavbarMenu>
+        {!session?.data && (
+          <>
+            <NavbarItem>
+              <Button
+                onClick={() => router.push("/write")}
+                variant="ghost"
+                size="sm"
+                className="flex justify-center w-full"
+              >
+                Write
+              </Button>
+            </NavbarItem>
+
+            <NavbarItem>
+              <Button
+                onClick={() => router.push("/login")}
+                variant="ghost"
+                size="sm"
+                className="flex justify-center w-full"
+              >
+                Login
+              </Button>
+            </NavbarItem>
+          </>
+        )}
+        <NavbarItem>
+          <Button
+            onClick={() => router.push("/guide")}
+            variant="ghost"
+            size="sm"
+            className="flex justify-center w-full"
+          >
+            Guide
+          </Button>
+        </NavbarItem>
         <Search />
         <NavbarItem key="our-story" className="text-medium">
           <LeftSidebar
