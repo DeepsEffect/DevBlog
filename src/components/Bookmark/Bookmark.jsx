@@ -5,12 +5,17 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
 import { FaRegBookmark, FaBookmark } from "react-icons/fa";
 import { toast } from "react-toastify";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
+import { LoginModal } from "../Modals/LoginModal/LoginModal";
 
 export const Bookmark = ({ blog, page, pageType }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const session = useSession();
   const queryClient = useQueryClient();
   const { bookmarks } = useBookmarks();
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
 
   // Check if this specific blog is bookmarked
   const isBookmarked = useMemo(() => {
@@ -23,7 +28,7 @@ export const Bookmark = ({ blog, page, pageType }) => {
   // handle bookmark function
   const handleBookmark = async () => {
     if (!session?.data) {
-      toast.error("Please login to bookmark");
+      openModal();
       return;
     } else if (!session?.data?.user?.email) {
       toast.error(
@@ -84,6 +89,7 @@ export const Bookmark = ({ blog, page, pageType }) => {
           )}
         </Button>
       </Tooltip>
+      <LoginModal isOpen={isModalOpen} onClose={closeModal} />
     </div>
   );
 };

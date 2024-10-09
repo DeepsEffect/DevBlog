@@ -23,12 +23,17 @@ import Search from "./Search/Search";
 import { LeftSidebar } from "@/components/Homepage/LeftSidebar/LeftSidebar";
 import { useCategory } from "@/contexts/CategoryContext";
 import { NotepadText, SquarePen } from "lucide-react";
+import { useState } from "react";
 
 export const Navbar = () => {
   const { selectedCategory, handleSelectedCategory } = useCategory();
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const session = useSession();
   const router = useRouter();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
   // console.log(session);
 
   // handle sign out
@@ -186,10 +191,13 @@ export const Navbar = () => {
                 Guide
               </Link>
             </NavbarItem>
-            
+
             {/* login */}
-            <NavbarItem className="hidden lg:flex">
-              <LoginModal modalName={"Login"} />
+            <NavbarItem
+              onClick={openModal}
+              className="hidden lg:flex cursor-pointer text-sm"
+            >
+              <span>Login</span>
             </NavbarItem>
             {/* register */}
             <NavbarItem>
@@ -215,6 +223,7 @@ export const Navbar = () => {
           />
         </NavbarItem>
       </NavbarMenu>
+      <LoginModal isOpen={isModalOpen} onClose={closeModal} />
     </Nav>
   );
 };
