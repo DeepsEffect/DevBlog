@@ -44,13 +44,7 @@ export const LoginModal = ({ isOpen, onClose }) => {
   };
 
   return (
-    <Modal
-      size="md"
-      backdrop="blur"
-      isOpen={isOpen}
-      onClose={onClose}
-      onOpenChange={onclose}
-    >
+    <Modal size="md" backdrop="blur" isOpen={isOpen} onClose={onClose}>
       <ModalContent>
         {(onClose) => (
           <>

@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 
 export default function () {
   const [isModalOpen, setIsModalOpen] = useState(true);
-  const session = useSession();
+  const { data: session } = useSession();
   const router = useRouter();
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);

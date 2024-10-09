@@ -172,7 +172,10 @@ const RegisterPage = () => {
         {/* toggle option to login page */}
         <div>
           already have an account?{" "}
-          <span onClick={openModal} className="text-primary hover:underline cursor-pointer">
+          <span
+            onClick={openModal}
+            className="text-primary hover:underline cursor-pointer"
+          >
             Login
           </span>
         </div>
