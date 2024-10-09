@@ -1,16 +1,15 @@
 "use client";
 import CustomTagInput from "@/components/CustomTagInput/CustomTagInput";
-import SpinnerCustom from "@/components/shared/SpinnerCustom/SpinnerCustom";
 import Tiptap from "@/components/Tiptap/Tiptap";
-import usePrivateRoute from "@/hooks/usePrivateRoute";
-import { Button, Input, Spinner, Select, SelectItem } from "@nextui-org/react";
+import { Button, Input, Select, SelectItem } from "@nextui-org/react";
 import { useQueryClient } from "@tanstack/react-query";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "react-toastify";
 
 const WritePage = () => {
-  const { session, status } = usePrivateRoute();
+  const session = useSession();
   const queryClient = useQueryClient();
   const router = useRouter();
   const [blogTitle, setBlogTitle] = useState("");
@@ -20,22 +19,10 @@ const WritePage = () => {
   const [category, setCategory] = useState("");
   const [loading, setLoading] = useState(false);
 
-  if (status === "loading") {
-    return (
-      <div>
-        <SpinnerCustom />
-      </div>
-    );
-  }
-
-  if (!session) {
-    return null; // Return nothing while redirecting
-  }
-
   // handle posting the blog data
   const handleBlogSubmit = async (e) => {
     e.preventDefault();
-    if (!session?.user?.email) {
+    if (!session?.data?.user?.email) {
       toast.error("couldn't find email.\n Login with an email to post blog");
       return;
     }

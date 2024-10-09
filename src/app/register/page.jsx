@@ -9,10 +9,13 @@ import { toast } from "react-toastify";
 import SpinnerCustom from "@/components/shared/SpinnerCustom/SpinnerCustom";
 
 const RegisterPage = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const { data: session, status } = useSession(); // Destructure session and status
   const router = useRouter();
   // console.log(session);
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
 
   // show a spinner if session is loading
   if (status === "loading") {
@@ -168,10 +171,16 @@ const RegisterPage = () => {
         </form>
         {/* toggle option to login page */}
         <div>
-          already have an account?
-          <LoginModal />
+          already have an account?{" "}
+          <span
+            onClick={openModal}
+            className="text-primary hover:underline cursor-pointer"
+          >
+            Login
+          </span>
         </div>
       </div>
+      <LoginModal isOpen={isModalOpen} onClose={closeModal} />
     </div>
   );
 };
