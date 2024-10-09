@@ -1,7 +1,7 @@
 "use client";
 import { Button, Tooltip } from "@nextui-org/react";
+import { Share } from "lucide-react";
 import React from "react";
-import { TbShare3 } from "react-icons/tb";
 
 export const ShareButton = ({ blog, readingTime }) => {
   // handle share blog
@@ -31,7 +31,7 @@ export const ShareButton = ({ blog, readingTime }) => {
     <div className="flex items-center gap-2">
       <Tooltip content="share blog">
         <Button onClick={handleShareBlog} variant="flat" size="sm" isIconOnly>
-          <TbShare3 className="text-2xl" />
+          <Share className="hover:text-green-400" strokeWidth={2} size={21} />
         </Button>
       </Tooltip>
     </div>

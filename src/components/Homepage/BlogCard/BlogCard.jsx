@@ -16,9 +16,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { BiComment } from "react-icons/bi";
 import { FiMoreHorizontal } from "react-icons/fi";
-import { BiRocket } from "react-icons/bi";
 import { useRouter } from "next/navigation";
 import BriefContent from "./BriefContent/BriefContent";
 import { Bookmark } from "@/components/Bookmark/Bookmark";
@@ -29,6 +27,7 @@ import { MdDelete } from "react-icons/md";
 import { RiEdit2Fill } from "react-icons/ri";
 import { MdOutlineReport } from "react-icons/md";
 import { IoShareSocial } from "react-icons/io5";
+import { MessageSquare, Zap } from "lucide-react";
 
 export default function BlogCard({ blog, pageType, bookmarkRefetch }) {
   const router = useRouter();
@@ -306,12 +305,16 @@ export default function BlogCard({ blog, pageType, bookmarkRefetch }) {
                 {/* Pog Button */}
                 <Button
                   variant="flat"
-                  size="md"
+                  size="sm"
                   onClick={handleCardClick}
                   isIconOnly
                   aria-label="pog"
                 >
-                  <BiRocket className="text-xl" />{" "}
+                  <Zap
+                    size={21}
+                    strokeWidth={2}
+                    className="hover:fill-cyan-300 hover:stroke-none"
+                  />
                   {/* A rocket icon for "Pog" */}
                 </Button>
                 {/* Pog Count */}
@@ -325,11 +328,11 @@ export default function BlogCard({ blog, pageType, bookmarkRefetch }) {
                 {/* comment button */}
                 <Button
                   variant="flat"
-                  size="md"
+                  size="sm"
                   isIconOnly
                   aria-level="comments"
                 >
-                  <BiComment className="text-xl" />
+                  <MessageSquare size={21} strokeWidth={2} />
                 </Button>
                 {/* comment count */}
                 <span className="text-sm font-semibold">

@@ -3,7 +3,7 @@ import { useBookmarks } from "@/contexts/BookmarkContext";
 import { Button, Tooltip } from "@nextui-org/react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
-import { FaRegBookmark, FaBookmark } from "react-icons/fa";
+import { Bookmark as BookMarkIcon } from "lucide-react";
 import { toast } from "react-toastify";
 import { useMemo, useState } from "react";
 import { LoginModal } from "../Modals/LoginModal/LoginModal";
@@ -79,14 +79,14 @@ export const Bookmark = ({ blog, page, pageType }) => {
         <Button
           onClick={handleBookmark}
           variant={page === "blogDetails" ? "flat" : "light"}
-          size={page === "blogDetails" ? "sm" : "md"}
+          size={page === "blogDetails" ? "sm" : "sm"}
           isIconOnly
         >
-          {isBookmarked ? (
-            <FaBookmark className="text-xl" />
-          ) : (
-            <FaRegBookmark className="text-xl" />
-          )}
+          <BookMarkIcon
+            fill={`${isBookmarked ? "white" : ""}`}
+            size={21}
+            strokeWidth={2}
+          />
         </Button>
       </Tooltip>
       <LoginModal isOpen={isModalOpen} onClose={closeModal} />

@@ -2,8 +2,8 @@
 
 import { Button, Tooltip } from "@nextui-org/react";
 import { useQueryClient } from "@tanstack/react-query";
+import { MessageSquare, Zap } from "lucide-react";
 import { useState } from "react";
-import { BiComment, BiRocket } from "react-icons/bi";
 import { toast } from "react-toastify";
 
 const Reactions = ({ slug, reactions }) => {
@@ -50,7 +50,11 @@ const Reactions = ({ slug, reactions }) => {
             aria-label="pog"
             onClick={handlePogClick}
           >
-            <BiRocket className="text-xl" />
+            <Zap
+              strokeWidth={2}
+              size={21}
+              className="hover:fill-cyan-300 hover:stroke-none"
+            />
           </Button>
           <span className="text-sm font-semibold">{pogs}</span>
         </div>
@@ -60,7 +64,7 @@ const Reactions = ({ slug, reactions }) => {
       <Tooltip content="comment">
         <div className="flex items-center gap-1">
           <Button variant="flat" size="sm" isIconOnly aria-label="comments">
-            <BiComment className="text-xl" />
+            <MessageSquare size={21} strokeWidth={2} />
           </Button>
           <span className="text-sm font-semibold">{reactions?.comments}</span>
         </div>
