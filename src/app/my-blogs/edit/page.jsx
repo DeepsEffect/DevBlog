@@ -168,13 +168,7 @@ const EditBlogForm = () => {
 };
 
 const Edit = () => (
-  <Suspense
-    fallback={
-      <div>
-        <SpinnerCustom />
-      </div>
-    }
-  >
+  <Suspense fallback={<SpinnerCustom />}>
     <EditBlogForm />
   </Suspense>
 );

@@ -1,5 +1,4 @@
 "use client";
-import React, { useState } from "react";
 import {
   Modal,
   ModalContent,
@@ -13,10 +12,20 @@ import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import SocialLoginButtons from "@/components/shared/SocialLoginButtons/SocialLoginButtons";
 import { toast } from "react-toastify";
+import { useEffect, useState } from "react";
 
 export const LoginModal = ({ isOpen, onClose }) => {
   const [loading, setLoading] = useState(false);
+  const [redirectParam, setRedirectParam] = useState("/");
   const router = useRouter();
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const redirect = params.get("redirect") || "/";
+      setRedirectParam(redirect);
+    }
+  }, []);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -28,17 +37,18 @@ export const LoginModal = ({ isOpen, onClose }) => {
     const resp = await signIn("credentials", {
       email,
       password,
-      redirect: false,
+      redirect: true,
+      callbackUrl: redirectParam,
     });
     // console.log(resp);
-    if (resp.status === 200) {
+    if (resp?.ok) {
       setLoading(false);
       toast.success("logged In successfully!");
-      onclose;
-      router.push("/");
+      onClose;
+      router.push(redirectParam);
     } else {
-      console.log("Login failed:", resp.error);
-      toast.error(resp.error);
+      console.log("Login failed:", resp?.error);
+      toast.error(resp?.error);
       setLoading(false);
     }
   };
@@ -71,11 +81,11 @@ export const LoginModal = ({ isOpen, onClose }) => {
                     name="email"
                     type="email"
                     placeholder="enter your email"
-                    value="dummy@gmail.com"
+                    defaultValue="dummy@gmail.com"
                   />
                   <Input
                     required
-                    value="iAmDummy"
+                    defaultValue="iAmDummy"
                     variant="underlined"
                     name="password"
                     type="password"
