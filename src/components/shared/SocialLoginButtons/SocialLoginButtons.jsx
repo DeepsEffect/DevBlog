@@ -1,18 +1,29 @@
 "use client";
 import { Button } from "@nextui-org/react";
-import React, { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
 import { signIn } from "next-auth/react";
+import { useEffect, useState } from "react";
 
 export default function SocialLoginButtons() {
   const [loadingProvider, setLoadingProvider] = useState(null);
+  const [redirectParam, setRedirectParam] = useState("/");
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const redirect = params.get("redirect") || "/";
+      setRedirectParam(redirect);
+    }
+  }, []);
 
   const handleSocialSignIns = async (provider) => {
-    console.log(`Attempting to sign in with ${provider}`);
     try {
       setLoadingProvider(provider);
-      const res = await signIn(provider, { redirect: false });
+      const res = await signIn(provider, {
+        redirect: true,
+        callbackUrl: redirectParam,
+      });
       // console.log(res);
     } catch (error) {
       console.error(`Error during ${provider} sign-in:`, error);
