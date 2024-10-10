@@ -114,7 +114,7 @@ const blogDetailsPage = async ({ params, searchParams }) => {
           </section>
 
           {/* blog content section */}
-          <section className="leading-relaxed text-text mt-4 mb-4">
+          <section className="leading-relaxed text-text text-lg mt-4 mb-4">
             <SanitizeMarkup htmlContent={content} />
           </section>
         </CardBody>

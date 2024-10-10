@@ -1,4 +1,4 @@
-import { Inter } from "next/font/google";
+import { Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/shared/Navbar/Navbar";
 import { NextUIProvider } from "@nextui-org/react";
@@ -10,7 +10,9 @@ import { CategoryProvider } from "@/contexts/CategoryContext";
 import { QueryProvider } from "@/services/QueryProvider";
 import { BookmarkProvider } from "@/contexts/BookmarkContext";
 
-const inter = Inter({ subsets: ["latin"] });
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+});
 
 export const metadata = {
   title: "DevBlog",
@@ -21,7 +23,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={spaceGrotesk.className}>
         <AuthProvider>
           <NextUIProvider className="dark text-foreground bg-background">
             <QueryProvider>
