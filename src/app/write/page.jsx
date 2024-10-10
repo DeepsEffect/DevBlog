@@ -35,9 +35,9 @@ const WritePage = () => {
       content: blogContent,
       coverPhoto: coverPhoto || "",
       author: {
-        name: session?.user?.name,
-        email: session?.user?.email,
-        image: session?.user?.image,
+        name: session?.data.user?.name,
+        email: session?.data?.user?.email,
+        image: session?.data?.user?.image,
       },
       postedDate: new Date().toISOString(),
       tags: tags || [],
