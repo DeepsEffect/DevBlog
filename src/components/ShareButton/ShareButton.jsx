@@ -2,6 +2,7 @@
 import { Button, Tooltip } from "@nextui-org/react";
 import { Share } from "lucide-react";
 import React from "react";
+import { toast } from "react-toastify";
 
 export const ShareButton = ({ blog, readingTime }) => {
   // handle share blog

@@ -8,6 +8,11 @@ import Italic from "@tiptap/extension-italic";
 import Underline from "@tiptap/extension-underline";
 import Link from "@tiptap/extension-link";
 import Heading from "@tiptap/extension-heading";
+import CodeBlockLowlight from "@tiptap/extension-code-block-lowlight";
+import { all, createLowlight } from "lowlight";
+
+// create a lowlight instance with all languages loaded
+const lowlight = createLowlight(all);
 import {
   BiBold,
   BiCode,
@@ -23,7 +28,7 @@ import OrderedList from "@tiptap/extension-ordered-list";
 import ListItem from "@tiptap/extension-list-item";
 import BulletList from "@tiptap/extension-bullet-list";
 import { useCallback } from "react";
-import CodeBlock from "@tiptap/extension-code-block";
+
 import "./styles.css";
 import Text from "@tiptap/extension-text";
 
@@ -41,11 +46,10 @@ const Tiptap = ({ setContent, content }) => {
       BulletList,
       ListItem,
       Paragraph,
-      CodeBlock.configure({
-        HTMLAttributes: {
-          class: "custom-code-block",
-        },
+      CodeBlockLowlight.configure({
+        lowlight,
         languageClassPrefix: "language-",
+        defaultLanguage: "javascript",
       }),
       Heading.configure({
         HTMLAttributes: {

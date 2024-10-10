@@ -73,7 +73,7 @@ export const Navbar = () => {
       {/* navbar center content */}
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
         <NavbarBrand>
-          <Link href="/" className="font-bold text-inherit">
+          <Link href="/" className="font-bold text-2xl text-inherit">
             DevBlog
           </Link>
         </NavbarBrand>

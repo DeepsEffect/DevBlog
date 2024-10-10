@@ -1,7 +1,8 @@
 import { Bookmark } from "@/components/Bookmark/Bookmark";
+import HighlightedContent from "@/components/HighlightedContent/HighlightedContent";
 import Reactions from "@/components/Reactions/Reactions";
 import { ShareButton } from "@/components/ShareButton/ShareButton";
-import SanitizeMarkup from "@/services/SanitizeMarkup";
+import { sanitizeHtml } from "@/services/SanitizeMarkup";
 import {
   Avatar,
   Card,
@@ -44,6 +45,9 @@ const blogDetailsPage = async ({ params, searchParams }) => {
     category,
     reactions,
   } = blog;
+
+  // Sanitize the content
+  const sanitizedContent = sanitizeHtml(content);
 
   return (
     <div className="max-w-3xl mx-auto">
@@ -115,7 +119,7 @@ const blogDetailsPage = async ({ params, searchParams }) => {
 
           {/* blog content section */}
           <section className="leading-relaxed text-text text-lg mt-4 mb-4">
-            <SanitizeMarkup htmlContent={content} />
+            <HighlightedContent content={sanitizedContent}/>
           </section>
         </CardBody>
       </Card>
