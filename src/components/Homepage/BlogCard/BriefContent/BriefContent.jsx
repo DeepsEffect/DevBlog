@@ -9,7 +9,7 @@ const BriefContent = ({ htmlContent }) => {
     if (htmlContent) {
       // Sanitize HTML and create brief content
       const plainText = DOMPurify.sanitize(htmlContent, { ALLOWED_TAGS: [] });
-      setBriefText(plainText.slice(0, 170));
+      setBriefText(plainText.slice(0, 150));
     }
   }, [htmlContent]);
 
