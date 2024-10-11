@@ -64,7 +64,7 @@ export const Navbar = () => {
       {/* title for small view */}
       <NavbarContent className="sm:hidden pr-3" justify="center">
         <NavbarBrand>
-          <Link href="/" className="font-bold text-inherit">
+          <Link href="/" className="font-bold text-xl text-inherit">
             DevBlog
           </Link>
         </NavbarBrand>

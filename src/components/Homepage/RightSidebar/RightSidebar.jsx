@@ -3,6 +3,7 @@ import { Card, CardBody, CardHeader } from "@nextui-org/react";
 import { useEffect, useState } from "react";
 import Clock from "react-clock";
 import "react-clock/dist/Clock.css";
+import "./clock.css";
 
 export const RightSidebar = () => {
   const [clockValue, setClockValue] = useState(new Date());
@@ -23,8 +24,12 @@ export const RightSidebar = () => {
         </CardHeader>
         <CardBody className="flex justify-center items-center gap-4 mx-auto">
           <Clock
+            renderMinuteMarks={false}
+            className="custom-clock"
             secondHandOppositeLength={15}
-            secondHandWidth={2}
+            secondHandWidth={1}
+            minuteHandWidth={2}
+            hourHandWidth={4}
             value={clockValue}
           />
         </CardBody>
