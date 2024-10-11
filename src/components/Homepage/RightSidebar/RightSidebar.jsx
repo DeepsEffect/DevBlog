@@ -1,19 +1,52 @@
-import React from "react";
-import { Card, CardBody, CardHeader } from "@nextui-org/react";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { Card, CardBody, CardHeader, Divider } from "@nextui-org/react";
 import Clock from "react-clock";
 import "react-clock/dist/Clock.css";
 import "./clock.css";
+import axios from "axios";
+import Link from "next/link";
 
 export const RightSidebar = () => {
   const [clockValue, setClockValue] = useState(new Date());
+  const [news, setNews] = useState([]);
+  const [quote, setQuote] = useState("");
+
   useEffect(() => {
+    // Clock update every second
     const interval = setInterval(() => setClockValue(new Date()), 1000);
+
+    // Fetch Dev News from Dev.to
+    const fetchNews = async () => {
+      try {
+        const response = await axios.get(
+          "https://dev.to/api/articles?per_page=5"
+        );
+        setNews(response.data);
+      } catch (error) {
+        console.error("Error fetching Dev.to news:", error);
+      }
+    };
+
+    // Fetch Random Quote
+    const fetchQuote = () => {
+      const quotes = [
+        "Talk is cheap. Show me the code. - Linus Torvalds",
+        "Programs must be written for people to read, and only incidentally for machines to execute. - Harold Abelson",
+        "Any fool can write code that a computer can understand. Good programmers write code that humans can understand. - Martin Fowler",
+        "First, solve the problem. Then, write the code. - John Johnson",
+        "In order to be irreplaceable, one must always be different. - Coco Chanel",
+      ];
+      setQuote(quotes[Math.floor(Math.random() * quotes.length)]);
+    };
+
+    fetchNews();
+    fetchQuote();
 
     return () => {
       clearInterval(interval);
     };
   }, []);
+
   return (
     <div>
       <Card>
@@ -22,7 +55,8 @@ export const RightSidebar = () => {
             Activity bar
           </h2>
         </CardHeader>
-        <CardBody className="flex justify-center items-center gap-4 mx-auto">
+        <CardBody className="flex flex-col items-center gap-4 mx-auto">
+          {/* Clock */}
           <Clock
             renderMinuteMarks={false}
             className="custom-clock"
@@ -32,6 +66,33 @@ export const RightSidebar = () => {
             hourHandWidth={4}
             value={clockValue}
           />
+
+          <Divider />
+
+          {/* Dev News Ticker */}
+          <div className="news-ticker">
+            <h3 className="font-bold text-center mb-2">Dev News</h3>
+            <ul className="list-none">
+              {news.map((article, index) => (
+                <li key={index} className="my-1">
+                  <Link
+                    href={article.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-400 hover:underline "
+                  >
+                    {article.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <Divider />
+          {/* Random Developer Quote/Tip */}
+          <div className="random-quote text-center mt-4">
+            <h3 className="font-bold">Quote of the Day</h3>
+            <p className="italic">"{quote}"</p>
+          </div>
         </CardBody>
       </Card>
     </div>
