@@ -21,6 +21,7 @@ DevBlog is a portfolio project that features a blogging platform for developers.
 - **React Icons** - Comprehensive icon set
 - **TipTap Editor** - Rich text editor for blog creation
 - **React Toastify** - Elegant notifications system
+- **Prism.js** - Syntax highlighting 
 
 ### Backend
 
