@@ -83,7 +83,7 @@ export const Bookmark = ({ blog, page, pageType }) => {
           isIconOnly
         >
           <BookMarkIcon
-            fill={`${isBookmarked ? "white" : ""}`}
+            fill={`${isBookmarked ? "white" : "none"}`}
             size={21}
             strokeWidth={2}
           />
