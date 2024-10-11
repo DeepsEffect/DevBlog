@@ -2,9 +2,13 @@
 import useBlogs from "@/hooks/useBlogs";
 import { Avatar, Card, CardBody, CardHeader, Input } from "@nextui-org/react";
 import { useSession } from "next-auth/react";
-import React from "react";
+import React, { useEffect } from "react";
 
 const MyProfilePage = () => {
+  // dynamic title
+  useEffect(() => {
+    document.title = "DevBlog | My Profile";
+  }, []);
   const session = useSession();
   const email = session?.data?.user?.email;
   const { blogs } = useBlogs({ email });

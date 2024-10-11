@@ -6,7 +6,7 @@ import { useSearch } from "@/contexts/SearchContext";
 import useBlogs from "@/hooks/useBlogs";
 import { Button, Select, SelectItem } from "@nextui-org/react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Suspense, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 
 const MyBlogsPage = () => {
   return (
@@ -17,6 +17,11 @@ const MyBlogsPage = () => {
 };
 
 const BlogContent = () => {
+  // dynamic title
+  useEffect(() => {
+    document.title = "DevBlog | My Blogs";
+  }, []);
+
   const searchParams = useSearchParams();
   const { searchQuery } = useSearch();
   const email = searchParams.get("email");

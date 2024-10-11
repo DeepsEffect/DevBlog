@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Card,
   CardBody,
@@ -19,6 +19,11 @@ import Link from "next/link";
 import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
 
 const GuidePage = () => {
+    // dynamic title
+    useEffect(() => {
+      document.title = "DevBlog | Guide";
+    }, []);
+
   const guideItems = [
     {
       title: "Getting Started",

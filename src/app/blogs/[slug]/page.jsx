@@ -13,6 +13,15 @@ import {
 } from "@nextui-org/react";
 import Image from "next/image";
 
+export const generateMetadata = async ({ params }) => {
+  const title = params.slug
+    ? `DevBlog | Blog Details - ${params.slug}`
+    : "DevBlog | Blog Details";
+  return {
+    title,
+  };
+};
+
 const blogDetailsPage = async ({ params, searchParams }) => {
   const { slug } = params;
   const readingTime = searchParams.readingTime;
@@ -119,7 +128,7 @@ const blogDetailsPage = async ({ params, searchParams }) => {
 
           {/* blog content section */}
           <section className="leading-relaxed text-text text-lg mt-4 mb-4">
-            <HighlightedContent content={sanitizedContent}/>
+            <HighlightedContent content={sanitizedContent} />
           </section>
         </CardBody>
       </Card>

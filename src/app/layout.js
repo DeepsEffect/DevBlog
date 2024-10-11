@@ -17,7 +17,7 @@ const spaceGrotesk = Space_Grotesk({
 export const metadata = {
   title: "DevBlog",
   description:
-    "DevBlog is a platform for developers to write and share their blogs, and interact with other developers.",
+    "DevBlog is a platform for developers to browse, search, and create blogs across various development categories.",
 };
 
 export default function RootLayout({ children }) {

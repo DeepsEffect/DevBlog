@@ -1,13 +1,17 @@
 "use client";
-import React from "react";
 import { LoginModal } from "@/components/Modals/LoginModal/LoginModal";
 import { Button } from "@nextui-org/react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import SpinnerCustom from "@/components/shared/SpinnerCustom/SpinnerCustom";
 
 export default function () {
+  // dynamic title
+  useEffect(() => {
+    document.title = "DevBlog | Login";
+  }, []);
+
   const [isModalOpen, setIsModalOpen] = useState(true);
   const { data: session, status } = useSession();
   const router = useRouter();

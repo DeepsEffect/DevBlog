@@ -1,6 +1,6 @@
 "use client";
 import { Button, Input, Link } from "@nextui-org/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SocialLoginButtons from "@/components/shared/SocialLoginButtons/SocialLoginButtons";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -9,6 +9,11 @@ import { toast } from "react-toastify";
 import SpinnerCustom from "@/components/shared/SpinnerCustom/SpinnerCustom";
 
 const RegisterPage = () => {
+    // dynamic title
+    useEffect(() => {
+      document.title = "DevBlog | Register";
+    }, []);
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const { data: session, status } = useSession(); // Destructure session and status

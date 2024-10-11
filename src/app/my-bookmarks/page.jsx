@@ -5,9 +5,14 @@ import { useSearch } from "@/contexts/SearchContext";
 import { Select, SelectItem } from "@nextui-org/react";
 import { useQuery } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const MyBookmarks = () => {
+  // dynamic title
+  useEffect(() => {
+    document.title = "DevBlog | My Bookmarks";
+  }, []);
+
   const { data: session } = useSession();
   const email = session?.user?.email;
   const { searchQuery } = useSearch();

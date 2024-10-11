@@ -5,10 +5,15 @@ import { Button, Input, Select, SelectItem } from "@nextui-org/react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 
 const WritePage = () => {
+  // dynamic title
+  useEffect(() => {
+    document.title = "DevBlog | write a blog";
+  }, []);
+
   const session = useSession();
   const queryClient = useQueryClient();
   const router = useRouter();
