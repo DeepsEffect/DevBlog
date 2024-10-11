@@ -70,7 +70,7 @@ const blogDetailsPage = async ({ params, searchParams }) => {
           {/* title and tags section */}
           <section>
             <h2 className="text-2xl lg:text-4xl font-bold">{title}</h2>
-            <div className="flex items-center gap-1 mt-2">
+            <div className="flex flex-wrap items-center gap-1 mt-2">
               {tags?.map((tag) => (
                 <Chip className="mr-1" size="sm" key={tag} variant="bordered">
                   # {tag}
