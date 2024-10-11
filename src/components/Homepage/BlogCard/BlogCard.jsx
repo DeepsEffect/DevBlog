@@ -269,7 +269,7 @@ export default function BlogCard({ blog, pageType, bookmarkRefetch }) {
               </h2>
               <BriefContent htmlContent={content} />
             </Link>
-            <div className="flex items-center gap-1 mt-2">
+            <div className="flex flex-wrap items-center gap-1 mt-2">
               {tags?.map((tag) => (
                 <p className="mr-1 text-sm text-gray-500" key={tag}>
                   #{tag}
