@@ -9,6 +9,7 @@ DevBlog is a portfolio project that features a blogging platform for developers.
 - **🔖 Bookmarks**: Save interesting posts for later reading
 - **🔍 Search & Sort**: Find content easily with search functionality and sort by newest, random, or most "Pogged"
 - **👏 Pog Reactions**: Show appreciation for posts with unlimited "Pogs"
+- **📱 Responsiveness**: Fully responsive across all devices
 
 ## 🛠️ Tech Stack
 
