@@ -3,6 +3,7 @@ import SpinnerCustom from "@/components/shared/SpinnerCustom/SpinnerCustom";
 import Tiptap from "@/components/Tiptap/Tiptap";
 import { Button, Input, Select, SelectItem } from "@nextui-org/react";
 import { useQuery } from "@tanstack/react-query";
+import { useSession } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState, useEffect, Suspense } from "react";
 import { toast } from "react-toastify";
@@ -11,6 +12,7 @@ const EditBlogForm = () => {
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
   const router = useRouter();
+  const { data: session } = useSession();
   const [blogContent, setBlogContent] = useState("");
   const [blogTitle, setBlogTitle] = useState("");
   const [coverPhoto, setCoverPhoto] = useState("");
@@ -55,6 +57,12 @@ const EditBlogForm = () => {
       coverPhoto: coverPhoto,
       content: blogContent,
       category: category,
+      author: {
+        name: session?.user?.name || blog?.author?.name,
+        email: session?.user?.email || blog?.author?.email,
+        image: session?.user?.image || blog?.author?.image,
+      },
+      lastUpdated: new Date().toISOString(),
     };
 
     try {
