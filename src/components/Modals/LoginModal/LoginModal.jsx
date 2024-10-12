@@ -12,9 +12,11 @@ import { signIn } from "next-auth/react";
 import SocialLoginButtons from "@/components/shared/SocialLoginButtons/SocialLoginButtons";
 import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 export const LoginModal = ({ isOpen, onClose }) => {
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
   const [redirectParam, setRedirectParam] = useState("/");
 
   useEffect(() => {
@@ -31,21 +33,24 @@ export const LoginModal = ({ isOpen, onClose }) => {
     const form = e.target;
     const email = form.email.value;
     const password = form.password.value;
-    // console.log(email, password);
-    const resp = await signIn("credentials", {
-      email,
-      password,
-      redirect: true,
-      callbackUrl: redirectParam,
-    });
-    // console.log(resp);
-    if (resp?.ok) {
-      setLoading(false);
-      toast.success("logged In successfully!");
-      onClose;
-    } else {
-      console.log("Login failed:", resp?.error);
-      toast.error(resp?.error);
+
+    try {
+      const resp = await signIn("credentials", {
+        email,
+        password,
+        redirect: false,
+      });
+
+      if (resp?.ok) {
+        setLoading(false);
+        toast.success("Logged in successfully!");
+        onClose();
+        router.push(redirectParam);
+      } else {
+        throw new Error(resp?.error || "Login failed!");
+      }
+    } catch (error) {
+      toast.error(error.message);
       setLoading(false);
     }
   };
