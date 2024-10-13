@@ -12,11 +12,10 @@ import { signIn } from "next-auth/react";
 import SocialLoginButtons from "@/components/shared/SocialLoginButtons/SocialLoginButtons";
 import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+
 
 export const LoginModal = ({ isOpen, onClose }) => {
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
   const [redirectParam, setRedirectParam] = useState("/");
 
   useEffect(() => {
@@ -45,7 +44,7 @@ export const LoginModal = ({ isOpen, onClose }) => {
         setLoading(false);
         toast.success("Logged in successfully!");
         onClose();
-        router.push(redirectParam);
+        window.location.href = redirectParam;
       } else {
         throw new Error(resp?.error || "Login failed!");
       }
