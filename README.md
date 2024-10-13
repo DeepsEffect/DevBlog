@@ -4,10 +4,10 @@ DevBlog is a portfolio project that features a blogging platform for developers.
 
 ## ✨ Features
 
-- **🔐 Authentication**: Secure login via Google OAuth using NextAuth.js
-- **📝 Full Blog Management**: Create, edit, delete, and view blog posts
+- **🔐 Authentication**: Secure login via Google OAuth and NextAuth.js credentials
+- **📝 Full Blog Management**: Create, edit, delete, and view blog posts (CRUD)
 - **🔖 Bookmarks**: Save interesting posts for later reading
-- **🔍 Search & Sort**: Find content easily with search functionality and sort by newest, random, or most "Pogged"
+- **🔍 Search & Sort**: Find content easily with search and sort functionality on every page
 - **👏 Pog Reactions**: Show appreciation for posts with unlimited "Pogs"
 - **📱 Responsiveness**: Fully responsive across all devices
 
@@ -15,12 +15,12 @@ DevBlog is a portfolio project that features a blogging platform for developers.
 
 ### Frontend
 
-- **Next.js** - Server-side rendering and static site generation
+- **Next.js** - Framework for building modern web applications
 - **React** - Building user interface components
 - **Next UI** - Modern, responsive UI components
-- **Lucide React** - Lightweight icon library
+- **Lucide React** - Lightweight open-source icon library
 - **React Icons** - Comprehensive icon set
-- **TipTap Editor** - Rich text editor for blog creation
+- **TipTap Editor** - Rich text editor for blog writing 
 - **React Toastify** - Elegant notifications system
 - **Prism.js** - Syntax highlighting 
 
