@@ -18,17 +18,19 @@ DevBlog is a portfolio project that features a blogging platform for developers.
 - **Next.js** - Framework for building modern web applications
 - **React** - Building user interface components
 - **Next UI** - Modern, responsive UI components
-- **Lucide React** - Lightweight open-source icon library
-- **React Icons** - Comprehensive icon set
+- **React Query** - Data fetching and caching
+- **Lucide React & React Icons** - Icon libraries
 - **TipTap Editor** - Rich text editor for blog writing 
-- **React Toastify** - Elegant notifications system
-- **Prism.js** - Syntax highlighting 
+- **React Toastify** - Notifications system
+- **Prism.js** - Syntax highlighting for code blocks
+- **Dompurify** - Security for content sanitization
 
 ### Backend
 
 - **Next.js API Routes** - Handling server-side logic
 - **MongoDB** (via MongoDB Atlas) - Database for user and blog data
 - **NextAuth.js** - Authentication and session management
+- **bcrypt** - Password hashing for secure user credential management
 
 ## 🚀 Installation & Setup
 
