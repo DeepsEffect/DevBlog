@@ -1,13 +1,24 @@
 "use client";
 import { Button, Textarea } from "@nextui-org/react";
 import { useSession } from "next-auth/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 export default function AddComment({ slug }) {
   const session = useSession();
   const email = session?.data?.user?.email;
   const [commentContent, setCommentContent] = useState("");
+
+  // scrolling to hashed location if exists
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (hash === "#add-comment") {
+      const element = document.querySelector(hash);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  }, []);
 
   // handle add comment
   const handleAddComment = async () => {
@@ -51,7 +62,7 @@ export default function AddComment({ slug }) {
   };
 
   return (
-    <div>
+    <div id="add-comment">
       {/* add comments section */}
       <section className="mt-4 mb-20">
         <div className="space-y-2">

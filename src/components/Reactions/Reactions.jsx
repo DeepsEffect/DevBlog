@@ -38,6 +38,12 @@ const Reactions = ({ slug, reactions }) => {
     }
   };
 
+  const scrollToComments = () => {
+    const element = document.querySelector("#add-comment");
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
   return (
     <div className="flex items-center gap-2">
       {/* pog button */}
@@ -59,8 +65,18 @@ const Reactions = ({ slug, reactions }) => {
       {/* comment button */}
       <Tooltip content="comment">
         <div className="flex items-center gap-1">
-          <Button variant="flat" size="sm" isIconOnly aria-label="comments">
-            <MessageSquare size={21} strokeWidth={2} className="hover:stroke-primary"/>
+          <Button
+            onClick={scrollToComments}
+            variant="flat"
+            size="sm"
+            isIconOnly
+            aria-label="comments"
+          >
+            <MessageSquare
+              size={21}
+              strokeWidth={2}
+              className="hover:stroke-primary"
+            />
           </Button>
           <span className="text-sm font-semibold">{reactions?.comments}</span>
         </div>
