@@ -86,6 +86,7 @@ export const Bookmark = ({ blog, page, pageType }) => {
             fill={`${isBookmarked ? "white" : "none"}`}
             size={21}
             strokeWidth={2}
+            className="hover:stroke-primary"
           />
         </Button>
       </Tooltip>

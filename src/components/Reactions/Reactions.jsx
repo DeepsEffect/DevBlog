@@ -2,7 +2,7 @@
 
 import { Button, Tooltip } from "@nextui-org/react";
 import { useQueryClient } from "@tanstack/react-query";
-import { MessageSquare, Zap } from "lucide-react";
+import { Cat, MessageSquare } from "lucide-react";
 import { useState } from "react";
 import { toast } from "react-toastify";
 
@@ -50,11 +50,7 @@ const Reactions = ({ slug, reactions }) => {
             aria-label="pog"
             onClick={handlePogClick}
           >
-            <Zap
-              strokeWidth={2}
-              size={21}
-              className="hover:fill-cyan-300 hover:stroke-none"
-            />
+            <Cat strokeWidth={2} size={21} className="hover:stroke-primary" />
           </Button>
           <span className="text-sm font-semibold">{pogs}</span>
         </div>
@@ -64,7 +60,7 @@ const Reactions = ({ slug, reactions }) => {
       <Tooltip content="comment">
         <div className="flex items-center gap-1">
           <Button variant="flat" size="sm" isIconOnly aria-label="comments">
-            <MessageSquare size={21} strokeWidth={2} />
+            <MessageSquare size={21} strokeWidth={2} className="hover:stroke-primary"/>
           </Button>
           <span className="text-sm font-semibold">{reactions?.comments}</span>
         </div>

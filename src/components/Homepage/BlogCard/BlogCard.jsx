@@ -27,7 +27,7 @@ import { MdDelete } from "react-icons/md";
 import { RiEdit2Fill } from "react-icons/ri";
 import { MdOutlineReport } from "react-icons/md";
 import { IoShareSocial } from "react-icons/io5";
-import { MessageSquare, Zap } from "lucide-react";
+import { Cat, MessageSquare } from "lucide-react";
 
 export default function BlogCard({ blog, pageType, bookmarkRefetch }) {
   const router = useRouter();
@@ -310,12 +310,11 @@ export default function BlogCard({ blog, pageType, bookmarkRefetch }) {
                   isIconOnly
                   aria-label="pog"
                 >
-                  <Zap
+                  <Cat
                     size={21}
                     strokeWidth={2}
-                    className="hover:fill-cyan-300 hover:stroke-none"
+                    className="hover:stroke-primary"
                   />
-                  {/* A rocket icon for "Pog" */}
                 </Button>
                 {/* Pog Count */}
                 <span className="text-sm font-semibold">{reactions?.pogs}</span>
@@ -332,7 +331,11 @@ export default function BlogCard({ blog, pageType, bookmarkRefetch }) {
                   isIconOnly
                   aria-level="comments"
                 >
-                  <MessageSquare size={21} strokeWidth={2} />
+                  <MessageSquare
+                    size={21}
+                    strokeWidth={2}
+                    className="hover:stroke-primary"
+                  />
                 </Button>
                 {/* comment count */}
                 <span className="text-sm font-semibold">
