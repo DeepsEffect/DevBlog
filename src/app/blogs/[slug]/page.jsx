@@ -1,3 +1,4 @@
+import AddComment from "@/components/AddComment/AddComment";
 import { Bookmark } from "@/components/Bookmark/Bookmark";
 import HighlightedContent from "@/components/HighlightedContent/HighlightedContent";
 import Reactions from "@/components/Reactions/Reactions";
@@ -5,13 +6,11 @@ import { ShareButton } from "@/components/ShareButton/ShareButton";
 import { sanitizeHtml } from "@/services/SanitizeMarkup";
 import {
   Avatar,
-  Button,
   Card,
   CardBody,
   CardHeader,
   Chip,
   Divider,
-  Textarea,
 } from "@nextui-org/react";
 import Image from "next/image";
 
@@ -135,16 +134,8 @@ const blogDetailsPage = async ({ params, searchParams }) => {
 
           <Divider />
 
-          {/* add comments section */}
-          <section className="mt-6 mb-20">
-            <div className="space-y-2">
-              <h2 className="text-xl font-semibold">Add a comment: </h2>
-              <Textarea radius="sm" />
-              <Button size="sm" variant="flat" color="primary">
-                Post Comment
-              </Button>
-            </div>
-          </section>
+          {/* add comment section */}
+          <AddComment />
         </CardBody>
       </Card>
     </div>
