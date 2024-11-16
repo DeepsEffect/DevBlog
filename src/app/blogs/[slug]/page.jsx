@@ -5,11 +5,13 @@ import { ShareButton } from "@/components/ShareButton/ShareButton";
 import { sanitizeHtml } from "@/services/SanitizeMarkup";
 import {
   Avatar,
+  Button,
   Card,
   CardBody,
   CardHeader,
   Chip,
   Divider,
+  Textarea,
 } from "@nextui-org/react";
 import Image from "next/image";
 
@@ -129,6 +131,19 @@ const blogDetailsPage = async ({ params, searchParams }) => {
           {/* blog content section */}
           <section className="leading-relaxed text-text text-lg mt-4 mb-4">
             <HighlightedContent content={sanitizedContent} />
+          </section>
+
+          <Divider />
+
+          {/* add comments section */}
+          <section className="mt-6 mb-20">
+            <div className="space-y-2">
+              <h2 className="text-xl font-semibold">Add a comment: </h2>
+              <Textarea radius="sm" />
+              <Button size="sm" variant="flat" color="primary">
+                Post Comment
+              </Button>
+            </div>
           </section>
         </CardBody>
       </Card>
