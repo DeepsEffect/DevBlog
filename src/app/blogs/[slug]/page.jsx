@@ -135,7 +135,7 @@ const blogDetailsPage = async ({ params, searchParams }) => {
           <Divider />
 
           {/* add comment section */}
-          <AddComment />
+          <AddComment slug={slug} />
         </CardBody>
       </Card>
     </div>
