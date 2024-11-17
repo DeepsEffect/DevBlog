@@ -51,6 +51,9 @@ export default function BlogCard({ blog, pageType, bookmarkRefetch }) {
   const handleCardClick = () => {
     router.push(`/blogs/${slug}?readingTime=${readingTime}`);
   };
+  const commentClick = () => {
+    router.push(`/blogs/${slug}?readingTime=${readingTime}#add-comment`);
+  };
 
   // reading time calculation function
   const readingTimeCalc = () => {
@@ -326,6 +329,7 @@ export default function BlogCard({ blog, pageType, bookmarkRefetch }) {
               <div className="flex items-center gap-1">
                 {/* comment button */}
                 <Button
+                  onClick={commentClick}
                   variant="flat"
                   size="sm"
                   isIconOnly

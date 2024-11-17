@@ -1,7 +1,9 @@
+import AddComment from "@/components/AddComment/AddComment";
 import { Bookmark } from "@/components/Bookmark/Bookmark";
 import HighlightedContent from "@/components/HighlightedContent/HighlightedContent";
 import Reactions from "@/components/Reactions/Reactions";
 import { ShareButton } from "@/components/ShareButton/ShareButton";
+import ViewComments from "@/components/ViewComments/ViewComments";
 import { sanitizeHtml } from "@/services/SanitizeMarkup";
 import {
   Avatar,
@@ -130,6 +132,13 @@ const blogDetailsPage = async ({ params, searchParams }) => {
           <section className="leading-relaxed text-text text-lg mt-4 mb-4">
             <HighlightedContent content={sanitizedContent} />
           </section>
+
+          <Divider />
+
+          {/* add comment section */}
+          <AddComment slug={slug} />
+          {/* view comments */}
+          <ViewComments slug={slug} />
         </CardBody>
       </Card>
     </div>
