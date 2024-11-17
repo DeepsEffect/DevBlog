@@ -1,7 +1,7 @@
 "use client";
 import { Button, Textarea } from "@nextui-org/react";
+import { useQueryClient } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
@@ -9,7 +9,7 @@ export default function AddComment({ slug }) {
   const session = useSession();
   const email = session?.data?.user?.email;
   const [commentContent, setCommentContent] = useState("");
-  const router = useRouter();
+  const queryClient = useQueryClient();
 
   // scrolling to hashed location if exists
   useEffect(() => {
@@ -54,7 +54,7 @@ export default function AddComment({ slug }) {
       if (res.ok) {
         toast.success("Comment posted successfully!");
         setCommentContent(""); //clear the textarea
-        router.refresh();
+        queryClient.invalidateQueries("comments", slug);
       } else {
         const error = await res.json();
         toast.error(error.message || "Failed to post comment");
