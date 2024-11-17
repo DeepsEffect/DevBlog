@@ -5,10 +5,11 @@ DevBlog is a portfolio project that features a blogging platform for developers.
 ## ✨ Features
 
 - **🔐 Authentication**: Secure login via Google OAuth and NextAuth.js credentials
-- **📝 Full Blog Management**: Create, edit, delete, and view blog posts (CRUD)
+- **📝 Full Blog Management**: Create, Read, Update, and Delete blog posts (CRUD)
 - **🔖 Bookmarks**: Save interesting posts for later reading
 - **🔍 Search & Sort**: Find content easily with search and sort functionality on every page
 - **👏 Pog Reactions**: Show appreciation for posts with unlimited "Pogs"
+- **💬 Add Comments**: Leave a comment to express your feedback
 - **📱 Responsiveness**: Fully responsive across all devices
 
 ## 🛠️ Tech Stack
