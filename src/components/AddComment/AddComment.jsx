@@ -1,6 +1,7 @@
 "use client";
 import { Button, Textarea } from "@nextui-org/react";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
@@ -8,6 +9,7 @@ export default function AddComment({ slug }) {
   const session = useSession();
   const email = session?.data?.user?.email;
   const [commentContent, setCommentContent] = useState("");
+  const router = useRouter();
 
   // scrolling to hashed location if exists
   useEffect(() => {
@@ -35,6 +37,7 @@ export default function AddComment({ slug }) {
     const commentData = {
       user: session?.data?.user?.name,
       email: session?.data?.user?.email,
+      image: session?.data?.user?.image,
       comment: commentContent,
     };
 
@@ -51,6 +54,7 @@ export default function AddComment({ slug }) {
       if (res.ok) {
         toast.success("Comment posted successfully!");
         setCommentContent(""); //clear the textarea
+        router.refresh();
       } else {
         const error = await res.json();
         toast.error(error.message || "Failed to post comment");
@@ -64,10 +68,11 @@ export default function AddComment({ slug }) {
   return (
     <div id="add-comment">
       {/* add comments section */}
-      <section className="mt-4 mb-20">
+      <section className="mt-4">
         <div className="space-y-2">
           <h2 className="text-xl font-semibold">Add a comment: </h2>
           <Textarea
+            maxLength={500}
             isRequired
             required
             onChange={(e) => setCommentContent(e.target.value)}

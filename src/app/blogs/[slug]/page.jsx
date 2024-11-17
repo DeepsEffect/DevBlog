@@ -3,6 +3,7 @@ import { Bookmark } from "@/components/Bookmark/Bookmark";
 import HighlightedContent from "@/components/HighlightedContent/HighlightedContent";
 import Reactions from "@/components/Reactions/Reactions";
 import { ShareButton } from "@/components/ShareButton/ShareButton";
+import ViewComments from "@/components/ViewComments/ViewComments";
 import { sanitizeHtml } from "@/services/SanitizeMarkup";
 import {
   Avatar,
@@ -136,6 +137,8 @@ const blogDetailsPage = async ({ params, searchParams }) => {
 
           {/* add comment section */}
           <AddComment slug={slug} />
+          {/* view comments */}
+          <ViewComments slug={slug} />
         </CardBody>
       </Card>
     </div>
