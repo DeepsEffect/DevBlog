@@ -9,6 +9,7 @@ import { SearchProvider } from "@/contexts/SearchContext";
 import { CategoryProvider } from "@/contexts/CategoryContext";
 import { QueryProvider } from "@/services/QueryProvider";
 import { BookmarkProvider } from "@/contexts/BookmarkContext";
+import { Analytics } from "@vercel/analytics/react";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -47,6 +48,7 @@ export default function RootLayout({ children }) {
           draggable={true}
           theme="dark"
         />
+        <Analytics />
       </body>
     </html>
   );
