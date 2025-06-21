@@ -80,11 +80,3 @@ This project is part of my portfolio, demonstrating my skills in full-stack deve
 2. Create a feature branch
 3. Make your changes
 4. Submit a pull request
-
-## 📞 Contact
-
-Have questions or suggestions? Reach out through:
-
-- [GitHub](https://github.com/DeepsEffect)
-- [Twitter](https://x.com/JalalAhmed7845)
-- [LinkedIn](https://www.linkedin.com/in/jalal-ahmed-dev)
